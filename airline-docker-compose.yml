@@ -37,9 +37,9 @@ services:
 #    networks:
 #      - airline
 #    ports:
-#      - 3306:4406
+#      - 3306:3306
 #    environment:
 #      - USER=root
 #      - PASSWORD=''
-#      - DB='airline'
+#      - DB='fms'
 
