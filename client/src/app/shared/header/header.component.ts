@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 // import { AuthenticationService } from './_service/app.authenticationservice';
 
 @Component({
@@ -7,24 +9,55 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  btnFlag!: boolean;
-  username!: string;
-  user!: boolean;
-  admin!: boolean;
+  // btnFlag!: boolean;
+  // username!: string;
+  // isUser!: boolean;
+  // isAdmin!: boolean;
+  adminRole: string = "ROLE_ADMIN";
+  user!: any[];
 
-  constructor() {}
+  showWelcomeHeader!: boolean;
+  imgSrc = 'assets/images/menu2.png';
+
+  constructor(private router: Router ) {
+    this.user = [];
+    this.showWelcomeHeader = true;
+  }
 
   ngOnInit(): void {
-    this.user = false;
-    this.admin = false;
-    if(sessionStorage.getItem('role') === 'user') {
-      this.user = true;
-    } else if(sessionStorage.getItem('role') === 'admin') {
-      this.admin = true;
+    if(localStorage.getItem('showWelcomeHeader')) {
+      this.showWelcomeHeader = false;
     }
-    // this.btnFlag = this.authenticationService.isUserLoggedIn();
-    this.username = sessionStorage.getItem('username') ?? '';
-    if(this.username != null)
-      this.username = this.username.toUpperCase();
+
+    // this.userService.getCurrentUser().subscribe((user) => {
+    //   this.user = user;
+    // });
+
+    // this.isUser = false;
+    // this.isAdmin = false;
+    // if(sessionStorage.getItem('role') === 'user') {
+    //   this.isUser = true;
+    // } else if(sessionStorage.getItem('role') === 'admin') {
+    //   this.isAdmin = true;
+    // }
+    // // this.btnFlag = this.authenticationService.isUserLoggedIn();
+    // this.username = sessionStorage.getItem('username') ?? '';
+    // if(this.username != null)
+    //   this.username = this.username.toUpperCase();
+  }
+
+  showUser() {
+    console.log('user:', this.user);
+  }
+
+  handleLogout() {
+    localStorage.clear();
+    //this.userService.logoutUser();
+    this.router.navigate(['login']);
+  }
+
+  handleHeaderRemove() {
+    this.showWelcomeHeader = false;
+    localStorage.setItem('showWelcomeHeader', 'false');
   }
 }
