@@ -6,5 +6,4 @@ export interface AuthData {
   roles: Role[];
   exp: number;
   accessToken: string;
-  tokenType: string;
 }
