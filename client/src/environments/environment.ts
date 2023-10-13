@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  USER_SERVICE_URL: "http://localhost:4000/",
+  AUTH_SERVICE_URL: "http://localhost:4001/",
+  RESERVATION_SERVICES_URL: "http://localhost:4003/",
+  FLIGHT_SERVICE_URL: "http://localhost:4002/"
 };
 
 /*
