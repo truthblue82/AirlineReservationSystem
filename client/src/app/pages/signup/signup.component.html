@@ -9,79 +9,49 @@
       SIGN-UP
     </h1>
 
-    <form
-      action="/action_page.php"
-      style="border: 0px solid #ccc; padding-top: 20px"
-    >
+    <form action="/action_page.php" class="form" >
       <div>
-        <form (submit)="handleFormSubmit($event)" ngNativeValidate>
-          <div style="text-align: left">
-            <label for="name" style="font-weight: bolder"><b>Name</b></label>
-            <input
+        <form (submit)="handleSubmit($event)" ngNativeValidate>
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input class="form-control"
               type="text"
-              placeholder="Enter Name"
-              name="name"
-              [(ngModel)]="name"
+              placeholder="Enter Username"
+              name="username"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="fullname" class="form-label">Full Name</label>
+            <input class="form-control" type="text" placeholder="Enter Full Name" name="fullname" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input class="form-control" type="email" placeholder="Enter Email" name="email" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input class="form-control" type="text" pattern="^[0-9]{10}$"
+            placeholder="Enter Phone Number" name="phone"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input class="form-control" type="password" placeholder="Enter Password"
+              name="password"
               required
             />
           </div>
 
-          <div style="text-align: left">
-            <label for="email" style="font-weight: bolder"><b>Email</b></label>
-            <input
-              type="email"
-              placeholder="Enter Email"
-              name="email"
-              [(ngModel)]="email"
+          <div class="mb-3">
+            <label for="repeatpassword" class="form-label">Repeat Password</label>
+            <input class="form-control" type="password" placeholder="Repeat Password"
+              name="repeatpassword"
               required
             />
-          </div>
-
-          <div style="text-align: left">
-            <label for="phone" style="font-weight: bolder"
-              ><b>Phone Number</b></label
-            >
-            <input
-              type="text"
-              pattern="^[0-9]{10}$"
-              placeholder="Enter Phone Number"
-              name="phone"
-              [(ngModel)]="phoneNo"
-            />
-          </div>
-          <div style="text-align: left">
-            <label for="psw" style="font-weight: bolder"><b>Password</b></label>
-            <input
-              type="password"
-              placeholder="Enter Password"
-              name="psw"
-              [(ngModel)]="password"
-              required
-            />
-          </div>
-
-          <div style="text-align: left">
-            <label for="psw-repeat" style="font-weight: bolder"
-              ><b>Repeat Password</b></label
-            >
-            <input
-              type="password"
-              placeholder="Repeat Password"
-              name="psw-repeat"
-              [(ngModel)]="repeatPassword"
-              required
-            />
-          </div>
-          <div style="text-align: left">
-            <label style="font-weight: bolder">
-              <input
-                type="checkbox"
-                name="remember"
-                [(ngModel)]="rememberMe"
-                style="margin-bottom: 15px"
-              />
-              Remember me
-            </label>
           </div>
 
           <p style="font-weight: bolder">
@@ -90,42 +60,13 @@
           </p>
           <br />
 
-          <div
-            class="clearfix"
-            style="
-              text-align: center;
-              margin-left: 50%;
-              transform: translateX(-50%);
-            "
-          >
-            <button
-              type="submit"
-              class="signupbtn"
-              style="
-                width: 160px;
-                font-weight: bolder;
-                border-radius: 12px;
-                background-color: rgb(249, 192, 86);
-                margin-left: 50px;
-                color: black;
-              "
-            >
-              SIGN-UP
-            </button>
-            <button
-              type="reset"
-              class="cancelbtn"
-              style="
-                width: 160px;
-                margin-left: 10px;
-                font-weight: bolder;
-                background-color: crimson;
-                border-radius: 12px;
-                color: white;
-              "
-            >
-              CANCEL
-            </button>
+          <div class="clearfix formbtn">
+              <button type="submit" class="btn btn-danger" >
+                SIGN-UP
+              </button>
+              <button type="reset" class="btn btn-warning" >
+                CANCEL
+              </button>
           </div>
         </form>
       </div>
