@@ -4,10 +4,11 @@
 
 export const environment = {
   production: false,
-  USER_SERVICE_URL: "http://localhost:4000/",
-  AUTH_SERVICE_URL: "http://localhost:4001/",
-  RESERVATION_SERVICES_URL: "http://localhost:4003/",
-  FLIGHT_SERVICE_URL: "http://localhost:4002/"
+  BASE_SERVICE_URL: "http://localhost:8080",
+  USER_SERVICE_URL: "http://localhost:8080/",
+  AUTH_SERVICE_URL: "http://localhost:8080/",
+  RESERVATION_SERVICES_URL: "http://localhost:8080/",
+  MANAGEMENT_SERVICE_URL: "http://localhost:8080/"
 };
 
 /*

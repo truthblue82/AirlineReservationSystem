@@ -9,59 +9,74 @@
       SIGN-UP
     </h1>
 
-    <form action="" class="form" >
+    <form class="form" >
       <div>
         <form (submit)="handleSubmit($event)" ngNativeValidate>
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input class="form-control"
-              type="text"
-              placeholder="Enter Username"
-              name="username"
-              required
+            <input class="form-control" type="text"
+              placeholder="Enter Username" name="username"
+              (keydown)="validateUsername(username, 'username');enableButton()"
+              (blur)="validateUsername(username,'username'); enableButton()"
+              #username required [(ngModel)]="user.username"
             />
+            <small *ngIf="!flags.username" class="error">Invalid username</small>
           </div>
           <div class="mb-3">
             <label for="fullname" class="form-label">Full Name</label>
-            <input class="form-control" type="text" placeholder="Enter Full Name" name="fullname" required />
+            <input class="form-control" type="text" placeholder="Enter Full Name" name="fullname" required
+            #fullname (keydown)="validateFullname(fullname);enableButton()"
+            (blur)="validateFullname(fullname);enableButton()"
+            [(ngModel)]="user.fullname" />
+            <small *ngIf="!flags.fullname" class="error">Invalid Full Name</small>
           </div>
 
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input class="form-control" type="email" placeholder="Enter Email" name="email" required />
+            <input class="form-control" type="email" placeholder="Enter Email" name="email" required
+            #email (keydown)="validateEmail(email);enableButton()"
+            (blur)="validateEmail(email);enableButton()"
+            [(ngModel)]="user.email"/>
+            <small *ngIf="!flags.email" class="error">Invalid Email</small>
           </div>
 
-          <div class="mb-3">
+          <!-- <div class="mb-3">
             <label for="phone" class="form-label">Phone Number</label>
             <input class="form-control" type="text" pattern="^[0-9]{10}$"
             placeholder="Enter Phone Number" name="phone"
-            />
-          </div>
+            #phone (keydown)="validatePhone(phone);enableButton()"
+            (blur)="validatePhone(phone);enableButton()"
+            [(ngModel)]="user.phone"/>
+            <small *ngIf="!flags.phone" class="error">Invalid Phone Number</small>
+          </div> -->
 
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <input class="form-control" type="password" placeholder="Enter Password"
-              name="password"
-              required
-            />
+              name="password" required [(ngModel)]="user.password"
+              (blur)="comparePassword(); enableButton()"
+              (keydown)="comparePassword(); enableButton()"/>
+              <small *ngIf="!flags.password" class="error">Invalid Password</small>
           </div>
 
           <div class="mb-3">
             <label for="repeatpassword" class="form-label">Repeat Password</label>
             <input class="form-control" type="password" placeholder="Repeat Password"
-              name="repeatpassword"
-              required
-            />
+              name="repeatpassword" required [(ngModel)]="repeatPassword"
+              (blur)="comparePassword(); enableButton()"
+              (keydown)="comparePassword(); enableButton()"/>
+              <small *ngIf="!flags.repeatPassword" class="error">Repeat password is not match</small>
           </div>
 
-          <p style="font-weight: bolder">
+          <p style="font-weight: bolder; padding-bottom: 10px;">
             By creating an account you agree to our
             <a href="#" style="color: dodgerblue">Terms & Privacy</a>.
           </p>
 
           <div class="clearfix formbtn">
-              <button type="submit" class="btn btn-danger" >
-                SIGN-UP
+              <button [disabled]="!flags.signupBtn"
+              class="btn btn-danger" >
+                REGISTER
               </button>
               <button type="reset" class="btn btn-warning" >
                 CANCEL

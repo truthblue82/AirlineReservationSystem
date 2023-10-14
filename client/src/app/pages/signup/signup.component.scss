@@ -4,47 +4,14 @@ body {
 * {
   box-sizing: border-box;
 }
-input[type="text"],
-input[type="email"],
-input[type="number"],
-input[type="password"] {
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0 22px 0;
-  display: inline-block;
-  border: none;
-  border: 1px solid #ccc;
-  background-color: rgba(242, 242, 242, 0.9);
-}
-hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
-}
-button {
-  color: #fff;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  opacity: 0.9;
-  float: left;
-}
-button + button { margin-left: 15px;}
-button:hover {
-  opacity: 1;
-  color: #000;
-}
+
 .cancelbtn {
   padding: 14px 20px;
-}
-.container {
-  padding: 16px;
 }
 .form {
   border: 0px solid #ccc;
   padding-top: 20px
 }
-
 .clearfix::after {
   content: "";
   clear: both;
@@ -64,7 +31,7 @@ button:hover {
   color: white
 }
 .signup {
-  background-image: url("../../../assets/images/login_background.jpg");
+  //background-image: url("../../../assets/images/login_background.jpg");
   background-size: cover;
   padding-top: 5em;
   padding-bottom: 5em;

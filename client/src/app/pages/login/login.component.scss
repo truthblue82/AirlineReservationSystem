@@ -1,35 +1,4 @@
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-* {
-  box-sizing: border-box;
-}
-input[type="text"],
-input[type="email"],
-input[type="number"],
-input[type="password"] {
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0 22px 0;
-  display: inline-block;
-  border: none;
-  border: 1px solid #ccc;
-  background-color: rgba(242, 242, 242, 0.9);
-}
-button {
-  color: #fff;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  opacity: 0.9;
-  float: left;
-}
-button + button { margin-left: 15px;}
-button:hover {
-  opacity: 1;
-  color: #000;
-}
+
 .cancelbtn {
   padding: 14px 20px;
 }
@@ -60,14 +29,14 @@ button:hover {
   margin-top: 10px;
   color: white
 }
-.signup {
+.login {
   background-image: url("../../../assets/images/login_background.jpg");
   background-size: cover;
   padding-top: 5em;
   padding-bottom: 5em;
   margin: 3px 0px;
 }
-.signup > div {
+.login > div {
   width: 40%;
   margin: auto;
   background: rgb(246, 246, 246);
@@ -76,7 +45,7 @@ button:hover {
   box-shadow: 0px 0px 10px #333;
   text-align: center;
 }
-.signup > div h1 {
+.login > div h1 {
   margin-top: 10px;
   margin-bottom: 10px;
   font-weight: bold;
