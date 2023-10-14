@@ -13,7 +13,6 @@ import { Airport } from 'src/app/models/airport';
       flex-direction: row;
       justify-content: center;
     }
-
     .top-left {
       position: absolute;
       top: 8px;
@@ -50,7 +49,6 @@ import { Airport } from 'src/app/models/airport';
     .image1 {
       display: block;
       width: 80%;
-      /*height: auto;*/
     }
     .overlay {
       position: absolute;

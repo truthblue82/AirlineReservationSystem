@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~ngx-toastr/toastr";
 
 * {
   margin: 0;
@@ -44,7 +43,7 @@ body {
 
 #booking {
   font-family: "PT Sans", sans-serif;
-  background-image: url("./assets/img/background.jpg");
+  background-image: url("./assets/images/background.jpg");
   background-size: cover;
   background-position: center;
 }
