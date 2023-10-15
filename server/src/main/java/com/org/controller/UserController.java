@@ -1,5 +1,6 @@
 package com.org.controller;
 
+import com.org.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,8 @@ import com.org.exceptions.RecordAlreadyPresentException;
 import com.org.exceptions.RecordNotFoundException;
 import com.org.model.User;
 import com.org.service.UserService;
+
+import java.util.Collection;
 
 @CrossOrigin
 @ComponentScan(basePackages = "com")
@@ -21,20 +24,20 @@ public class UserController {
 
 	@PostMapping("/createUser")
 	@ExceptionHandler(RecordAlreadyPresentException.class)
-	public void addUser(@RequestBody User newUser) {
+	public void addUser(@RequestBody UserDTO newUser) {
 
 		userService.createUser(newUser);
 	}
 
 	@GetMapping("/readAllUsers")
-	public Iterable<User> readAllUsers() {
+	public Collection<UserDTO> readAllUsers() {
 
 		return userService.displayAllUser();
 	}
 
 	@PutMapping("/updateUser")
 	@ExceptionHandler(RecordNotFoundException.class)
-	public void updateUser(@RequestBody User updateUser) {
+	public void updateUser(@RequestBody UserDTO updateUser) {
 
 		userService.updateUser(updateUser);
 	}

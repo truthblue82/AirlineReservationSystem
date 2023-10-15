@@ -1,9 +1,12 @@
 package com.org.service;
 
-import java.math.BigInteger;
 
+import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import com.org.dto.UserDTO;
+import com.org.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,16 +24,17 @@ public class UserServiceImpl implements UserService {
 	UserDao userDao;
 	
 	@Override
-	public ResponseEntity<?> createUser(User newUser) {
-		// TODO Auto-generated method stub
-		Optional<User> findUserById = userDao.findById(newUser.getId());
+	public ResponseEntity<?> createUser(UserDTO newUserDTO) {
+		if (newUserDTO == null) return ResponseEntity.badRequest().build();
+		final User newUser = UserUtils.toUser(newUserDTO);
+		Optional<User> findUserById = userDao.findByUsername(newUser.getUsername());
 		try {
 			if (!findUserById.isPresent()) {
 				userDao.save(newUser);
-				return new ResponseEntity<User>(newUser, HttpStatus.OK);
+				return new ResponseEntity<>(newUserDTO, HttpStatus.OK);
 			} else
 				throw new RecordAlreadyPresentException(
-						"User with Id: " + newUser.getId() + " already exists!!");
+						"User with username: " + newUserDTO.getUsername() + " already exists!!");
 		} catch (RecordAlreadyPresentException e) {
 
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -38,11 +42,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User updateUser(User updateUser) {
-		// TODO Auto-generated method stub
+	public UserDTO updateUser(UserDTO updateUser) {
 		Optional<User> findUserById = userDao.findById(updateUser.getId());
 		if (findUserById.isPresent()) {
-			userDao.save(updateUser);
+			userDao.save(UserUtils.toUser(updateUser));
 		} else
 			throw new RecordNotFoundException(
 					"User with Id: " + updateUser.getId() + " not exists!!");
@@ -61,9 +64,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Iterable<User> displayAllUser() {
-		// TODO Auto-generated method stub
-		return userDao.findAll();
+	public Collection<UserDTO> displayAllUser() {
+		return userDao.findAll().stream().map(UserUtils::toUserDTO).collect(Collectors.toList());
 	}
 
 	@Override
@@ -73,7 +75,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			if (findById.isPresent()) {
 				User findUser = findById.get();
-				return new ResponseEntity<User>(findUser, HttpStatus.OK);
+				return new ResponseEntity<>(UserUtils.toUserDTO(findUser), HttpStatus.OK);
 			} else
 				throw new RecordNotFoundException("No record found with ID " + userId);
 		} catch (RecordNotFoundException e) {

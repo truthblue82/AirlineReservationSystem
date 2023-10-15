@@ -1,9 +1,20 @@
 package com.org.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "roles",
+uniqueConstraints = {@UniqueConstraint(columnNames = "name")}
+)
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
 public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,26 +25,5 @@ public class Role {
 	private ERole name;
 
 	public Role() {
-
-	}
-
-	public Role(ERole name) {
-		this.name = name;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public ERole getName() {
-		return name;
-	}
-
-	public void setName(ERole name) {
-		this.name = name;
 	}
 }
