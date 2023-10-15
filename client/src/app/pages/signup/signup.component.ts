@@ -73,15 +73,15 @@ export class SignupComponent implements OnInit {
     );
   }
 
-  validateUsername(el: HTMLInputElement, name: string):void {
+  validateUsername():void {
     let flag = /^[a-zA-Z]+$/.test(this.user.username);
     this.flags.username = flag;
   }
-  validateFullname(el: HTMLInputElement):void {
+  validateFullname():void {
     let flag = /^[a-zA-Z ]+$/.test(this.user.fullname);
     this.flags.fullname = flag;
   }
-  validatePhone(el: HTMLInputElement):void {
+  validatePhone():void {
     let flag = /^[0-9]{10}$/.test(this.user.phone);
 
     this.flags.phone = flag;

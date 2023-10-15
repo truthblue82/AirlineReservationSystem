@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Route } from '@angular/router';
 import { Airport } from 'src/app/models/airport';
 
@@ -126,7 +127,10 @@ export class HomeComponent implements OnInit {
     'https://images.moneycontrol.com/static-mcnews/2021/09/Air-India.jpg?impolicy=website&width=770&height=431',
   ];
 
-  constructor() {
+  constructor(
+    private appTitle: Title
+  ) {
+    this.appTitle.setTitle('Airport Reservation System - Home page');
     // this.minDate = new Date();
     // this.maxDate = new Date();
     // this.maxDate.setMonth(this.maxDate.getMonth()+2);
