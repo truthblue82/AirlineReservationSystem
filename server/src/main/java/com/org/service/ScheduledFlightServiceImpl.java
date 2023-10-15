@@ -1,6 +1,7 @@
 package com.org.service;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -102,7 +103,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 
 	@Override
 	public Collection<ScheduledFlight> viewScheduledFlights(
-			OffsetDateTime deptDateTime, OffsetDateTime arrDateTime, String srcAirport, String dstnAirport) throws ScheduledFlightNotFoundException {
+			LocalDate deptDateTime, LocalDate arrDateTime, String srcAirport, String dstnAirport) throws ScheduledFlightNotFoundException {
 
 		Collection<ScheduledFlight> scheduledFlights = dao.fetchByTimeAndLocation(
 				deptDateTime,

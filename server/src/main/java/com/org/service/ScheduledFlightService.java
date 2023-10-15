@@ -1,6 +1,7 @@
 package com.org.service;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Collection;
 
@@ -19,8 +20,8 @@ public interface ScheduledFlightService {
 	public Iterable<ScheduledFlight> viewAllScheduledFlights();
 
 	Collection<ScheduledFlight> viewScheduledFlights(
-			final OffsetDateTime deptDateTime,
-			final OffsetDateTime arrDateTime,
+			final LocalDate deptDateTime,
+			final LocalDate arrDateTime,
 			final String srcAirport,
 			final String dstnAirport
 	) throws ScheduledFlightNotFoundException;

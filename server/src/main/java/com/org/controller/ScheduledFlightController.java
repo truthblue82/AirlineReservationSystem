@@ -118,11 +118,11 @@ public class ScheduledFlightController {
 	@ExceptionHandler(ScheduledFlightNotFoundException.class)
 	public ResponseEntity<?> viewSF(
 			@RequestParam(name = "srcAirport") String source, @RequestParam(name = "dstnAirport") String destination,
-			@RequestParam(name = "deptDateTime") String departureTime, @RequestParam(name = "arrDateTime") String arrivalTime
-	) throws ScheduledFlightNotFoundException {
+			@RequestParam(name = "deptDate") String departureDate, @RequestParam(name = "arrDate") String arrivalDate
+	)  {
 		Collection<ScheduledFlight> searchSFlight = scheduleFlightService.viewScheduledFlights(
-				LocalDateTime.parse(departureTime).atOffset(ZoneOffset.UTC),
-				LocalDateTime.parse(arrivalTime).atOffset(ZoneOffset.UTC),
+				LocalDateTime.parse(departureDate).atOffset(ZoneOffset.UTC).toLocalDate(),
+				LocalDateTime.parse(arrivalDate).atOffset(ZoneOffset.UTC).toLocalDate(),
 				source,
 				destination
 		);
