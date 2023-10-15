@@ -7,6 +7,7 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
+import com.org.dto.ScheduledFlightDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -128,7 +129,9 @@ public class ScheduledFlightController {
 		if (searchSFlight == null) {
 			return new ResponseEntity("Flight not present", HttpStatus.BAD_REQUEST);
 		} else {
-			return new ResponseEntity<>(searchSFlight, HttpStatus.OK);
+			final ScheduledFlightDTO scheduledFlightDTO = new ScheduledFlightDTO();
+			scheduledFlightDTO.setScheduledFlights(searchSFlight);
+			return new ResponseEntity<>(scheduledFlightDTO, HttpStatus.OK);
 		}
 	}
 
