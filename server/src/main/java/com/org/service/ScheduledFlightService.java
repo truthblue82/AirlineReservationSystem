@@ -1,6 +1,8 @@
 package com.org.service;
 
 import java.math.BigInteger;
+import java.time.OffsetDateTime;
+import java.util.Collection;
 
 
 import com.org.exceptions.RecordNotFoundException;
@@ -16,7 +18,12 @@ public interface ScheduledFlightService {
 
 	public Iterable<ScheduledFlight> viewAllScheduledFlights();
 
-	public ScheduledFlight viewScheduledFlight(Long id) throws ScheduledFlightNotFoundException;
+	Collection<ScheduledFlight> viewScheduledFlights(
+			final OffsetDateTime deptDateTime,
+			final OffsetDateTime arrDateTime,
+			final String srcAirport,
+			final String dstnAirport
+	) throws ScheduledFlightNotFoundException;
 	// boolean cancelBookings(BigInteger flightId) throws RecordNotFoundException;
 
 }

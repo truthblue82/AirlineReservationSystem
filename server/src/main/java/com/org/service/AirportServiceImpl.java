@@ -43,23 +43,23 @@ public class AirportServiceImpl implements AirportService {
 	 * add a airport
 	 */
 	public void addAirport(Airport airport) {
-		Optional<Airport> findById = airportDao.findById(airport.getAirportCode());
+		Optional<Airport> findById = airportDao.findById(airport.getCode());
 		if (!findById.isPresent()) {
 			airportDao.save(airport);
 		} else
 			throw new RecordAlreadyPresentException(
-					"Airport with code : " + airport.getAirportCode() + " already present");
+					"Airport with code : " + airport.getCode() + " already present");
 	}
 
 	/*
 	 * modify an Airport
 	 */
 	public void modifyAirport(Airport airport, String code) {
-		Optional<Airport> findById = airportDao.findById(airport.getAirportCode());
+		Optional<Airport> findById = airportDao.findById(airport.getCode());
 		if (findById.isPresent()) {
 			airportDao.save(airport);
 		} else
-			throw new RecordNotFoundException("Airport with code: " + airport.getAirportCode() + " not exists");
+			throw new RecordNotFoundException("Airport with code: " + airport.getCode() + " not exists");
 	}
 
 	/*

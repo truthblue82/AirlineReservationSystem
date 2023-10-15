@@ -2,19 +2,14 @@ package com.org.model;
 
 import java.math.BigInteger;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 public class ScheduledFlight {
 
 	@Id
-	@Column(name = "schedule_flight_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long scheduleFlightId;
 
 	@OneToOne(fetch = FetchType.EAGER)
@@ -26,7 +21,7 @@ public class ScheduledFlight {
 	private Integer availableSeats;
 
 	@NotNull
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Schedule schedule;
 
 	/*

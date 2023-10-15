@@ -1,6 +1,8 @@
 package com.org.service;
 
 import java.math.BigInteger;
+import java.time.OffsetDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,18 +99,21 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		return dao.findAll();
 	}
 
-	/*
-	 * Service method to view a Scheduled flight by ID from database
-	 */
+
 	@Override
-	public ScheduledFlight viewScheduledFlight(Long flightId) throws ScheduledFlightNotFoundException {
-		if (flightId == null)
-			throw new ScheduledFlightNotFoundException("Enter flight Id");
-		Optional<ScheduledFlight> scheduleFlight = dao.findById(flightId);
-		if (!scheduleFlight.isPresent())
-			throw new ScheduledFlightNotFoundException("Enter a valid Flight Id");
-		else
-			return scheduleFlight.get();
+	public Collection<ScheduledFlight> viewScheduledFlights(
+			OffsetDateTime deptDateTime, OffsetDateTime arrDateTime, String srcAirport, String dstnAirport) throws ScheduledFlightNotFoundException {
+
+		Collection<ScheduledFlight> scheduledFlights = dao.fetchByTimeAndLocation(
+				deptDateTime,
+				arrDateTime,
+				dstnAirport,
+				srcAirport
+		);
+		if (scheduledFlights == null || scheduledFlights.isEmpty()) {
+			throw new ScheduledFlightNotFoundException("No flights being scheduled.");
+		}
+		return scheduledFlights;
 	}
 
 }

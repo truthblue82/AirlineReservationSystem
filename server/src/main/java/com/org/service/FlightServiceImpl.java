@@ -37,7 +37,7 @@ public class FlightServiceImpl implements FlightService {
 	/*
 	 * search a flight
 	 */
-	public Flight viewFlight(Long flightNumber) {
+	public Flight viewFlight(String flightNumber) {
 		Optional<Flight> findById = flightDao.findById(flightNumber);
 		if (findById.isPresent()) {
 			return findById.get();
@@ -59,7 +59,7 @@ public class FlightServiceImpl implements FlightService {
 	/*
 	 * remove a flight
 	 */
-	public void removeFlight(Long flightNumber) {
+	public void removeFlight(String flightNumber) {
 		Optional<Flight> findById = flightDao.findById(flightNumber);
 		if (findById.isPresent()) {
 			flightDao.deleteById(flightNumber);

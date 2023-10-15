@@ -1,13 +1,22 @@
 package com.org.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
 public class Flight {
 
 	@Id
-	private Long flightNo;
+	private String flightNo;
 	private String carrierName;
 	private String flightModel;
 	private int seatCapacity;
@@ -20,84 +29,12 @@ public class Flight {
 	public Flight() {
 	}
 
-	/**
-	 * @param flightNo
-	 * @param carrierName
-	 * @param flightModel
-	 * @param seatCapacity
-	 */
-	public Flight(Long flightNo, String carrierName, String flightModel, int seatCapacity) {
+	public Flight(String flightNo, String carrierName, String flightModel, int seatCapacity) {
 		super();
 		this.flightNo = flightNo;
 		this.carrierName = carrierName;
 		this.flightModel = flightModel;
 		this.seatCapacity = seatCapacity;
 	}
-
-	/**
-	 * @return the flightNo
-	 */
-	public Long getFlightNo() {
-		return flightNo;
-	}
-
-	/**
-	 * @param flightNo
-	 *            the flightNo to set
-	 */
-	public void setFlightNo(Long flightNo) {
-		this.flightNo = flightNo;
-	}
-
-	/**
-	 * @return the carrierName
-	 */
-	public String getCarrierName() {
-		return carrierName;
-	}
-
-	/**
-	 * @param carrierName
-	 *            the carrierName to set
-	 */
-	public void setCarrierName(String carrierName) {
-		this.carrierName = carrierName;
-	}
-
-	/**
-	 * @return the flightModel
-	 */
-	public String getFlightModel() {
-		return flightModel;
-	}
-
-	/**
-	 * @param flightModel
-	 *            the flightModel to set
-	 */
-	public void setFlightModel(String flightModel) {
-		this.flightModel = flightModel;
-	}
-
-	/**
-	 * @return the seatCapacity
-	 */
-	public int getSeatCapacity() {
-		return seatCapacity;
-	}
-
-	/**
-	 * @param seatCapacity
-	 *            the seatCapacity to set
-	 */
-	public void setSeatCapacity(int seatCapacity) {
-		this.seatCapacity = seatCapacity;
-	}
-
-	/*
-	 * public ScheduledFlight getSfObj() { return sfObj; }
-	 * 
-	 * public void setSfObj(ScheduledFlight sfObj) { this.sfObj = sfObj; }
-	 */
 
 }

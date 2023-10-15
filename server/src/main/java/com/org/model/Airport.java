@@ -1,9 +1,20 @@
 package com.org.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "airport")
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 public class Airport
 /**
  * Class Airport
@@ -29,35 +40,5 @@ public class Airport
 	 * Unparameterized Constructor
 	 */
 	{
-	}
-
-	public String getAirportName() {
-		return name;
-	}
-
-	public void setAirportName(String airportName) {
-		this.name = airportName;
-	}
-
-	public String getAirportLocation() {
-		return location;
-	}
-
-	public void setAirportLocation(String airportLocation) {
-		this.location = airportLocation;
-	}
-
-	public String getAirportCode() {
-		return code;
-	}
-
-	public void setAirportCode(String airportCode) {
-		this.code = airportCode;
-	}
-
-	@Override
-	public String toString() {
-		return "Airport{" + "airportName='" + name + '\'' + ", airportLocation='" + location + '\''
-				+ ", airportCode='" + code + '\'' + '}';
 	}
 }

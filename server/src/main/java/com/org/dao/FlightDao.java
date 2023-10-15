@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.org.model.Flight;
 @Repository
-public interface FlightDao extends CrudRepository<Flight,Long>{
+public interface FlightDao extends CrudRepository<Flight, String>{
 
 }

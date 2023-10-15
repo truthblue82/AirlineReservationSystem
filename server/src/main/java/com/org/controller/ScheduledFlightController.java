@@ -2,6 +2,10 @@ package com.org.controller;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -45,15 +49,18 @@ public class ScheduledFlightController {
 	@Autowired
 	FlightService flightService;
 
+
+
 	/*
 	 * Controller for adding Scheduled Flights
 	 */
 	@PostMapping("/add")
-	public ResponseEntity<ScheduledFlight> addSF(@ModelAttribute ScheduledFlight scheduledFlight,
+	public ResponseEntity<ScheduledFlight> addSF(@RequestParam("flightNo") String flightNo,
 			@RequestParam(name = "srcAirport") String source, @RequestParam(name = "dstnAirport") String destination,
 			@RequestParam(name = "deptDateTime") String departureTime, @RequestParam(name = "arrDateTime") String arrivalTime) {
-		Schedule schedule = new Schedule();
-		schedule.setScheduleId(scheduledFlight.getScheduleFlightId());
+		final Schedule schedule = new Schedule();
+		final ScheduledFlight scheduledFlight = new ScheduledFlight();
+//		schedule.setScheduleId(scheduledFlight.getScheduleFlightId());
 		try {
 			schedule.setSrcAirport(airportService.viewAirport(source));
 		} catch (RecordNotFoundException e) {
@@ -64,10 +71,10 @@ public class ScheduledFlightController {
 		} catch (RecordNotFoundException e) {
 			return new ResponseEntity("Airport Not Found", HttpStatus.BAD_REQUEST);
 		}
-		schedule.setDeptDateTime(departureTime);
-		schedule.setArrDateTime(arrivalTime);
+		schedule.setDeptDateTime(LocalDateTime.parse(departureTime).atOffset(ZoneOffset.UTC));
+		schedule.setArrDateTime(LocalDateTime.parse(arrivalTime).atOffset(ZoneOffset.UTC));
 		try {
-			scheduledFlight.setFlight(flightService.viewFlight(scheduledFlight.getScheduleFlightId()));
+			scheduledFlight.setFlight(flightService.viewFlight(flightNo));
 		} catch (RecordNotFoundException e1) {
 			return new ResponseEntity("Flight Not Found", HttpStatus.BAD_REQUEST);
 		}
@@ -108,12 +115,20 @@ public class ScheduledFlightController {
 	 */
 	@GetMapping("/search")
 	@ExceptionHandler(ScheduledFlightNotFoundException.class)
-	public ResponseEntity<ScheduledFlight> viewSF(@RequestParam Long flightId) throws ScheduledFlightNotFoundException {
-		ScheduledFlight searchSFlight = scheduleFlightService.viewScheduledFlight(flightId);
+	public ResponseEntity<?> viewSF(
+			@RequestParam(name = "srcAirport") String source, @RequestParam(name = "dstnAirport") String destination,
+			@RequestParam(name = "deptDateTime") String departureTime, @RequestParam(name = "arrDateTime") String arrivalTime
+	) throws ScheduledFlightNotFoundException {
+		Collection<ScheduledFlight> searchSFlight = scheduleFlightService.viewScheduledFlights(
+				LocalDateTime.parse(departureTime).atOffset(ZoneOffset.UTC),
+				LocalDateTime.parse(arrivalTime).atOffset(ZoneOffset.UTC),
+				source,
+				destination
+		);
 		if (searchSFlight == null) {
 			return new ResponseEntity("Flight not present", HttpStatus.BAD_REQUEST);
 		} else {
-			return new ResponseEntity<ScheduledFlight>(searchSFlight, HttpStatus.OK);
+			return new ResponseEntity<>(searchSFlight, HttpStatus.OK);
 		}
 	}
 
