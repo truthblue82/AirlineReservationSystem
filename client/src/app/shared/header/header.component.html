@@ -38,14 +38,14 @@
 
         <div class="navbar-dropdown">
           <a
-            *ngIf="isAdmin"
+            *ngIf="user[0].roles[0] === adminRole"
             class="navbar-item"
             routerLink="/add-flight"
           >
             Add Flight
           </a>
           <a
-            *ngIf="isAdmin"
+            *ngIf="user[0].roles[0] === adminRole"
             class="navbar-item"
             routerLink="/issues"
           >

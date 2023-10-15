@@ -8,5 +8,4 @@ export interface User {
   active?: boolean;
   roles: string[];
   token: string;
-  rememberMe?: boolean;
 }

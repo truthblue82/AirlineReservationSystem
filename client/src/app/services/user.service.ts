@@ -14,7 +14,7 @@ export class UserService {
   constructor(private http: HttpClient) {
     this.users = [];
     if (sessionStorage.getItem('token') !== null) {
-      const data: User = {
+      const data: any = {
         id: sessionStorage.getItem('userId') || '',
         username: sessionStorage.getItem('username') || '',
         email: sessionStorage.getItem('email') || '',
@@ -23,6 +23,7 @@ export class UserService {
         phone: sessionStorage.getItem('phone') || '',
         roles: [sessionStorage.getItem('roles') || ''],
         token: sessionStorage.getItem('token') || '',
+        rememberMe: sessionStorage.getItem('rememberMe') ? sessionStorage.getItem('rememberMe') : false
       };
       this.users.push(data);
     }
@@ -47,7 +48,7 @@ export class UserService {
     sessionStorage.setItem('email', user.email);
     sessionStorage.setItem('roles', user.roles);
     sessionStorage.setItem('userId', user.id);
-    sessionStorage.setItem('rememberMe', user.rememberMe ? false : user.rememberMe);
+    sessionStorage.setItem('rememberMe', user.rememberMe);
     //refreshToken?
     this.users.push(user);
   }

@@ -26,14 +26,8 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.userSvc.getCurrentUser().subscribe((user) => {
       this.user = user;
-      console.log('user header', this.user);
-      this.isUser = this.user[0]?.roles[0] === this.userRole ? true : false;
-      console.log('role user', this.isUser);
-      this.isAdmin = this.user[0]?.roles[0] === this.adminRole ? true : false;
-      console.log('role admin', this.isAdmin);
     });
 
     // this.isUser = false;
