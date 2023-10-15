@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Title } from '@angular/platform-browser';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
@@ -12,16 +13,17 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginComponent implements OnInit {
   displayModal:boolean = false;
   users: User[];
-  //user: User;
   username: string;
   password: string;
   rememberMe: boolean;
 
   constructor(
+    private appTitle: Title,
     private userSvc: UserService,
     private router: Router,
     private toastr: ToastrService
   ) {
+    this.appTitle.setTitle('Airport Reservation System - Sign In');
     this.users = [];
     this.username = '';
     this.password = '';

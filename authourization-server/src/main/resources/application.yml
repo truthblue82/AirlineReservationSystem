@@ -8,6 +8,7 @@ app:
   eureka-password: p
   eureka-server: localhost
   security:
+    #change to local URL
     redirect-url: http://localhost:8081
 
 eureka:

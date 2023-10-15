@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-// import { AuthenticationService } from './_service/app.authenticationservice';
 
 @Component({
   selector: 'app-header',
@@ -11,27 +10,27 @@ import { UserService } from 'src/app/services/user.service';
 export class HeaderComponent implements OnInit {
   // btnFlag!: boolean;
   // username!: string;
-  // isUser!: boolean;
-  // isAdmin!: boolean;
+  //isUser: boolean;
+  //isAdmin: boolean;
   adminRole: string = "ROLE_ADMIN";
-  user!: any[];
+  userRole: string = "ROLE_CUSTOMER";
+  user: any[];
 
-  showWelcomeHeader!: boolean;
   imgSrc = 'assets/images/menu2.png';
 
-  constructor(private router: Router ) {
+  constructor(
+    private router: Router,
+    private userSvc: UserService
+    ) {
     this.user = [];
-    this.showWelcomeHeader = true;
   }
 
   ngOnInit(): void {
-    if(sessionStorage.getItem('showWelcomeHeader')) {
-      this.showWelcomeHeader = false;
-    }
 
-    // this.userService.getCurrentUser().subscribe((user) => {
-    //   this.user = user;
-    // });
+    this.userSvc.getCurrentUser().subscribe((user) => {
+      this.user = user;
+      console.log('user',user);
+    });
 
     // this.isUser = false;
     // this.isAdmin = false;
@@ -54,10 +53,5 @@ export class HeaderComponent implements OnInit {
     sessionStorage.clear();
     //this.userService.logoutUser();
     this.router.navigate(['login']);
-  }
-
-  handleHeaderRemove() {
-    this.showWelcomeHeader = false;
-    sessionStorage.setItem('showWelcomeHeader', 'false');
   }
 }
