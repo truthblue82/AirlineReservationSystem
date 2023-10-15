@@ -29,18 +29,6 @@ export class HeaderComponent implements OnInit {
     this.userSvc.getCurrentUser().subscribe((user) => {
       this.user = user;
     });
-
-    // this.isUser = false;
-    // this.isAdmin = false;
-    // if(sessionStorage.getItem('role') === 'user') {
-    //   this.isUser = true;
-    // } else if(sessionStorage.getItem('role') === 'admin') {
-    //   this.isAdmin = true;
-    // }
-    // // this.btnFlag = this.authenticationService.isUserLoggedIn();
-    // this.username = sessionStorage.getItem('username') ?? '';
-    // if(this.username != null)
-    //   this.username = this.username.toUpperCase();
   }
 
   showUser() {

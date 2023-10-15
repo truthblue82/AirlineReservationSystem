@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.userSvc.getCurrentUser().subscribe((userData) => {
       this.users = userData;
-      console.log('users', userData);
     });
     if(this.users.length > 0) {
       this.router.navigate(['/']);
@@ -49,7 +48,6 @@ export class LoginComponent implements OnInit {
     };
     this.displayModal = true;
     this.userSvc.authenticate(data).subscribe((result: any) => {
-      console.log('result login', result);
       result.rememberMe = this.rememberMe;
       if(result.hasOwnProperty('accessToken')) {
         if(!result.accessToken) {
