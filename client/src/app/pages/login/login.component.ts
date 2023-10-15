@@ -49,8 +49,8 @@ export class LoginComponent implements OnInit {
     };
     this.displayModal = true;
     this.userSvc.authenticate(data).subscribe((result: any) => {
-      console.log(result);
-
+      console.log('result login', result);
+      result.rememberMe = this.rememberMe;
       if(result.hasOwnProperty('accessToken')) {
         if(!result.accessToken) {
           this.toastr.error('Something went wrong!', 'Error');

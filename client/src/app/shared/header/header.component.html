@@ -5,15 +5,7 @@
 />
 
 
-<nav
-  class="navbar is-info"
-  role="navigation"
-  aria-label="main navigation"
-  style="
-    background-color: #0f67b0;
-    box-shadow: 0px -3px 10px rgb(113, 113, 113);
-  "
->
+<nav class="navbar is-info" role="navigation" aria-label="main navigation">
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
       <div class="navbar-item">
@@ -46,14 +38,14 @@
 
         <div class="navbar-dropdown">
           <a
-            *ngIf="user[0].roles.includes(adminRole)"
+            *ngIf="isAdmin"
             class="navbar-item"
             routerLink="/add-flight"
           >
             Add Flight
           </a>
           <a
-            *ngIf="user[0].roles.includes(adminRole)"
+            *ngIf="isAdmin"
             class="navbar-item"
             routerLink="/issues"
           >
@@ -100,7 +92,7 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
             <span style="margin-right: 20px; font-weight: bold; font-size: 18px"
-              >Welcome, {{ user[0].username }}</span
+              >Welcome, {{ user[0].fullname }}</span
             >
             <img
               src="../../../assets/images/profilePhoto.jpg"
@@ -122,10 +114,6 @@
         </div>
       </div>
 
-      <!-- <div *ngIf="user.length > 0" class="navbar-item">
-        {{ user[0]?.username }} User
-        <button (click)="displayUser()">Display User</button>
-      </div> -->
     </div>
   </div>
 </nav>

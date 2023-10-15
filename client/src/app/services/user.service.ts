@@ -9,10 +9,10 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  user: any[];
+  users: User[];
 
   constructor(private http: HttpClient) {
-    this.user = [];
+    this.users = [];
     if (sessionStorage.getItem('token') !== null) {
       const data: User = {
         id: sessionStorage.getItem('userId') || '',
@@ -24,12 +24,12 @@ export class UserService {
         roles: [sessionStorage.getItem('roles') || ''],
         token: sessionStorage.getItem('token') || '',
       };
-      this.user.push(data);
+      this.users.push(data);
     }
   }
 
   getCurrentUser() {
-    return of(this.user);
+    return of(this.users);
   }
 
   signUp(user: User) {
@@ -37,20 +37,25 @@ export class UserService {
   }
 
   authenticate(user: any) {
-    console.log('login', user.username, user.password, environment.BASE_SERVICE_URL);
     return this.http.post(`${environment.BASE_SERVICE_URL}/api/auth/signin`, {username: user.username, password: user.password});
   }
 
   storeSession(user: any):void {
     sessionStorage.setItem('token', user.accessToken);
     sessionStorage.setItem('username', user.username);
+    sessionStorage.setItem('fullname', user.fullname);
     sessionStorage.setItem('email', user.email);
-    sessionStorage.setItem('role', user.roles[0]);
+    sessionStorage.setItem('roles', user.roles);
     sessionStorage.setItem('userId', user.id);
-    sessionStorage.setItem('rememberMe', user.rememberMe);
+    sessionStorage.setItem('rememberMe', user.rememberMe ? false : user.rememberMe);
     //refreshToken?
+    this.users.push(user);
   }
   clearSession():void {
     sessionStorage.clear();
+  }
+  logout() {
+    sessionStorage.clear();
+    this.users.splice(0,1);
   }
 }

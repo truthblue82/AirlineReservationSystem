@@ -23,35 +23,30 @@ import com.org.model.User;
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
-
-
 	private Long id;
-
-
 
 	private String username;
 
-
-
 	private String email;
-
-
+	private String fullname;
+	private String phone;
 
 	@JsonIgnore
 	private String password;
-
 
 
 	private Collection<? extends GrantedAuthority> authorities;
 
 
 
-	public UserDetailsImpl(Long id, String username, String email, String password,
+	public UserDetailsImpl(Long id, String username, String email, String password, String fullname, String phone,
 						   Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.password = password;
+		this.fullname = fullname;
+		this.phone = phone;
 		this.authorities = authorities;
 	}
 
@@ -69,6 +64,8 @@ public class UserDetailsImpl implements UserDetails {
 				user.getUsername(),
 				user.getEmail(),
 				user.getPassword(),
+				user.getFullname(),
+				user.getPhone(),
 				authorities);
 	}
 
@@ -98,14 +95,13 @@ public class UserDetailsImpl implements UserDetails {
 		return password;
 	}
 
-
+	public String getFullname() {return fullname;}
+	public String getPhone() {return phone;}
 
 	@Override
 	public String getUsername() {
 		return username;
 	}
-
-
 
 	@Override
 	public boolean isAccountNonExpired() {
