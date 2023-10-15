@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.org.model.Schedule;
 
 @Repository
-public interface ScheduleDao extends CrudRepository<Schedule, BigInteger> {
+public interface ScheduleDao extends CrudRepository<Schedule,Long> {
 
 }

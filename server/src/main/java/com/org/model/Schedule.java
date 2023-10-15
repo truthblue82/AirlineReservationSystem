@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Schedule {
 	@Id
 	@Column(name = "schedule_Id")
-	private BigInteger scheduleId;
+	private Long scheduleId;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	private Airport srcAirport;
@@ -46,7 +46,7 @@ public class Schedule {
 	/*
 	 * Parameterized constructor
 	 */
-	public Schedule(BigInteger scheduleId, Airport srcAirport, Airport dstnAirport,
+	public Schedule(Long scheduleId, Airport srcAirport, Airport dstnAirport,
 			String deptDateTime, String arrDateTime) {
 		super();
 		this.scheduleId = scheduleId;
@@ -59,11 +59,11 @@ public class Schedule {
 	/*
 	 * Getters and setters
 	 */
-	public BigInteger getScheduleId() {
+	public Long getScheduleId() {
 		return scheduleId;
 	}
 
-	public void setScheduleId(BigInteger scheduleId) {
+	public void setScheduleId(Long scheduleId) {
 		this.scheduleId = scheduleId;
 	}
 

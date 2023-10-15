@@ -9,10 +9,10 @@ public interface FlightService {
 
 	public Iterable<Flight> viewAllFlight();
 
-	public Flight viewFlight(BigInteger flightNumber);
+	public Flight viewFlight(Long flightNumber);
 
 	public void modifyFlight(Flight flight);
 
-	public void removeFlight(BigInteger flightNumber);
+	public void removeFlight(Long flightNumber);
 
 }

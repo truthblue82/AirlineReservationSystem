@@ -12,9 +12,9 @@ public interface BookingService {
 
 	public Booking updateBooking(Booking newBooking);
 
-	public String deleteBooking(BigInteger bookingId);
+	public String deleteBooking(Long bookingId);
 
 	public Iterable<Booking> displayAllBooking();
 
-	public ResponseEntity<?> findBookingById(BigInteger bookingId);
+	public ResponseEntity<?> findBookingById(Long bookingId);
 }

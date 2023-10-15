@@ -15,7 +15,7 @@ public class ScheduledFlight {
 
 	@Id
 	@Column(name = "schedule_flight_id")
-	private BigInteger scheduleFlightId;
+	private Long scheduleFlightId;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@NotNull
@@ -39,7 +39,7 @@ public class ScheduledFlight {
 	/*
 	 * Parameterized constructor
 	 */
-	public ScheduledFlight(BigInteger scheduleFlightId, com.org.model.Flight flight, Integer availableSeats,
+	public ScheduledFlight(Long scheduleFlightId, com.org.model.Flight flight, Integer availableSeats,
 			Schedule schedule) {
 		super();
 		this.scheduleFlightId = scheduleFlightId;
@@ -51,11 +51,11 @@ public class ScheduledFlight {
 	/*
 	 * Getter and setter for ID
 	 */
-	public BigInteger getScheduleFlightId() {
+	public Long getScheduleFlightId() {
 		return scheduleFlightId;
 	}
 
-	public void setScheduleFlightId(BigInteger scheduleFlightId) {
+	public void setScheduleFlightId(Long scheduleFlightId) {
 		this.scheduleFlightId = scheduleFlightId;
 	}
 

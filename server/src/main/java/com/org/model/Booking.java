@@ -1,13 +1,6 @@
 package com.org.model;
 
-import java.math.BigInteger;
-import java.sql.Date;
-import java.time.LocalDateTime;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,17 +12,16 @@ import javax.persistence.OneToOne;
 @Entity
 public class Booking {
 	@Id
-	// @GeneratedValue(strategy=GenerationType.AUTO)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private BigInteger id;
+	 @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
 	private String bookingDate;
 	private int noOfPassengers;
 
-	public BigInteger getBookingId() {
+	public Long getBookingId() {
 		return id;
 	}
 
-	public void setBookingId(BigInteger bookingId) {
+	public void setBookingId(Long bookingId) {
 		this.id = bookingId;
 	}
 

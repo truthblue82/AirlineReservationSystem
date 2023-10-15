@@ -33,7 +33,7 @@ public class FlightController {
 	}
 
 	@RequestMapping("/viewFlight/{id}")
-	public Flight viewFlight(@PathVariable("id") BigInteger flightNo) {
+	public Flight viewFlight(@PathVariable("id") Long flightNo) {
 		return flightService.viewFlight(flightNo);
 	}
 
@@ -43,7 +43,7 @@ public class FlightController {
 	}
 
 	@DeleteMapping("/deleteFlight/{id}")
-	public void removeFlight(@PathVariable("id") BigInteger flightNo) {
+	public void removeFlight(@PathVariable("id") Long flightNo) {
 		flightService.removeFlight(flightNo);
 	}
 }

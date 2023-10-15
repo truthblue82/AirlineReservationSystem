@@ -60,7 +60,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	 * Service method to remove existing Scheduled flight from database
 	 */
 	@Override
-	public String removeScheduledFlight(BigInteger flightId) throws RecordNotFoundException {
+	public String removeScheduledFlight(Long flightId) throws RecordNotFoundException {
 		if (flightId == null)
 			throw new RecordNotFoundException("Enter flight Id");
 		Optional<ScheduledFlight> scheduleFlight = dao.findById(flightId);
@@ -101,7 +101,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	 * Service method to view a Scheduled flight by ID from database
 	 */
 	@Override
-	public ScheduledFlight viewScheduledFlight(BigInteger flightId) throws ScheduledFlightNotFoundException {
+	public ScheduledFlight viewScheduledFlight(Long flightId) throws ScheduledFlightNotFoundException {
 		if (flightId == null)
 			throw new ScheduledFlightNotFoundException("Enter flight Id");
 		Optional<ScheduledFlight> scheduleFlight = dao.findById(flightId);
