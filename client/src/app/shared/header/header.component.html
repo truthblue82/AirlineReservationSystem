@@ -4,36 +4,6 @@
   href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
 />
 
-<!-- <div
-  class="navbar is-lightyellow"
-  style="justify-content: center; z-index: 1000; position: relative"
-  *ngIf="showWelcomeHeader"
->
-  <div class="navbar-brand" style="position: relative">
-    <a class="navbar-item">
-      <img src="assets/images/head_logo1.png" width="110" height="90" />
-      <p
-        style="
-          margin-left: 30px;
-          margin-bottom: 5px;
-          font-family: Georgia;
-          font-style: italic;
-          font-weight: bold;
-          font-size: 35px;
-          color: #3498db;
-        "
-      >
-        <b><i> WELCOME TO MIU AIRLINES</i></b>
-
-        <img
-          src="assets/images/head_logo2.png"
-          style="margin-left: 30px"
-          width="110"
-          height="90"
-        /></p
-    ></a>
-  </div>
-</div> -->
 
 <nav
   class="navbar is-info"
@@ -48,9 +18,7 @@
     <div class="navbar-start">
       <div class="navbar-item">
         <a>
-          <h3 style="margin-bottom: 5px; font-family: Georgia" routerLink="/">
-            <b> Home </b>
-          </h3>
+          <h3 routerLink="/">Home</h3>
         </a>
       </div>
 
@@ -59,9 +27,7 @@
         class="navbar-item"
         routerLink="/flight-booking"
       >
-        <h3 style="margin-bottom: 5px; font-family: Georgia">
-          <b> Book Flight </b>
-        </h3>
+        <h3>Book Flight</h3>
       </a>
 
       <!-- <a class="navbar-item">
@@ -75,9 +41,7 @@
         class="navbar-item has-dropdown is-hoverable"
       >
         <a class="navbar-link">
-          <h3 style="margin-bottom: 5px; font-family: Georgia">
-            <b> Flight Management </b>
-          </h3>
+          <h3>Flight Management</h3>
         </a>
 
         <div class="navbar-dropdown">
@@ -104,9 +68,7 @@
       </div>
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
-          <h3 style="margin-bottom: 5px; font-family: Georgia">
-            <b>More</b>
-          </h3>
+          <h3>More</h3>
         </a>
 
         <div class="navbar-dropdown">
@@ -128,7 +90,6 @@
           <a class="button is-primary" routerLink="/signup">
             <strong>Sign up</strong>
           </a>
-
           <a class="button is-primary" routerLink="/login">
             <strong>Login</strong>
           </a>
@@ -139,7 +100,7 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
             <span style="margin-right: 20px; font-weight: bold; font-size: 18px"
-              >Welcome, {{ user[0].name }}</span
+              >Welcome, {{ user[0].username }}</span
             >
             <img
               src="../../../assets/images/profilePhoto.jpg"
@@ -152,11 +113,9 @@
             <a class="navbar-item" routerLink="/account-settings">
               Account Settings
             </a>
-            <a
-              class="navbar-item is-primary"
-              style="border-top: 1px solid #ddd"
-              (click)="handleLogout()"
-            >
+            <hr class="navbar-divider" />
+            <a class="navbar-item is-primary"
+              (click)="handleLogout()" >
               <strong>Logout</strong>
             </a>
           </div>
