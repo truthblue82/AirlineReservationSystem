@@ -22,7 +22,7 @@ button {
   float: left;
 }
 button + button { margin-left: 15px;}
-button:hover {
+button a:hover {
   opacity: 1;
   color: #000;
   text-decoration: none;

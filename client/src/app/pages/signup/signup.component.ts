@@ -18,7 +18,7 @@ export class SignupComponent implements OnInit {
   displayModal: boolean = false;
   flags: any = {
     username: true, email: true, fullname: true,
-    phone: true, password: true, repeatPwd: true,
+    phone: true, password: true, repeatPassword: true,
     signupBtn: false
   }
 
@@ -28,12 +28,12 @@ export class SignupComponent implements OnInit {
     private userSvc: UserService,
     private toastr: ToastrService
     ) {
+      this.appTitle.setTitle('Airport Reservation System - Sign Up');
       this.users = [];
       this.user = {
         username: '', email: '',
         fullname: '', phone: '',
         password: '', active: true, roles: ['1'], token: ''};
-      this.appTitle.setTitle('Airport Reservation System - Sign Up');
       this.repeatPassword = '';
   }
 
@@ -64,9 +64,10 @@ export class SignupComponent implements OnInit {
           this.toastr.error('User registered un successfully!', 'Error');
         }
         this.displayModal = false;
+        this.router.navigate(['/login']);
       },
       (error) => {
-        this.toastr.error('Error', error.error.msg);
+        this.toastr.error('Something went wrong!', 'Error');
         this.displayModal = false;
       }
     );

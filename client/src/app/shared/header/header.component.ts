@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { UserService } from 'src/app/services/user.service';
 // import { AuthenticationService } from './_service/app.authenticationservice';
 
 @Component({
@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(localStorage.getItem('showWelcomeHeader')) {
+    if(sessionStorage.getItem('showWelcomeHeader')) {
       this.showWelcomeHeader = false;
     }
 
@@ -51,13 +51,13 @@ export class HeaderComponent implements OnInit {
   }
 
   handleLogout() {
-    localStorage.clear();
+    sessionStorage.clear();
     //this.userService.logoutUser();
     this.router.navigate(['login']);
   }
 
   handleHeaderRemove() {
     this.showWelcomeHeader = false;
-    localStorage.setItem('showWelcomeHeader', 'false');
+    sessionStorage.setItem('showWelcomeHeader', 'false');
   }
 }

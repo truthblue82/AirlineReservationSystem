@@ -9,14 +9,14 @@
       LOGIN
     </h1>
 
-    <form method="post" class="form">
+    <div method="post" class="form">
       <div class="container">
         <form (submit)="handleLogin($event)" ngNativeValidate>
           <div class="mb-3">
             <label for="username" class="form-label">USERNAME</label>
             <input type="text" class="form-control"
               placeholder="Enter Username" name="username"
-              required
+              required [(ngModel)]="username"
             />
           </div>
 
@@ -24,13 +24,13 @@
             <label for="password" class="form-label">PASSWORD</label>
             <input class="form-control" type="password"
               placeholder="Enter Password" name="password"
-              required
+              required [(ngModel)]="password"
             />
           </div>
 
           <div>
             <label class="form-label" >
-              <input type="checkbox" name="remember" />
+              <input type="checkbox" name="remember" [(ngModel)]="rememberMe" />
               Remember me
             </label>
           </div>
@@ -47,6 +47,6 @@
 
         </form>
       </div>
-    </form>
+    </div>
   </div>
 </div>

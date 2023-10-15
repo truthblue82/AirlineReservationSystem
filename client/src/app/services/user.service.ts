@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/models/user';
 import { Role } from 'src/app/models/role';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -33,26 +33,24 @@ export class UserService {
   }
 
   signUp(user: User) {
-    console.log('User service: signup user', user);
     return this.http.post(`${environment.BASE_SERVICE_URL}/api/auth/signup`, user);
   }
 
-  authenticate(username: string, password: string) {
-    console.log('login', username, password, environment.BASE_SERVICE_URL);
-    return this.http.post(`${environment.BASE_SERVICE_URL}/api/auth/signin`, {username, password})
-    .subscribe(
-      userData => {
-        console.log('userData', userData)
-        sessionStorage.setItem('username', username);
-        //let token = `Bearer ${userData.accessToken ?? ""}`;
-        // sessionStorage.setItem('token', token);
-        // sessionStorage.setItem('userId', userData.id);
-        // sessionStorage.setItem('email', userData.email);
-        // sessionStorage.setItem('roles', userData.roles);
-        // sessionStorage.setItem('fullname', userData.fullname);
-        // sessionStorage.setItem('phone', userData.phone);
-        return userData;
-      }
-    )
+  authenticate(user: any) {
+    console.log('login', user.username, user.password, environment.BASE_SERVICE_URL);
+    return this.http.post(`${environment.BASE_SERVICE_URL}/api/auth/signin`, {username: user.username, password: user.password});
+  }
+
+  storeSession(user: any):void {
+    sessionStorage.setItem('token', user.accessToken);
+    sessionStorage.setItem('username', user.username);
+    sessionStorage.setItem('email', user.email);
+    sessionStorage.setItem('role', user.roles[0]);
+    sessionStorage.setItem('userId', user.id);
+    sessionStorage.setItem('rememberMe', user.rememberMe);
+    //refreshToken?
+  }
+  clearSession():void {
+    sessionStorage.clear();
   }
 }
