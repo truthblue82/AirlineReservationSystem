@@ -22,14 +22,14 @@
             />
             <small *ngIf="!flags.username" class="error">Invalid username</small>
           </div>
-          <!-- <div class="mb-3">
+          <div class="mb-3">
             <label for="fullname" class="form-label">Full Name</label>
             <input class="form-control" type="text" placeholder="Enter Full Name" name="fullname" required
             #fullname (keydown)="validateFullname(fullname);enableButton()"
             (blur)="validateFullname(fullname);enableButton()"
             [(ngModel)]="user.fullname" />
             <small *ngIf="!flags.fullname" class="error">Invalid Full Name</small>
-          </div> -->
+          </div>
 
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
@@ -40,7 +40,7 @@
             <small *ngIf="!flags.email" class="error">Invalid Email</small>
           </div>
 
-          <!-- <div class="mb-3">
+          <div class="mb-3">
             <label for="phone" class="form-label">Phone Number</label>
             <input class="form-control" type="text" pattern="^[0-9]{10}$"
             placeholder="Enter Phone Number" name="phone"
@@ -48,7 +48,7 @@
             (blur)="validatePhone(phone);enableButton()"
             [(ngModel)]="user.phone"/>
             <small *ngIf="!flags.phone" class="error">Invalid Phone Number</small>
-          </div> -->
+          </div>
 
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>

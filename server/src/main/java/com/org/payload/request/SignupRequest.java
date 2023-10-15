@@ -34,8 +34,8 @@ public class SignupRequest {
     private String password;
 
     @NotBlank
-    @JsonProperty("fullName")
-    private String fullName;
+    @JsonProperty("fullname")
+    private String fullname;
 
     @NotBlank
     @JsonProperty("phone")

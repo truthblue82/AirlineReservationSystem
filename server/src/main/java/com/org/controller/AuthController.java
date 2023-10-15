@@ -93,7 +93,7 @@ public class AuthController {
 		User user = new User(signUpRequest.getUsername(),
 				signUpRequest.getEmail(),
 				encoder.encode(signUpRequest.getPassword()));
-		user.setFullname(signUpRequest.getFullName());
+		user.setFullname(signUpRequest.getFullname());
 		user.setPhone(signUpRequest.getPhone());
 
 		Set<String> strRoles = signUpRequest.getRoles();
