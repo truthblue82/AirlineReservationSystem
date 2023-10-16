@@ -37,14 +37,19 @@
         </a>
 
         <div class="navbar-dropdown">
-          <a
-            *ngIf="user[0].roles[0] === adminRole"
-            class="navbar-item"
-            routerLink="/add-flight"
+          <a *ngIf="user[0].roles[0] === adminRole" class="navbar-item" routerLink="/add-airport">
+            Add Airport
+          </a>
+          <a *ngIf="user[0].roles[0] === adminRole" class="navbar-item"
+          routerLink="/add-flight"
           >
             Add Flight
           </a>
-          <a
+          <a *ngIf="user[0].roles[0] === adminRole" class="navbar-item" routerLink="/add-schedule">
+            Add Schedule
+          </a>
+          <!-- add schedule
+            <a
             *ngIf="user[0].roles[0] === adminRole"
             class="navbar-item"
             routerLink="/issues"
@@ -53,7 +58,7 @@
           </a>
           <a class="navbar-item" routerLink="/flight-history">
             Flight History
-          </a>
+          </a> -->
 
           <!-- <a class="navbar-item" routerLink="/invoice"> Flight Invoice </a> -->
         </div>
@@ -66,12 +71,12 @@
         <div class="navbar-dropdown">
           <a class="navbar-item" routerLink="/about"> About </a>
           <a class="navbar-item" routerLink="/contact"> Contact </a>
-          <div *ngIf="user.length > 0">
+          <!-- <div *ngIf="user.length > 0">
             <hr class="navbar-divider" />
             <a class="navbar-item" routerLink="/report-issue">
               Report an issue
             </a>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
