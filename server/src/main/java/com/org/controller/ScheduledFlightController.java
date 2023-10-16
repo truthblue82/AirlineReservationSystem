@@ -115,23 +115,22 @@ public class ScheduledFlightController {
 	 * Controller for viewing a Scheduled Flight by ID
 	 */
 	@GetMapping("/search")
-	@ExceptionHandler(ScheduledFlightNotFoundException.class)
 	public ResponseEntity<?> viewSF(
 			@RequestParam(name = "srcAirport") String source, @RequestParam(name = "dstnAirport") String destination,
-			@RequestParam(name = "deptDate") String departureDate, @RequestParam(name = "arrDate") String arrivalDate
+			@RequestParam(name = "deptDate") String departureDate
 	)  {
-		Collection<ScheduledFlight> searchSFlight = scheduleFlightService.viewScheduledFlights(
-				LocalDateTime.parse(departureDate).atOffset(ZoneOffset.UTC).toLocalDate(),
-				LocalDateTime.parse(arrivalDate).atOffset(ZoneOffset.UTC).toLocalDate(),
-				source,
-				destination
-		);
-		if (searchSFlight == null) {
-			return new ResponseEntity("Flight not present", HttpStatus.BAD_REQUEST);
-		} else {
+		try {
+			Collection<ScheduledFlight> searchSFlight = scheduleFlightService.viewScheduledFlights(
+					LocalDateTime.parse(departureDate).atOffset(ZoneOffset.UTC).toLocalDate(),
+					source,
+					destination
+			);
+
 			final ScheduledFlightDTO scheduledFlightDTO = new ScheduledFlightDTO();
 			scheduledFlightDTO.setScheduledFlights(searchSFlight);
 			return new ResponseEntity<>(scheduledFlightDTO, HttpStatus.OK);
+		}catch (ScheduledFlightNotFoundException ex) {
+			return new ResponseEntity("Flight not present", HttpStatus.BAD_REQUEST);
 		}
 	}
 

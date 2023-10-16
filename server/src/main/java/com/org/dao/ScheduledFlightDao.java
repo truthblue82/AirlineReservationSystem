@@ -15,14 +15,12 @@ import com.org.model.ScheduledFlight;
 public interface ScheduledFlightDao extends CrudRepository<ScheduledFlight,Long>{
 
     @Query("SELECT entity FROM ScheduledFlight entity WHERE "
-            + "date(entity.schedule.arrDateTime) = date(:arrDateTime) "
-            + "AND date(entity.schedule.deptDateTime) = date(:deptDateTime) "
+            + "date(entity.schedule.deptDateTime) = date(:deptDateTime) "
             + "AND entity.schedule.dstnAirport.code = :dstnAirport "
             + "AND entity.schedule.srcAirport.code = :srcAirport"
     )
     List<ScheduledFlight> fetchByTimeAndLocation(
             final LocalDate deptDateTime,
-            final LocalDate arrDateTime,
             final String dstnAirport,
             final String srcAirport
     );

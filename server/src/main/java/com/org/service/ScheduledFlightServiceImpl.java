@@ -103,11 +103,10 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 
 	@Override
 	public Collection<ScheduledFlight> viewScheduledFlights(
-			LocalDate deptDateTime, LocalDate arrDateTime, String srcAirport, String dstnAirport) throws ScheduledFlightNotFoundException {
+			LocalDate deptDateTime, String srcAirport, String dstnAirport) throws ScheduledFlightNotFoundException {
 
 		Collection<ScheduledFlight> scheduledFlights = dao.fetchByTimeAndLocation(
 				deptDateTime,
-				arrDateTime,
 				dstnAirport,
 				srcAirport
 		);

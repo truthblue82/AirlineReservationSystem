@@ -21,7 +21,6 @@ public interface ScheduledFlightService {
 
 	Collection<ScheduledFlight> viewScheduledFlights(
 			final LocalDate deptDateTime,
-			final LocalDate arrDateTime,
 			final String srcAirport,
 			final String dstnAirport
 	) throws ScheduledFlightNotFoundException;
