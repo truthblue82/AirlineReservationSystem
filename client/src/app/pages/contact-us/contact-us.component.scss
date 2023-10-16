@@ -3,8 +3,8 @@
   transition: 0.3s;
   width: 30%;
   border-radius: 5px;
-  position: absolute;
-  left: 0px;
+  display: block;
+  overflow: hidden;
 }
 
 .card:hover {
@@ -17,8 +17,8 @@ img {
 
 .container {
   padding: 10px 16px;
+  width: 100%;
 }
-
 .cardcenter {
   margin-left: auto;
   margin-right: auto;
@@ -26,11 +26,8 @@ img {
   transition: 0.3s;
   width: 30%;
   border-radius: 5px;
-
   background-color: white;
 }
-/*----------------------------------------------------------------------------*/
-
 .card1 {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
@@ -47,10 +44,8 @@ img {
   transition: 0.3s;
   width: 30%;
   border-radius: 5px;
-
   background-color: white;
 }
-
 .cardleft1 {
   position: absolute;
   margin-left: 0px;
@@ -60,3 +55,46 @@ img {
   border-radius: 5px;
   background-color: white;
 }
+.container2 {
+  font-weight: bolder;
+  font-size: 25px;
+  margin-top: 100px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: rgba(0, 0, 0, 0.767);
+}
+h1 {
+  font-weight: bolder;
+  font-size: 30px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: black;
+  margin: 0 5px 20px 0;
+}
+h2 {
+  font-weight: bolder;
+  font-size: 25px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: rgba(0, 0, 0, 0.664);
+  margin: 0 0 20px 0;
+}
+h3 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 15px;
+}
+.address {
+  font-weight: bolder;
+  font-size: 15px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: rgb(5, 66, 66);
+}
+p.text {
+  width: 100%;
+  font-weight: bolder;
+  text-align: center;
+  font-size: 15px;
+  margin: 0 auto;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: darkcyan;
+}
+
