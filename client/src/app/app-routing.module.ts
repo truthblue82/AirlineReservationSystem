@@ -11,6 +11,12 @@ import { AccountSettingsComponent } from './pages/account-settings/account-setti
 import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { FlightBookingComponent } from './pages/flight-booking/flight-booking.component';
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';
+import { AddScheduleComponent } from './pages/add-schedule/add-schedule.component';
+import { AddAirportComponent } from './pages/add-airport/add-airport.component';
+import { AddFlightComponent } from './pages/add-flight/add-flight.component';
+import { UserComponent } from './pages/user/user.component';
+import { AddUserComponent } from './pages/add-user/add-user.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -28,15 +34,40 @@ const routes: Routes = [
     component: ContactUsComponent
   },
   {
-    path: 'add-airport',
+    path: 'user',
+    component: UserComponent,
+    canActivate: []
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: []
+  },
+  {
+    path: 'add-user',
+    component: AddUserComponent,
+    canActivate: []
+  },
+  {
+    path: 'airport',
     component: AirportComponent,
     //loadComponent: () => import('./pages/airport/airport.component').then(m => m.AirportComponent),
     canActivate: []
   },
   {
-    path: 'add-flight',
+    path: 'add-airport',
+    component: AddAirportComponent,
+    canActivate: []
+  },
+  {
+    path: 'flight',
     component: FlightComponent,
     //loadComponent: () => import('./pages/flight/flight.component').then(m => m.FlightComponent),
+    canActivate: []
+  },
+  {
+    path: 'add-flight',
+    component: AddFlightComponent,
     canActivate: []
   },
   {
@@ -46,9 +77,14 @@ const routes: Routes = [
     canActivate: []
   },
   {
-    path: 'add-schedule',
+    path: 'schedule',
     component: ScheduleComponent,
     //loadComponent: () => import('./pages/schedule/schedule.component').then(m => m.ScheduleComponent),
+    canActivate: []
+  },
+  {
+    path: 'add-schedule',
+    component: AddScheduleComponent,
     canActivate: []
   },
   {

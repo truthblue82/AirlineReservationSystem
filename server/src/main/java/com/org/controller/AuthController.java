@@ -49,7 +49,6 @@ public class AuthController {
 	@Autowired
 	JwtUtils jwtUtils;
 
-	//@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 

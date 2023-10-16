@@ -1,0 +1,157 @@
+<div class="loader-container" *ngIf="displayModal">
+  <div class="spinner-border text-light spinner-custom" role="status"></div>
+  <h3>Loading</h3>
+</div>
+
+<div class="All container">
+  <h1>ENTER FLIGHT DETAILS</h1>
+
+  <form (submit)="handleFormSubmit($event)" ngNativeValidate>
+    <div class="row">
+      <div class="card mt-4 cart-custom" >
+        <div class="card-body">
+          <h4 class="card-title font-weight-bold">General Details</h4>
+          <div class="form-group">
+            <label for="flightno">Flight Number</label>
+            <input type="text" id="flightno" name="flightno"
+              placeholder="Enter Flight Name"
+              [(ngModel)]="flightflightno" required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="origin"
+              style="font-size: 18px; font-weight: bold; color: black"
+              >Origin
+            </label>
+            <select id="origin" name="origin" [(ngModel)]="origin" required>
+              <option value="Choose">Choose Origin</option>
+              <option value="Mumbai">Mumbai</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="destination"
+              style="font-size: 18px; font-weight: bold; color: black"
+              >Destination
+            </label>
+            <select id="destination" name="destination"
+              [(ngModel)]="destination" required >
+              <option value="Choose">Choose Destination</option>
+              <option value="Mumbai">Mumbai</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="Fclass"
+              style="font-size: 18px; font-weight: bold; color: black"
+              >Duration (in Hrs)
+            </label>
+            <input type="text" id="Fclass" name="flightClass"
+              placeholder="Enter Duration"
+              [(ngModel)]="duration" required
+            />
+          </div>
+
+          <div style="margin-top: 10px">
+            <label for="Departdate"
+              style="font-size: 18px; font-weight: bold; color: black"
+              >Depart Date and Time
+            </label>
+            <br />
+            <div style="display: flex">
+              <input type="date" id="Departdate"
+                name="Departdate" min="2000-01-02"
+                style="
+                  font-size: 20px;
+                  border: 4cm;
+                  flex: 1;
+                  padding: 12px 20px;
+                "
+                [(ngModel)]="departureDate" required
+              />
+
+              <input type="time" id="departTime"
+                name="departTime"
+                style="
+                  font-size: 20px;
+                  border: 4cm;
+                  margin-left: 10px;
+                  padding: 12px 20px;
+                "
+                [(ngModel)]="departureTime" required
+              />
+            </div>
+          </div>
+
+          <div style="margin-top: 10px">
+            <label for="Returndate"
+              style="font-size: 18px; font-weight: bold; color: black"
+              >Arrive Date and Time
+            </label>
+            <div style="display: flex">
+              <input type="date" id="Returndate"
+                name="Returndate" min="2000-01-02"
+                style="border: 2cm; font-size: 20px; flex: 1"
+                [(ngModel)]="returnDate"
+                required
+              />
+              <input type="time" id="ReturnTime" name="ReturnTime"
+                style="margin-left: 10px; font-size: 20px; border: 4cm"
+                [(ngModel)]="returnTime"
+                required
+              />
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Economy Class -->
+      <div
+        class="card mt-5"
+        style="
+          width: 100%;
+          box-shadow: '0px 0px 7px #ccc';
+          background-color: white;
+        "
+      >
+        <div class="card-body">
+          <h4 class="card-title font-weight-bold">Flight Details</h4>
+          <div>
+            <label
+              for="Fclass"
+              style="font-size: 18px; font-weight: bold; color: black"
+              >Total Seats
+            </label>
+            <input
+              type="text"
+              id="Fclass"
+              name="totalSeats"
+              placeholder="Enter Total Seats"
+              [(ngModel)]="seats"
+            />
+          </div>
+
+          <div>
+            <label
+              for="Fcapacity"
+              style="font-size: 18px; font-weight: bold; color: black"
+            >
+              Ticket Price
+            </label>
+            <input
+              type="text"
+              id="Fcapacity"
+              name="ticketPrice"
+              placeholder="Enter Ticket Price"
+              [(ngModel)]="ticketPrice"
+            />
+          </div>
+        </div>
+      </div>
+
+      <input type="submit" value="SUBMIT" class="mt-5" />
+    </div>
+  </form>
+</div>

@@ -27,6 +27,12 @@ import { AirportComponent } from './pages/airport/airport.component';
 import { FlightComponent } from './pages/flight/flight.component';
 import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { AddScheduleComponent } from './pages/add-schedule/add-schedule.component';
+import { AddAirportComponent } from './pages/add-airport/add-airport.component';
+import { AddFlightComponent } from './pages/add-flight/add-flight.component';
+import { UserComponent } from './pages/user/user.component';
+import { AddUserComponent } from './pages/add-user/add-user.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +54,13 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ReportComponent,
     AirportComponent,
     FlightComponent,
-    ScheduleComponent
+    ScheduleComponent,
+    AddScheduleComponent,
+    AddAirportComponent,
+    AddFlightComponent,
+    UserComponent,
+    AddUserComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

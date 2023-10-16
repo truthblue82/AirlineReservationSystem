@@ -29,7 +29,7 @@
       </a> -->
 
       <div
-        *ngIf="user.length > 0"
+        *ngIf="user[0].roles[0] === adminRole"
         class="navbar-item has-dropdown is-hoverable"
       >
         <a class="navbar-link">
@@ -37,17 +37,26 @@
         </a>
 
         <div class="navbar-dropdown">
-          <a *ngIf="user[0].roles[0] === adminRole" class="navbar-item" routerLink="/add-airport">
-            Add Airport
+          <a class="navbar-item" routerLink="/airport">
+            Airport Management
           </a>
-          <a *ngIf="user[0].roles[0] === adminRole" class="navbar-item"
+          <a class="navbar-item" routerLink="/flight">
+            Flight Management
+          </a>
+          <a class="navbar-item" routerLink="/airport">
+            Schedule Management
+          </a>
+          <!-- <a *ngIf="user[0].roles[0] === adminRole" class="navbar-item" routerLink="/add-airport">
+            Add Airport
+          </a> -->
+          <!-- <a *ngIf="user[0].roles[0] === adminRole" class="navbar-item"
           routerLink="/add-flight"
           >
             Add Flight
           </a>
           <a *ngIf="user[0].roles[0] === adminRole" class="navbar-item" routerLink="/add-schedule">
             Add Schedule
-          </a>
+          </a> -->
           <!-- add schedule
             <a
             *ngIf="user[0].roles[0] === adminRole"
@@ -107,9 +116,10 @@
           </a>
 
           <div class="navbar-dropdown">
-            <a class="navbar-item" routerLink="/account-settings">
+            <a class="navbar-item" routerLink="/profile">Profile</a>
+            <!-- <a class="navbar-item" routerLink="/account-settings">
               Account Settings
-            </a>
+            </a> -->
             <hr class="navbar-divider" />
             <a class="navbar-item is-primary"
               (click)="handleLogout()" >
