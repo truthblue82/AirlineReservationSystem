@@ -30,8 +30,6 @@ import com.org.sercurity.jwt.JwtUtils;
 import com.org.service.UserDetailsImpl;
 
 
-
-//@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @CrossOrigin
 @RestController
 @RequestMapping("/api/auth")

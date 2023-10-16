@@ -16,40 +16,40 @@ import java.util.Collection;
 @CrossOrigin
 @ComponentScan(basePackages = "com")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/users")
 public class UserController {
 
 	@Autowired
 	UserService userService;
 
-	@PostMapping("/createUser")
+	@PostMapping("/")
 	@ExceptionHandler(RecordAlreadyPresentException.class)
 	public void addUser(@RequestBody UserDTO newUser) {
 
 		userService.createUser(newUser);
 	}
 
-	@GetMapping("/readAllUsers")
+	@GetMapping("/")
 	public Collection<UserDTO> readAllUsers() {
 
 		return userService.displayAllUser();
 	}
 
-	@PutMapping("/updateUser")
+	@PutMapping("/")
 	@ExceptionHandler(RecordNotFoundException.class)
 	public void updateUser(@RequestBody UserDTO updateUser) {
 
 		userService.updateUser(updateUser);
 	}
 
-	@GetMapping("/searchUser/{id}")
+	@GetMapping("/{id}")
 	@ExceptionHandler(RecordNotFoundException.class)
 	public ResponseEntity<?> searchUserByID(@PathVariable("id") Long userId) {
 
 		return userService.findUserById(userId);
 	}
 
-	@DeleteMapping("/deleteUser/{id}")
+	@DeleteMapping("/{id}")
 	@ExceptionHandler(RecordNotFoundException.class)
 	public void deleteBookingByID(@PathVariable("id") Long userId) {
 

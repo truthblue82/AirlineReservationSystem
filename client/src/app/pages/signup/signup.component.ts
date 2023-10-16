@@ -58,7 +58,6 @@ export class SignupComponent implements OnInit {
     const data: User = this.user;
     this.userSvc.signUp(data).subscribe(
       (result: any) => {
-        console.log('result',result);
         if(result.status === 200) {
           this.toastr.success('Account Created Successfully', 'Please Login');
         } else {

@@ -59,4 +59,12 @@ export class UserService {
     sessionStorage.clear();
     this.users.splice(0,1);
   }
+  updateAccountDetails(data: any) {
+    return this.http.put(`${environment.BASE_SERVICE_URL}/api/users`, data, {observe: "response"});
+  }
+  changeUserPassword(data: any) {
+    return this.http.put(`${environment.BASE_SERVICE_URL}/api/users/`, {
+      data: {oldpassword: data.oldPassword, newpassword: data.newPassword},
+    }, {observe: "response"});
+  }
 }

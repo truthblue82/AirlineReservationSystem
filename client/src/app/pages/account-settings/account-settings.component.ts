@@ -11,20 +11,24 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class AccountSettingsComponent implements OnInit {
   displayModal = false;
-  curUserData: User[];
+  curUserData: User[] = [];
 
-  fullname: string;
-  phone: string;
+  fullname: string = '';
+  phone: string = '';
 
   //change password
-  oldPassword: string;
-  password: string;
-  confirmPassword: string;
+  oldPassword: string = '';
+  password: string = '';
+  confirmPassword: string = '';
 
   //delete account
-  deleteAccountPwd: string;
-  isSureToDelete: boolean;
-  isAgreeToDelete: boolean;
+  deleteAccountPwd: string = '';
+  isSureToDelete: boolean = false;
+  isAgreeToDelete: boolean = false;
+
+  flags: any = {
+    fullname: true, phone: true, comparePassword: true
+  }
 
   constructor(
     private router: Router,
@@ -32,6 +36,7 @@ export class AccountSettingsComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.curUserData = [];
+
     this.fullname = '';
     this.phone = '';
 
@@ -48,9 +53,14 @@ export class AccountSettingsComponent implements OnInit {
     this.displayModal = true;
     this.userSvc.getCurrentUser().subscribe(
       (result: any) => {
-        console.log('user account', result);
-        console.log(result.status);
-        //if(result.status)
+        if(result.length > 0) {
+          this.curUserData.push(result[0]);
+          this.fullname = result[0].fullname;
+          this.phone = result[0].phone;
+        } else {
+          this.toastr.error('Something went wrong!', 'Error');
+        }
+        this.displayModal = false;
       },
       (error) => {
         console.log('Error Occured:', error.console.error.msq);
@@ -60,8 +70,32 @@ export class AccountSettingsComponent implements OnInit {
     )
   }
 
+  validateFullname():void {
+    let flag = /^[a-zA-Z ]+$/.test(this.fullname);
+    this.flags.fullname = flag;
+  }
+  validatePhone():void {
+    let flag = /^[0-9]{10}$/.test(this.phone);
+
+    this.flags.phone = flag;
+  }
+  comparePassword():void {
+    if(this.password !== this.confirmPassword) {
+      this.flags.comparePassword = false;
+    } else {
+      this.flags.comparePassword = true;
+    }
+  }
+
   handleUpdateAccoutDetails(event: Event) {
     event.preventDefault();
+
+    const data = {
+      name: this.fullname,
+      phone: this.phone
+    };
+    this.displayModal = true;
+    this.userSvc.updateAccountDetails(data)
   }
 
   handleChangePassword(event: Event) {
