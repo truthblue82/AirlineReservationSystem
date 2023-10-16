@@ -36,7 +36,7 @@ import com.org.service.ScheduledFlightService;
 @RestController
 //@CrossOrigin(origins = "*", allowedHeaders = "*")
 @CrossOrigin
-@RequestMapping("/scheduledFlight")
+@RequestMapping("/api/scheduled-flight")
 public class ScheduledFlightController {
 	/*
 	 * Creating Service object
@@ -137,7 +137,7 @@ public class ScheduledFlightController {
 	/*
 	 * Controller for viewing all Scheduled Flights
 	 */
-	@GetMapping("/viewAll")
+	@GetMapping("/")
 	public Iterable<ScheduledFlight> viewAllSF() {
 		return scheduleFlightService.viewAllScheduledFlights();
 	}
