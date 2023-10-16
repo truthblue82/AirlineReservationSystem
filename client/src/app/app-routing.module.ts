@@ -17,6 +17,7 @@ import { AddFlightComponent } from './pages/add-flight/add-flight.component';
 import { UserComponent } from './pages/user/user.component';
 import { AddUserComponent } from './pages/add-user/add-user.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { FlightHistoryComponent } from './pages/flight-history/flight-history.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -68,6 +69,11 @@ const routes: Routes = [
   {
     path: 'add-flight',
     component: AddFlightComponent,
+    canActivate: []
+  },
+  {
+    path: 'flight-history',
+    component: FlightHistoryComponent,
     canActivate: []
   },
   {
