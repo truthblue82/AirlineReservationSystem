@@ -34,11 +34,11 @@ export class UserService {
   }
 
   signUp(user: User) {
-    return this.http.post(`${environment.BASE_SERVICE_URL}/api/auth/signup`, user);
+    return this.http.post(`${environment.BASE_SERVICE_URL}/api/auth/signup`, user, {observe:'response'});
   }
 
   authenticate(user: any) {
-    return this.http.post(`${environment.BASE_SERVICE_URL}/api/auth/signin`, {username: user.username, password: user.password});
+    return this.http.post(`${environment.BASE_SERVICE_URL}/api/auth/signin`, {username: user.username, password: user.password},{observe:'response'});
   }
 
   storeSession(user: any):void {

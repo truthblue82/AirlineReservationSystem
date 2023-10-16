@@ -56,3 +56,11 @@ input[type="password"] {
   border: 1px solid #ccc;
   background-color: rgba(242, 242, 242, 0.9);
 }
+.spinner-custom {
+  width: 3rem;
+  height: 3rem;
+}
+.loader-container > h3 {
+  margin-top: 10px;
+  color: white;
+}

@@ -48,21 +48,15 @@ export class LoginComponent implements OnInit {
     };
     this.displayModal = true;
     this.userSvc.authenticate(data).subscribe((result: any) => {
-      result.rememberMe = this.rememberMe;
-      if(result.hasOwnProperty('accessToken')) {
-        if(!result.accessToken) {
-          this.toastr.error('Something went wrong!', 'Error');
-          this.displayModal = false;
-          return;
-        }
+      result.body.rememberMe = this.rememberMe;
+
+      if(result.status === 200) {
+        this.userSvc.storeSession(result.body);
+        this.router.navigate(['/']);
       } else {
         this.toastr.error('Something went wrong!', 'Error');
         this.displayModal = false;
-        return;
       }
-
-      this.userSvc.storeSession(result);
-      this.router.navigate(['/']);
     },
     (err) => {
       console.log(err);
