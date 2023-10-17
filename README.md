@@ -26,3 +26,10 @@ Scope Details : The system should allow the customers and the admins to make use
 6.	Reports Module
       a.	Weekly
       b.	Quarterly
+
+## Technical Skills
+
+1. Backend: Microservices with Java Spring Boot
+2. Frontend: Angular v19.x
+3. Database: MySQL
+4. 

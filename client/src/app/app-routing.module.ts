@@ -22,16 +22,13 @@ import { FlightHistoryComponent } from './pages/flight-history/flight-history.co
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'signup',
-    //loadComponent: () => import('./pages/signup/signup.component').then(m => m.SignupComponent),
     component: SignupComponent
   },
   { path: 'login',
-    //loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent),
     component: LoginComponent
   },
   {
     path: 'contact',
-    //loadComponent: () => import('./pages/contact-us/contact-us.component').then(m => m.ContactUsComponent),
     component: ContactUsComponent
   },
   {
@@ -52,7 +49,6 @@ const routes: Routes = [
   {
     path: 'airport',
     component: AirportComponent,
-    //loadComponent: () => import('./pages/airport/airport.component').then(m => m.AirportComponent),
     canActivate: []
   },
   {
@@ -63,7 +59,6 @@ const routes: Routes = [
   {
     path: 'flight',
     component: FlightComponent,
-    //loadComponent: () => import('./pages/flight/flight.component').then(m => m.FlightComponent),
     canActivate: []
   },
   {
@@ -79,13 +74,11 @@ const routes: Routes = [
   {
     path: 'account-settings',
     component: AccountSettingsComponent,
-    //loadComponent: () => import('./pages/account-settings/account-settings.component').then(m => m.AccountSettingsComponent),
     canActivate: []
   },
   {
     path: 'schedule',
     component: ScheduleComponent,
-    //loadComponent: () => import('./pages/schedule/schedule.component').then(m => m.ScheduleComponent),
     canActivate: []
   },
   {
@@ -96,13 +89,11 @@ const routes: Routes = [
   {
     path: 'flight-booking',
     component: FlightBookingComponent,
-    //loadComponent: () => import('./pages/flight-booking/flight-booking.component').then(m => m.FlightBookingComponent),
     canActivate: []
   },
   {
     path: 'about',
     component: AboutUsComponent,
-    //loadComponent: () => import('./pages/about-us/about-us.component').then(m => m.AboutUsComponent),
   },
   {
     path: '**',

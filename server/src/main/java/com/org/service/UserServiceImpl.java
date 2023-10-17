@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
 	public ResponseEntity<?> createUser(UserDTO newUserDTO) {
 		if (newUserDTO == null) return ResponseEntity.badRequest().build();
 		final User newUser = UserUtils.toUser(newUserDTO);
+
 		Optional<User> findUserById = userDao.findByUsername(newUser.getUsername());
 		try {
 			if (!findUserById.isPresent()) {
