@@ -33,6 +33,7 @@ import { AddFlightComponent } from './pages/add-flight/add-flight.component';
 import { UserComponent } from './pages/user/user.component';
 import { AddUserComponent } from './pages/add-user/add-user.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { userGuard } from './guards/user.guard';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,6 @@ import { ProfileComponent } from './pages/profile/profile.component';
     ToastrModule.forRoot(),
   ],
   providers: [
-    //user and admin guard here
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
