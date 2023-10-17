@@ -15,11 +15,11 @@ export const adminGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: 
     const role = users[0].roles[0];
     if(role === "ROLE_ADMIN") return true;
     else {
-      router.createUrlTree(['/']);
+      router.navigate(['/']);
       return false;
     }
   } else {
-    router.createUrlTree(['/']);
+    router.navigate(['/']);
     return false;
   }
 };

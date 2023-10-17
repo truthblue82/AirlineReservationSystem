@@ -21,15 +21,11 @@ export const userGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: R
   });
   if(users.length === 0) {
     //router.navigate(['/']);
-    router.createUrlTree(['/']);
+    router.navigate(['/']);
     return false;
   } else {
+    //if login true, then return true
     //check role, check exp by decode with jwt_decode
-    const role = users[0].roles[0];
-    if(role === 'ROLE_CUSTOMER') {
-      return true;
-    }
-    router.createUrlTree(['/']);
-    return false;
+    return true;
   }
 };

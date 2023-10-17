@@ -41,7 +41,7 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
-    canActivate: [userGuard, adminGuard]
+    canActivate: [userGuard]
   },
   {
     path: 'add-user',
@@ -71,12 +71,15 @@ const routes: Routes = [
   {
     path: 'flight-history',
     component: FlightHistoryComponent,
-    canActivate: [userGuard,adminGuard]
+    canActivate: [userGuard]
   },
+  // {
+  //   path: 'flight-booking-list',
+  // },
   {
     path: 'account-settings',
     component: AccountSettingsComponent,
-    canActivate: [userGuard,adminGuard]
+    canActivate: [userGuard]
   },
   {
     path: 'schedule',
