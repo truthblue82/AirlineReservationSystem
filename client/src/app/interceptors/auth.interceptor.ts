@@ -9,6 +9,7 @@ import {
 } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { UserService } from '../services/user.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -23,6 +24,7 @@ export class AuthInterceptor implements HttpInterceptor {
     if(user && token) {
       const cloned = request.clone({
         headers: request.headers.set('Authorization', 'Bearer ' + token)
+                .set('Access-Control-Allow-Origin', '*')
       });
 
       return next.handle(cloned).pipe(tap(

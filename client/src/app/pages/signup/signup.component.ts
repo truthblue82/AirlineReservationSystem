@@ -17,7 +17,7 @@ export class SignupComponent implements OnInit {
 
   displayModal: boolean = false;
   flags: any = {
-    username: true, email: true, fullname: true,
+    firstName: true, email: true, lastName: true,
     phone: true, password: true, repeatPassword: true,
     signupBtn: false
   }
@@ -31,9 +31,9 @@ export class SignupComponent implements OnInit {
       this.appTitle.setTitle('Airport Reservation System - Sign Up');
       this.users = [];
       this.user = {
-        username: '', email: '',
-        fullname: '', phone: '',
-        password: '', active: true, roles: ['1'], token: ''};
+        firstName: '', email: '',
+        lastName: '', phone: '',
+        password: ''};
       this.repeatPassword = '';
   }
 
@@ -52,7 +52,7 @@ export class SignupComponent implements OnInit {
     if(this.user.password !== this.repeatPassword) {
       this.toastr.error('Password not matched!', 'Error');
 
-      return console.log('Password not matched');
+      return;
     }
     this.displayModal = true;
     const data: User = this.user;
@@ -73,13 +73,9 @@ export class SignupComponent implements OnInit {
     );
   }
 
-  validateUsername():void {
-    let flag = /^[a-zA-Z]+$/.test(this.user.username);
-    this.flags.username = flag;
-  }
-  validateFullname():void {
-    let flag = /^[a-zA-Z ]+$/.test(this.user.fullname);
-    this.flags.fullname = flag;
+  validateName(el: HTMLInputElement):void {
+    let flag = /^[a-zA-Z]+$/.test(el.value);
+    this.flags[el.name] = flag;
   }
   validatePhone():void {
     let flag = /^[0-9]{10}$/.test(this.user.phone);
@@ -99,10 +95,9 @@ export class SignupComponent implements OnInit {
   }
 
   enableButton():void {
-    this.flags.signupBtn = this.flags.username
-    &&this.flags.fullname
+    this.flags.signupBtn = this.flags.firstName
+    &&this.flags.lastName
     &&this.flags.email
-    &&this.flags.fullname
     &&this.flags.phone
     &&this.flags.password
     &&this.flags.repeatPassword

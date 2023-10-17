@@ -13,23 +13,24 @@
       <div>
         <form (submit)="handleSubmit($event)" ngNativeValidate>
           <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
+            <label for="firstName" class="form-label">First Name</label>
             <input class="form-control" type="text"
-              placeholder="Enter Username" name="username"
-              (keyup)="validateUsername();enableButton()"
-              (blur)="validateUsername(); enableButton()"
-              required [(ngModel)]="user.username"
+              placeholder="Enter First Name" name="firstName" #firstName
+              (keyup)="validateName(firstName);enableButton()"
+              (blur)="validateName(firstName); enableButton()"
+              required [(ngModel)]="user.firstName"
             />
-            <small *ngIf="!flags.username" class="error">Invalid username</small>
+            <small *ngIf="!flags.firstName" class="error">Invalid First Name</small>
           </div>
-          <!-- <div class="mb-3">
-            <label for="fullname" class="form-label">Full Name</label>
-            <input class="form-control" type="text" placeholder="Enter Full Name" name="fullname" required
-            (keyup)="validateFullname();enableButton()"
-            (blur)="validateFullname();enableButton()"
-            [(ngModel)]="user.fullname" />
-            <small *ngIf="!flags.fullname" class="error">Invalid Full Name</small>
-          </div> -->
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input class="form-control" type="text" placeholder="Enter Last Name"
+            name="lastName" required #lastName
+            (keyup)="validateName(lastName);enableButton()"
+            (blur)="validateName(lastName);enableButton()"
+            [(ngModel)]="user.lastName" />
+            <small *ngIf="!flags.lastName" class="error">Invalid Last Name</small>
+          </div>
 
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
@@ -40,7 +41,7 @@
             <small *ngIf="!flags.email" class="error">Invalid Email</small>
           </div>
 
-          <!-- <div class="mb-3">
+          <div class="mb-3">
             <label for="phone" class="form-label">Phone Number</label>
             <input class="form-control" type="text" pattern="^[0-9]{10}$"
             placeholder="Enter Phone Number" name="phone"
@@ -48,7 +49,7 @@
             (blur)="validatePhone();enableButton()"
             [(ngModel)]="user.phone"/>
             <small *ngIf="!flags.phone" class="error">Invalid Phone Number</small>
-          </div> -->
+          </div>
 
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>

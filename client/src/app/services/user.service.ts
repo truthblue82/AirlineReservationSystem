@@ -16,9 +16,9 @@ export class UserService {
     if (sessionStorage.getItem('token') !== null) {
       const data: any = {
         id: sessionStorage.getItem('userId') || '',
-        username: sessionStorage.getItem('username') || '',
+        username: sessionStorage.getItem('firstName') || '',
         email: sessionStorage.getItem('email') || '',
-        fullname: sessionStorage.getItem('fullname') || '',
+        fullname: sessionStorage.getItem('lastName') || '',
         password: '',
         phone: sessionStorage.getItem('phone') || '',
         roles: [sessionStorage.getItem('roles') || ''],
@@ -34,7 +34,8 @@ export class UserService {
   }
 
   signUp(user: User) {
-    return this.http.post(`${environment.BASE_SERVICE_URL}/api/auth/signup`, user, {observe:'response'});
+    //return this.http.post(`${environment.BASE_SERVICE_URL}/api/auth/signup`, user, {observe:'response'});
+    return this.http.post(`${environment.GATEWAY_BASE_URL}/${environment.GATEWAY_USER_REGISTER_URI}`, user,{observe:'response'});
   }
 
   authenticate(user: any) {
@@ -43,8 +44,8 @@ export class UserService {
 
   storeSession(user: any):void {
     sessionStorage.setItem('token', user.accessToken);
-    sessionStorage.setItem('username', user.username);
-    sessionStorage.setItem('fullname', user.fullname);
+    sessionStorage.setItem('firstName', user.firstName);
+    sessionStorage.setItem('lastName', user.lastName);
     sessionStorage.setItem('email', user.email);
     sessionStorage.setItem('roles', user.roles);
     sessionStorage.setItem('userId', user.id);

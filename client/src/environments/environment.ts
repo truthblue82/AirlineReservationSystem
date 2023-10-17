@@ -4,11 +4,22 @@
 
 export const environment = {
   production: false,
+  APP_BASE_URL: "http://localhost:4000",
+
+  GATEWAY_BASE_URL: "https://localhost:8443",
+  GATEWAY_USER_REGISTER_URI: "users/registration",
+  GATEWAY_AUTHEN_URI: "oauth2/authorize?response_type=code&client_id=writer&redirect_uri={REDIRECT_URI}&scope=product:write product:read",
+  GATEWAY_OAUTH2_URI: "oauth2/token",
+  GATEWAY_GRANT_TYPE: "authorization_code",
+  GATEWAY_USERINFO_URI: "users/info",
+  GATEWAY_REGISTRATION_USER_CMD: 'curl -X POST -H "Content-Type: application/json" -d \'{"firstName": "{FIRSTNAME}", "lastName": "{LASTNAME}", "password": "{PASSWORD}", "email": "{EMAIL}"}, "phone": "{PHONE}"\' -k {GATEWAY_USER_REGISTER_URL}',
+  GATEWAY_USERINFO_CMD: 'curl -X GET -H "Content-Type: application/json" -d \'\' ',
+
   BASE_SERVICE_URL: "http://localhost:8080",
   USER_SERVICE_URL: "http://localhost:8080/",
   AUTH_SERVICE_URL: "http://localhost:8080/",
   RESERVATION_SERVICES_URL: "http://localhost:8080/",
-  MANAGEMENT_SERVICE_URL: "http://localhost:8080/"
+  MANAGEMENT_SERVICE_URL: "http://localhost:8080/",
 };
 
 /*
