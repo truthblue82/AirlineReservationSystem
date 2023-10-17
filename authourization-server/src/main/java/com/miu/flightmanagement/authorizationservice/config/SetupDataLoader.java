@@ -33,23 +33,23 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     @Override
     @Transactional
     public void onApplicationEvent(final ContextRefreshedEvent event) {
-        if (alreadySetup) {
-            return;
-        }
-
-        // == create initial privileges
-        final Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
-        final Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
-        final Privilege passwordPrivilege = createPrivilegeIfNotFound("CHANGE_PASSWORD_PRIVILEGE");
-
-        // == create initial roles
-        final List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege, passwordPrivilege);
-        final List<Privilege> userPrivileges = Arrays.asList(readPrivilege, passwordPrivilege);
-        final Role adminRole = createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
-        createRoleIfNotFound("ROLE_USER", userPrivileges);
-
-        // == create initial user
-        createUserIfNotFound("test@test.com", "Test", "Test", "test", Arrays.asList(adminRole));
+//        if (alreadySetup) {
+//            return;
+//        }
+//
+//        // == create initial privileges
+//        final Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
+//        final Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
+//        final Privilege passwordPrivilege = createPrivilegeIfNotFound("CHANGE_PASSWORD_PRIVILEGE");
+//
+//        // == create initial roles
+//        final List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege, passwordPrivilege);
+//        final List<Privilege> userPrivileges = Arrays.asList(readPrivilege, passwordPrivilege);
+//        final Role adminRole = createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
+//        createRoleIfNotFound("ROLE_USER", userPrivileges);
+//
+//        // == create initial user
+//        createUserIfNotFound("test@test.com", "Test", "Test", "test", Arrays.asList(adminRole));
 
         alreadySetup = true;
     }

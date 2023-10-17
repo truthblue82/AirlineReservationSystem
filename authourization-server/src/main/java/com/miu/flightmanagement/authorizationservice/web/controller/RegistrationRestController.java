@@ -23,7 +23,7 @@ public class RegistrationRestController {
         log.debug("Registering user account with information: {}", accountDto);
 
         userService.registerNewUserAccount(accountDto);
-        return new ResponseEntity<>(accountDto, HttpStatus.CREATED);
+        return new ResponseEntity<>(accountDto, HttpStatus.OK);
     }
 
     @GetMapping("/users/info")
