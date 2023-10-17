@@ -22,11 +22,6 @@
         <h3>Book Flight</h3>
       </a>
 
-      <!-- <a class="navbar-item">
-        <h3 style="margin-bottom: 5px; font-family: Georgia">
-          <b> OFFERS </b>
-        </h3>
-      </a> -->
       <div
         *ngIf="user.length > 0 && user[0].roles[0] === userRole"
         class="navbar-item has-dropdown is-hoverable">
@@ -37,10 +32,6 @@
           <a class="navbar-item" routerLink="/flight-history">
             Flight History
           </a>
-          <!-- <hr class="navbar-divider" />
-          <a class="navbar-item" routerLink="/report-issue">
-            Report an issue
-          </a> -->
         </div>
       </div>
 
@@ -62,30 +53,7 @@
           <a class="navbar-item" routerLink="/airport">
             Schedule Management
           </a>
-          <!-- <a *ngIf="user[0].roles[0] === adminRole" class="navbar-item" routerLink="/add-airport">
-            Add Airport
-          </a> -->
-          <!-- <a *ngIf="user[0].roles[0] === adminRole" class="navbar-item"
-          routerLink="/add-flight"
-          >
-            Add Flight
-          </a>
-          <a *ngIf="user[0].roles[0] === adminRole" class="navbar-item" routerLink="/add-schedule">
-            Add Schedule
-          </a> -->
-          <!-- add schedule
-            <a
-            *ngIf="user[0].roles[0] === adminRole"
-            class="navbar-item"
-            routerLink="/issues"
-          >
-            Issues
-          </a>
-          <a class="navbar-item" routerLink="/flight-history">
-            Flight History
-          </a> -->
 
-          <!-- <a class="navbar-item" routerLink="/invoice"> Flight Invoice </a> -->
         </div>
       </div>
       <div class="navbar-item has-dropdown is-hoverable">
@@ -96,12 +64,7 @@
         <div class="navbar-dropdown">
           <a class="navbar-item" routerLink="/about"> About </a>
           <a class="navbar-item" routerLink="/contact"> Contact </a>
-          <!-- <div *ngIf="user.length > 0">
-            <hr class="navbar-divider" />
-            <a class="navbar-item" routerLink="/report-issue">
-              Report an issue
-            </a>
-          </div> -->
+
         </div>
       </div>
     </div>
@@ -123,7 +86,7 @@
           <a class="navbar-link">
             <span style="margin-right: 20px; font-weight: bold; font-size: 18px"
               >Welcome, {{ user[0].username }}</span
-            > <!--fullname-->
+            >
             <img
               src="../../../assets/images/profilePhoto.jpg"
               alt="profileImage"

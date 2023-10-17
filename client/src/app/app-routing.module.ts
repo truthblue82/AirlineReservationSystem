@@ -48,7 +48,7 @@ const routes: Routes = [
   },
   {
     path: 'airport',
-    component: AirportComponent,
+    loadChildren: () => import('./pages/airport/airport.component').then(m => m.AirportComponent),
     canActivate: []
   },
   {
@@ -83,7 +83,7 @@ const routes: Routes = [
   },
   {
     path: 'add-schedule',
-    component: AddScheduleComponent,
+    component: AddAirportComponent,
     canActivate: []
   },
   {

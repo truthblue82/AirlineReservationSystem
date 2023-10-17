@@ -7,29 +7,10 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserService } from '../services/user.service';
+import { inject } from '@angular/core';
 
 
-export const userGuard: CanActivateFn = (route, state) => {
-  //route = Inject(Router);
-  //const service = Inject(UserService);
+export const userGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
 
-  // return () => {
-  //   const oauthService: AuthService = inject(AuthService);
-
-  //   if (oauthService.hasAccess() ) {
-  //     return true;
-  //   }
-  //   oauthService.login();
-  //   return false;
-  // };
-  // return () => {
-  //   const oauthService: AuthService = inject(AuthService);
-
-  //   if (oauthService.hasAccess() ) {
-  //     return true;
-  //   }
-  //   oauthService.login();
-  //   return false;
-  // };
   return true;
 };

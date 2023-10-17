@@ -9,7 +9,7 @@ app:
   eureka-server: localhost
   security:
     #change to local URL
-    redirect-url: http://localhost:8081
+    redirect-url: http://localhost:4000
 
 eureka:
   client:
@@ -32,7 +32,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/fmsAuth?createDatabaseIfNotExist=true
     username: root
-    password: khoale
+    password:
     initialization-mode: always
   jpa:
     hibernate:
