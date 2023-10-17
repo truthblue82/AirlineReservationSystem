@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface UserService {
     User registerNewUserAccount(UserDto accountDto);
 
-    void saveRegisteredUser(User user);
+    void saveRegisteredUser(UserDto user);
 
     void deleteUser(User user);
 

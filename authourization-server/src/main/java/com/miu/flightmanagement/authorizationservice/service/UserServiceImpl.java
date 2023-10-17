@@ -6,6 +6,7 @@ import com.miu.flightmanagement.authorizationservice.persistence.repo.UserReposi
 import com.miu.flightmanagement.authorizationservice.util.UserUtils;
 import com.miu.flightmanagement.authorizationservice.web.dto.UserDto;
 import com.miu.flightmanagement.authorizationservice.web.error.UserAlreadyExistException;
+import com.miu.flightmanagement.authorizationservice.web.error.UserNotExistException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,7 +40,15 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void saveRegisteredUser(User user) {
+    @Transactional
+    public void saveRegisteredUser(UserDto userDto) {
+        final User user = this.findUserByEmail(userDto.getEmail());
+        if (user == null) {
+            throw new UserNotExistException(("This account is not present!"));
+        }
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setPhone(userDto.getPhone());
         this.userRepository.save(user);
     }
 

@@ -15,4 +15,9 @@ public class GenericControllerExceptionHandler extends ResponseEntityExceptionHa
     protected ResponseEntity<Object> handleUserExistingError(RuntimeException ex, WebRequest request) {
         return handleExceptionInternal(ex, "User has been registered!", new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
+
+    @ExceptionHandler(value = {UserNotExistException.class})
+    protected ResponseEntity<Object> handleUserNotExistingError(RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(ex, "User is not present!", new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
 }
