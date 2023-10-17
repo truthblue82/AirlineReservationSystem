@@ -13,7 +13,8 @@ export class AccountSettingsComponent implements OnInit {
   displayModal = false;
   curUserData: User[] = [];
 
-  fullname: string = '';
+  fname: string = '';
+  lname: string = '';
   phone: string = '';
 
   //change password
@@ -27,7 +28,7 @@ export class AccountSettingsComponent implements OnInit {
   isAgreeToDelete: boolean = false;
 
   flags: any = {
-    fullname: true, phone: true, comparePassword: true
+    phone: true, comparePassword: true
   }
 
   constructor(
@@ -37,7 +38,8 @@ export class AccountSettingsComponent implements OnInit {
   ) {
     this.curUserData = [];
 
-    this.fullname = '';
+    this.fname = '';
+    this.lname = '';
     this.phone = '';
 
     this.oldPassword = '';
@@ -55,7 +57,7 @@ export class AccountSettingsComponent implements OnInit {
       (result: any) => {
         if(result.length > 0) {
           this.curUserData.push(result[0]);
-          this.fullname = result[0].fullname;
+          this.fname = result[0].fname;
           this.phone = result[0].phone;
         } else {
           this.toastr.error('Something went wrong!', 'Error');
@@ -68,11 +70,6 @@ export class AccountSettingsComponent implements OnInit {
         this.displayModal = false;
       }
     )
-  }
-
-  validateFullname():void {
-    let flag = /^[a-zA-Z ]+$/.test(this.fullname);
-    this.flags.fullname = flag;
   }
   validatePhone():void {
     let flag = /^[0-9]{10}$/.test(this.phone);
@@ -91,7 +88,8 @@ export class AccountSettingsComponent implements OnInit {
     event.preventDefault();
 
     const data = {
-      name: this.fullname,
+      fname: this.fname,
+      lname: this.lname,
       phone: this.phone
     };
     this.displayModal = true;

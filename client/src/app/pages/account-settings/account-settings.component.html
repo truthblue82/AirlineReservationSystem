@@ -12,11 +12,17 @@
         <h4 class="card-title font-weight-bold">Update Account Details</h4>
         <form (submit)="handleUpdateAccoutDetails($event)" ngNativeValidate>
           <div class="mb-3 mt-4">
-            <label for="fullname" class="form-label">Fullname</label>
+            <label for="fname" class="form-label">First Name</label>
             <input type="text" class="form-control"
-              id="fullname" name="fullname" placeholder="Fullname"
-              (keyup)="validateFullname()"
-              [(ngModel)]="fullname" required
+              id="fname" name="fname" placeholder="First Name"
+              [(ngModel)]="fname" required
+            />
+          </div>
+          <div class="mb-3 mt-4">
+            <label for="lname" class="form-label">Last Name</label>
+            <input type="text" class="form-control"
+              id="lname" name="lname" placeholder="Last Name"
+              [(ngModel)]="lname" required
             />
           </div>
           <div class="mb-3 mt-4">
@@ -24,9 +30,9 @@
             <input type="text" class="form-control"
               id="phone" name="phone" placeholder="Phone"
               (keyup)="validatePhone()"
-              [(ngModel)]="phone"
-              required
+              [(ngModel)]="phone" required
             />
+            <small *ngIf="!flags.phone" class="error">Invalid Phone Number</small>
           </div>
           <div class="d-grid mt-4">
             <button type="submit" class="btn btn-primary">Update Details</button>
