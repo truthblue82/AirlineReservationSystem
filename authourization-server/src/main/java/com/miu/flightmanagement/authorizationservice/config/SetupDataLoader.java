@@ -33,23 +33,23 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     @Override
     @Transactional
     public void onApplicationEvent(final ContextRefreshedEvent event) {
-//        if (alreadySetup) {
-//            return;
-//        }
-//
-//        // == create initial privileges
-//        final Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
-//        final Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
-//        final Privilege passwordPrivilege = createPrivilegeIfNotFound("CHANGE_PASSWORD_PRIVILEGE");
-//
-//        // == create initial roles
-//        final List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege, passwordPrivilege);
-//        final List<Privilege> userPrivileges = Arrays.asList(readPrivilege, passwordPrivilege);
-//        final Role adminRole = createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
-//        createRoleIfNotFound("ROLE_USER", userPrivileges);
-//
-//        // == create initial user
-//        createUserIfNotFound("test@test.com", "Test", "Test", "test", Arrays.asList(adminRole));
+        if (alreadySetup) {
+            return;
+        }
+
+        // == create initial privileges
+        final Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
+        final Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
+        final Privilege passwordPrivilege = createPrivilegeIfNotFound("CHANGE_PASSWORD_PRIVILEGE");
+
+        // == create initial roles
+        final List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege, passwordPrivilege);
+        final List<Privilege> userPrivileges = Arrays.asList(readPrivilege, passwordPrivilege);
+        final Role adminRole = createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
+        createRoleIfNotFound("ROLE_USER", userPrivileges);
+
+        // == create initial user
+        createUserIfNotFound("test@test.com", "Test", "Test", "test", Arrays.asList(adminRole));
 
         alreadySetup = true;
     }
@@ -71,9 +71,10 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         if (role == null) {
             role = new Role();
             role.setName(name);
+            role.setPrivileges(privileges);
+            role = roleRepository.save(role);
         }
-        role.setPrivileges(privileges);
-        role = roleRepository.save(role);
+
         return role;
     }
 
@@ -86,8 +87,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
             user.setLastName(lastName);
             user.setPassword(passwordEncoder.encode(password));
             user.setEmail(email);
+            user.setRoles(roles);
+            user = userRepository.save(user);
         }
-        user.setRoles(roles);
-        user = userRepository.save(user);
         return user;
     }}
