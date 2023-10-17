@@ -17,4 +17,5 @@ public interface UserService {
     Optional<User> getUserByID(long id);
 
 
+    UserDto findUserByPrincipal(String principalClaimValue);
 }

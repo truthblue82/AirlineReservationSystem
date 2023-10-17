@@ -2,8 +2,10 @@ package com.miu.flightmanagement.authorizationservice.config;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.access.expression.SecurityExpressionHandler;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
@@ -24,6 +26,7 @@ import org.springframework.security.web.access.expression.DefaultWebSecurityExpr
 @EnableWebSecurity
 public class DefaultSecurityConfig {
 
+
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(final HttpSecurity http) throws Exception {
         http
@@ -31,8 +34,11 @@ public class DefaultSecurityConfig {
                 .authorizeRequests(authRequests ->
                         authRequests.requestMatchers("/users/registration*").permitAll()
                                 .requestMatchers("/actuator/**").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/users/**").hasAuthority("SCOPE_product:read")
                                 .anyRequest().authenticated())
-                .formLogin(Customizer.withDefaults());
+                .formLogin(Customizer.withDefaults())
+                .oauth2ResourceServer(oAuth2ResourceServerConfigurer ->
+                        oAuth2ResourceServerConfigurer.jwt(Customizer.withDefaults()));
 
         return http.build();
     }
@@ -51,7 +57,6 @@ public class DefaultSecurityConfig {
         expressionHandler.setRoleHierarchy(roleHierarchy());
         return expressionHandler;
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {

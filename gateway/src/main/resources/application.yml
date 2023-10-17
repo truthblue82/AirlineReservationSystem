@@ -55,10 +55,10 @@ spring.cloud.gateway.routes:
     predicates:
       - Path=/error/**
 
-  - id: oauth2-user-registration
+  - id: oauth2-user
     uri: lb://auth-server
     predicates:
-      - Path=/users/registration
+      - Path=/users/**
 
 #  - id: product-composite-swagger-ui-webjars
 #    uri: lb://product-composite

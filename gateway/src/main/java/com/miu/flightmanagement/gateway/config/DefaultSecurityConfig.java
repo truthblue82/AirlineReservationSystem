@@ -20,7 +20,7 @@ public class DefaultSecurityConfig {
                         .pathMatchers("/actuator/**").permitAll()
                         .pathMatchers("/eureka/**").permitAll()
                         .pathMatchers("/oauth2/**").permitAll()
-                        .pathMatchers("/users/registration").permitAll()
+                        .pathMatchers("/users/registration*").permitAll()
                         .pathMatchers("/login/**").permitAll()
                         .pathMatchers("/error/**").permitAll()
                         .pathMatchers("/openapi/**").permitAll()

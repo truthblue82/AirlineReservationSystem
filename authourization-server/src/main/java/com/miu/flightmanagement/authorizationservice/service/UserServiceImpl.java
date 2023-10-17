@@ -3,6 +3,7 @@ package com.miu.flightmanagement.authorizationservice.service;
 import com.miu.flightmanagement.authorizationservice.persistence.model.User;
 import com.miu.flightmanagement.authorizationservice.persistence.repo.RoleRepository;
 import com.miu.flightmanagement.authorizationservice.persistence.repo.UserRepository;
+import com.miu.flightmanagement.authorizationservice.util.UserUtils;
 import com.miu.flightmanagement.authorizationservice.web.dto.UserDto;
 import com.miu.flightmanagement.authorizationservice.web.error.UserAlreadyExistException;
 import jakarta.transaction.Transactional;
@@ -58,6 +59,11 @@ public class UserServiceImpl implements UserService{
     @Override
     public Optional<User> getUserByID(long id) {
         return this.userRepository.findById(id);
+    }
+
+    @Override
+    public UserDto findUserByPrincipal(String principalClaimValue) {
+        return UserUtils.toUserDTO(this.userRepository.findByEmail(principalClaimValue));
     }
 
     private boolean emailExists(final String email) {

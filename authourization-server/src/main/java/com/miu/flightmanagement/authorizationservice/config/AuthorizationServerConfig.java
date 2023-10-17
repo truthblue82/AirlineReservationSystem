@@ -1,25 +1,39 @@
 package com.miu.flightmanagement.authorizationservice.config;
 
 import com.miu.flightmanagement.authorizationservice.jose.Jwks;
+import com.miu.flightmanagement.authorizationservice.security.CustomJwtAuthenticationConverter;
+import com.miu.flightmanagement.authorizationservice.security.MappingJwtGrantedAuthoritiesConverter;
+import com.miu.flightmanagement.authorizationservice.service.UserService;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtDecoders;
 import org.springframework.security.oauth2.server.authorization.authentication.*;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
@@ -32,14 +46,18 @@ import org.springframework.security.oauth2.server.authorization.settings.TokenSe
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.util.StringUtils;
 
 import java.time.Duration;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
 @Configuration(proxyBeanMethods = false)
 @Slf4j
+@AllArgsConstructor
+@EnableMethodSecurity
 public class AuthorizationServerConfig {
 
     @Bean
@@ -77,10 +95,11 @@ public class AuthorizationServerConfig {
     }
 
     @Bean
-    public RegisteredClientRepository registeredClientRepository(@Value("${app.security.redirect-url}") final String redirectUrl) {
+    public RegisteredClientRepository registeredClientRepository(@Value("${app.security.redirect-url}") final String redirectUrl,
+                                                                 final PasswordEncoder passwordEncoder) {
         RegisteredClient writerClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("writer")
-                .clientSecret("{noop}secret-writer")
+                .clientSecret(passwordEncoder.encode("secret-writer"))
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
@@ -95,7 +114,7 @@ public class AuthorizationServerConfig {
 
         RegisteredClient readerClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("reader")
-                .clientSecret("{noop}secret-reader")
+                .clientSecret(passwordEncoder.encode("secret-reader"))
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
@@ -125,7 +144,20 @@ public class AuthorizationServerConfig {
 
     @Bean
     public AuthorizationServerSettings authorizationServerSettings() {
-        return AuthorizationServerSettings.builder().issuer("http://auth-server:8771").build();
+        return AuthorizationServerSettings.builder().issuer("http://localhost:8771").build();
+    }
+
+    @Bean
+    public Converter<Jwt, Collection<GrantedAuthority>> jwtGrantedAuthoritiesConverter() {
+        return new MappingJwtGrantedAuthoritiesConverter();
+    }
+
+    @Bean
+    public Converter<Jwt, AbstractAuthenticationToken> customJwtAuthenticationConverter(UserService accountService,
+                                                                                        @Qualifier("jwtGrantedAuthoritiesConverter") final Converter<Jwt, Collection<GrantedAuthority>> jwtAuthoritiesConverter ) {
+        return new CustomJwtAuthenticationConverter(
+                accountService,
+                jwtAuthoritiesConverter);
     }
 
     private Consumer<List<AuthenticationProvider>> configureAuthenticationProviders() {

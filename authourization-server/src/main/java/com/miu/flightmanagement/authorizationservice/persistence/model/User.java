@@ -1,10 +1,7 @@
 package com.miu.flightmanagement.authorizationservice.persistence.model;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Collection;
 
@@ -14,6 +11,8 @@ import java.util.Collection;
 @Setter
 @ToString
 @EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -24,6 +23,8 @@ public class User {
     private String firstName;
 
     private String lastName;
+
+    private String fullName;
 
     private String email;
 
