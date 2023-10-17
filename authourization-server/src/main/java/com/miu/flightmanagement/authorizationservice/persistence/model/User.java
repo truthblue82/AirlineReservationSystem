@@ -24,8 +24,6 @@ public class User {
 
     private String lastName;
 
-    private String fullName;
-
     private String email;
 
     @Column(length = 60)

@@ -17,7 +17,6 @@ public class UserUtils {
                         null,
                         userDTO.getFirstName(),
                         userDTO.getLastName(),
-                        userDTO.getFullName(),
                         userDTO.getEmail(),
                         userDTO.getPassword(),
                         userDTO.getPhone(),
@@ -32,7 +31,6 @@ public class UserUtils {
                         .firstName(u.getFirstName())
                         .lastName(u.getLastName())
                         .email(u.getEmail())
-                        .fullName(u.getFullName())
                         .phone(u.getPhone())
                         .build())
                 .orElse(null);
