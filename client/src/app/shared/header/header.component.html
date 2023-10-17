@@ -56,6 +56,13 @@
 
         </div>
       </div>
+
+      <a *ngIf="user.length > 0 && user[0].roles[0] === adminRole"
+        class="navbar-item"
+        routerLink="/user">
+        <h3>User Management</h3>
+      </a>
+
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
           <h3>More</h3>

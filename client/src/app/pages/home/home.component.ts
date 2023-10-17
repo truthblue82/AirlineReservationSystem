@@ -8,11 +8,13 @@ import { Airport } from 'src/app/models/airport';
   templateUrl: './home.component.html',
   styles: [
   `
-    .All {
+    .all {
       width: 100%;
       display: flex;
       flex-direction: row;
       justify-content: center;
+      padding: 20px 0;
+      background-image: url(../../../assets/images/background_img1.jpg)
     }
     .top-left {
       position: absolute;

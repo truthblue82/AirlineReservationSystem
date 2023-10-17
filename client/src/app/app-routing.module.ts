@@ -18,6 +18,8 @@ import { UserComponent } from './pages/user/user.component';
 import { AddUserComponent } from './pages/add-user/add-user.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { FlightHistoryComponent } from './pages/flight-history/flight-history.component';
+import { userGuard } from './guards/user.guard';
+import { adminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -39,7 +41,7 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
-    canActivate: []
+    canActivate: [userGuard]
   },
   {
     path: 'add-user',
@@ -49,42 +51,45 @@ const routes: Routes = [
   {
     path: 'airport',
     component: AirportComponent,
-    canActivate: []
+    canActivate: [adminGuard]
   },
   {
     path: 'add-airport',
     component: AddAirportComponent,
-    canActivate: []
+    canActivate: [adminGuard]
   },
   {
     path: 'flight',
     component: FlightComponent,
-    canActivate: []
+    canActivate: [adminGuard]
   },
   {
     path: 'add-flight',
     component: AddFlightComponent,
-    canActivate: []
+    canActivate: [adminGuard]
   },
   {
     path: 'flight-history',
     component: FlightHistoryComponent,
-    canActivate: []
+    canActivate: [userGuard]
   },
+  // {
+  //   path: 'flight-booking-list',
+  // },
   {
     path: 'account-settings',
     component: AccountSettingsComponent,
-    canActivate: []
+    canActivate: [userGuard]
   },
   {
     path: 'schedule',
     component: ScheduleComponent,
-    canActivate: []
+    canActivate: [adminGuard]
   },
   {
     path: 'add-schedule',
     component: AddScheduleComponent,
-    canActivate: []
+    canActivate: [adminGuard]
   },
   {
     path: 'flight-booking',
