@@ -12,14 +12,12 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -33,7 +31,6 @@ import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.JwtDecoders;
 import org.springframework.security.oauth2.server.authorization.authentication.*;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
@@ -46,7 +43,6 @@ import org.springframework.security.oauth2.server.authorization.settings.TokenSe
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.RequestMatcher;
-import org.springframework.util.StringUtils;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -62,7 +58,7 @@ public class AuthorizationServerConfig {
 
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
-    public SecurityFilterChain authorizationServerSecurityChain(final HttpSecurity http) throws Exception {
+    public SecurityFilterChain authorizationServerSecurityChain(final HttpSecurity http, @Qualifier("customJwtAuthenticationConverter") final Converter<Jwt, ? extends AbstractAuthenticationToken> jwtConverter) throws Exception {
         final OAuth2AuthorizationServerConfigurer oAuth2AuthorizationConfigurer =
                 new OAuth2AuthorizationServerConfigurer();
 
@@ -109,7 +105,7 @@ public class AuthorizationServerConfig {
                 .scope("product:read")
                 .scope("product:write")
                 .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
-                .tokenSettings(TokenSettings.builder().accessTokenTimeToLive(Duration.ofHours(1)).build())
+                .tokenSettings(TokenSettings.builder().accessTokenTimeToLive(Duration.ofHours(3)).build())
                 .build();
 
         RegisteredClient readerClient = RegisteredClient.withId(UUID.randomUUID().toString())
@@ -123,7 +119,7 @@ public class AuthorizationServerConfig {
                 .scope(OidcScopes.OPENID)
                 .scope("product:read")
                 .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
-                .tokenSettings(TokenSettings.builder().accessTokenTimeToLive(Duration.ofHours(1)).build())
+                .tokenSettings(TokenSettings.builder().accessTokenTimeToLive(Duration.ofHours(3)).build())
                 .build();
 
         return new InMemoryRegisteredClientRepository(writerClient, readerClient);

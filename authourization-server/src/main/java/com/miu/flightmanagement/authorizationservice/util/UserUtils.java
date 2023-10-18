@@ -1,6 +1,7 @@
 package com.miu.flightmanagement.authorizationservice.util;
 
 import com.miu.flightmanagement.authorizationservice.persistence.model.User;
+import com.miu.flightmanagement.authorizationservice.web.dto.RoleDto;
 import com.miu.flightmanagement.authorizationservice.web.dto.UserDto;
 import lombok.experimental.UtilityClass;
 import org.springframework.lang.Nullable;
@@ -32,6 +33,7 @@ public class UserUtils {
                         .lastName(u.getLastName())
                         .email(u.getEmail())
                         .phone(u.getPhone())
+                        .roles(u.getRoles().stream().map(r -> RoleDto.builder().name(r.getName()).build()).toList())
                         .build())
                 .orElse(null);
     }

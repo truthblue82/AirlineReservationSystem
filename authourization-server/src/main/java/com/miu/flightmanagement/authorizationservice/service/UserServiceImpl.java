@@ -32,8 +32,7 @@ public class UserServiceImpl implements UserService{
         if (emailExists(accountDto.getEmail())) {
             throw new UserAlreadyExistException("There is an account with that email address: " + accountDto.getEmail());
         }
-        User user = new User();
-        user = UserUtils.toUser(accountDto);
+        User user = UserUtils.toUser(accountDto);
         user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
         user.setRoles(Collections.singletonList(roleRepository.findByName("ROLE_USER")));
         return userRepository.save(user);
