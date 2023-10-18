@@ -64,7 +64,7 @@ export class SignupComponent implements OnInit {
           this.toastr.error('User registered un successfully!', 'Error');
         }
         this.displayModal = false;
-        this.router.navigate(['/login']);
+        this.router.navigate(['/']);
       },
       (error) => {
         this.toastr.error('Something went wrong!', 'Error');

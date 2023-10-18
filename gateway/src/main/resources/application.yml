@@ -10,6 +10,19 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://${app.auth-server}:8771
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins: http://localhost:4000
+            allowed-headers: "Origin, Content-Type, X-Auth-Token, content-type"
+            allowed-methods:
+              - GET
+              - POST
+              - PATCH
+              - PUT
+
 
 server.ssl:
   key-store-type: PKCS12

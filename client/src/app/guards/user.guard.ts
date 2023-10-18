@@ -5,7 +5,6 @@ import {
   RouterStateSnapshot,
   UrlTree
 } from '@angular/router';
-import { Observable } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
 import { inject } from '@angular/core';

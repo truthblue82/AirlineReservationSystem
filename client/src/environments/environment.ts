@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
+  ADMIN_EMAIL: "test@gmail.com",
   APP_BASE_URL: "http://localhost:4000",
+  OAUTH2_BASE_URL: "http://localhost:8771",
 
   GATEWAY_BASE_URL: "https://localhost:8443",
   GATEWAY_USER_REGISTER_URI: "users/registration",
