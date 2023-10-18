@@ -35,7 +35,7 @@ export class UserService {
 
   signUp(user: User) {
     //return this.http.post(`${environment.BASE_SERVICE_URL}/api/auth/signup`, user, {observe:'response'});
-    return this.http.post(`${environment.OAUTH2_BASE_URL}/${environment.GATEWAY_USER_REGISTER_URI}`, user,{observe:'response'});
+    return this.http.post(`${environment.GATEWAY_BASE_URL}/${environment.GATEWAY_USER_REGISTER_URI}`, user,{observe:'response'});
   }
 
   authenticate(user: any) {
