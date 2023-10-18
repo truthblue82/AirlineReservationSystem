@@ -24,7 +24,10 @@ export class AuthInterceptor implements HttpInterceptor {
     if(user && token) {
       const cloned = request.clone({
         headers: request.headers.set('Authorization', 'Bearer ' + token)
-                .set('Access-Control-Allow-Origin', '*')
+        .set('Vary','Access-Control-Request-Headers')
+        .set('Vary','Origin')
+        .set('Vary','Access-Control-Request-Method')
+        .set('Access-Control-Allow-Origin', '*')
       });
 
       return next.handle(cloned).pipe(tap(

@@ -1,8 +1,9 @@
-import { ActivatedRoute, ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
 
 import { User } from '../models/user';
 import { UserService } from '../services/user.service';
 import { inject } from '@angular/core';
+import { environment } from 'src/environments/environment';
 export const adminGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
   const router: Router = inject(Router)  ;
   const userSvc: UserService = inject(UserService);
@@ -14,7 +15,7 @@ export const adminGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: 
   if(users.length > 0) {
     //const role = users[0].roles[0];
     //if(role === "ROLE_ADMIN") return true;
-    if(users[0].email === "test@test.com"){
+    if(users[0].email === environment.ADMIN_EMAIL) {
       return true;
     }
     else {

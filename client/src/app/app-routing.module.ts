@@ -15,7 +15,6 @@ import { AddScheduleComponent } from './pages/add-schedule/add-schedule.componen
 import { AddAirportComponent } from './pages/add-airport/add-airport.component';
 import { AddFlightComponent } from './pages/add-flight/add-flight.component';
 import { UserComponent } from './pages/user/user.component';
-import { AddUserComponent } from './pages/add-user/add-user.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { FlightHistoryComponent } from './pages/flight-history/flight-history.component';
 import { adminGuard } from './guards/admin.guard';
@@ -42,11 +41,6 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     canActivate: [userGuard]
-  },
-  {
-    path: 'add-user',
-    component: AddUserComponent,
-    canActivate: [adminGuard]
   },
   {
     path: 'airport',

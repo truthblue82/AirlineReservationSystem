@@ -14,6 +14,7 @@ public class DefaultSecurityConfig {
     @Bean
     public SecurityWebFilterChain defaultSecurityFilterChain(final ServerHttpSecurity http) {
         http
+                .cors(corsSpec -> corsSpec.disable())
                 .csrf(csrfSpec -> csrfSpec.disable())
                 .authorizeExchange(authorize -> authorize
                         .pathMatchers("/headerrouting/**").permitAll()

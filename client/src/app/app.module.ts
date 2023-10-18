@@ -31,7 +31,6 @@ import { AddScheduleComponent } from './pages/add-schedule/add-schedule.componen
 import { AddAirportComponent } from './pages/add-airport/add-airport.component';
 import { AddFlightComponent } from './pages/add-flight/add-flight.component';
 import { UserComponent } from './pages/user/user.component';
-import { AddUserComponent } from './pages/add-user/add-user.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 
 
@@ -60,7 +59,6 @@ import { ProfileComponent } from './pages/profile/profile.component';
     AddAirportComponent,
     AddFlightComponent,
     UserComponent,
-    AddUserComponent,
     ProfileComponent
   ],
   imports: [
