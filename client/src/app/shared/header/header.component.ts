@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +14,7 @@ export class HeaderComponent implements OnInit {
   adminRole: string = "ROLE_ADMIN";
   userRole: string = "ROLE_CUSTOMER";
   user: any[];
+  gateway_url: string;
 
   imgSrc = 'assets/images/menu2.png';
 
@@ -23,6 +25,7 @@ export class HeaderComponent implements OnInit {
     this.user = [];
     this.isAdmin = false;
     this.isUser = false;
+    this.gateway_url = `${environment.GATEWAY_BASE_URL}/oauth2/authorize?response_type=code&client_id=writer&redirect_uri=${environment.APP_BASE_URL}&scope=product:write%20product:read`;
   }
 
   ngOnInit(): void {
@@ -31,12 +34,13 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  showUser() {
-    console.log('user:', this.user);
-  }
-
   handleLogout() {
     this.userSvc.logout();
     this.router.navigate(['login']);
+  }
+  handleLoginButton(event: Event): void {
+    console.log(this.gateway_url);
+    window.location.href = `${this.gateway_url}`;
+    event.preventDefault();
   }
 }
