@@ -11,6 +11,18 @@ spring:
         jwt:
           issuer-uri: http://${app.auth-server}:8771
 
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origin-patterns: "*"
+            allowed-methods: "*"
+            allowed-headers: "*"
+            allow-credentials: true
+
 server.ssl:
   key-store-type: PKCS12
   key-store: classpath:keystore/edge.p12

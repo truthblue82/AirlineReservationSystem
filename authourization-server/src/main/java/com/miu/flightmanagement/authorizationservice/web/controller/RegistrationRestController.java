@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Slf4j
 @AllArgsConstructor
-@CrossOrigin
 public class RegistrationRestController {
     private final UserService userService;
 
