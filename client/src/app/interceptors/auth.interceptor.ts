@@ -21,13 +21,13 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const user = this.userSvc.getCurrentUser();
     let token = sessionStorage.getItem('token');
-    if(user && token) {
+    if(token) {
       const cloned = request.clone({
         headers: request.headers.set('Authorization', 'Bearer ' + token)
-        .set('Vary','Access-Control-Request-Headers')
-        .set('Vary','Origin')
-        .set('Vary','Access-Control-Request-Method')
-        .set('Access-Control-Allow-Origin', '*')
+        .set('Access-Control-Request-Headers', 'Origin, X-Auth-Token, Content-Type')
+        .set('Access-Control-Allow-Credentials', '*')
+        //.set('Access-Control-Request-Method', 'GET, POST, PATCH, PUT')
+        //.set('Access-Control-Allow-Origin', '*')
       });
 
       return next.handle(cloned).pipe(tap(

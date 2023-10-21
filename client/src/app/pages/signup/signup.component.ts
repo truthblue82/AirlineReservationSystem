@@ -33,7 +33,7 @@ export class SignupComponent implements OnInit {
       this.user = {
         firstName: '', email: '',
         lastName: '', phone: '',
-        password: ''};
+        password: '', roles: []};
       this.repeatPassword = '';
   }
 

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Route } from '@angular/router';
-import { Airport } from 'src/app/models/airport';
+import { ActivatedRoute, Route, Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-home',
@@ -114,15 +116,8 @@ import { Airport } from 'src/app/models/airport';
 })
 export class HomeComponent implements OnInit {
   // airports: Airport[] = [];
-  // src!: string;
-  // dest!: string;
-  // journeyDate!: string;
 
-  // minDate: any;
-  // maxDate: any;
-
-  // errorFlag: boolean = false;
-
+  code!: string;
   carouselImages = [
     '../../assets/flightImages/aeroplane_img.jpg',
     'https://images.unsplash.com/photo-1606768666853-403c90a981ad?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZmxpZ2h0fGVufDB8fDB8fA%3D%3D&w=1000&q=80',
@@ -130,14 +125,33 @@ export class HomeComponent implements OnInit {
   ];
 
   constructor(
-    private appTitle: Title
+    private appTitle: Title,
+    private userSvc: UserService,
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) {
     this.appTitle.setTitle('Airport Reservation System - Home page');
-    // this.minDate = new Date();
-    // this.maxDate = new Date();
-    // this.maxDate.setMonth(this.maxDate.getMonth()+2);
+    this.route.queryParams.subscribe(params => {
+      this.code = params['code'];
+      console.log('code:',this.code);
+    });
   }
 
   ngOnInit(): void {
+    //get code from url if any
+    console.log('code in ngOnInit', this.code);
+    this.userSvc.authenticate(this.code).subscribe(
+    (result: any) => {
+      console.log('result in authenticate',result);
+      if(result.access_token) {
+        this.userSvc.getLoginUser(result);
+      } else {
+        this.toastr.error(result.error, 'Error');
+      }
+    },
+    error => {
+      console.log(error);
+      this.toastr.error(error.error.message, 'Error');
+    })
   }
 }

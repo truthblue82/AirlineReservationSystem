@@ -47,21 +47,21 @@ export class LoginComponent implements OnInit {
       password: this.password
     };
     this.displayModal = true;
-    this.userSvc.authenticate(data).subscribe((result: any) => {
-      result.body.rememberMe = this.rememberMe;
+    // this.userSvc.authenticate(data).subscribe((result: any) => {
+    //   result.body.rememberMe = this.rememberMe;
 
-      if(result.status === 200) {
-        this.userSvc.storeSession(result.body);
-        this.router.navigate(['/']);
-      } else {
-        this.toastr.error('Something went wrong!', 'Error');
-        this.displayModal = false;
-      }
-    },
-    (err) => {
-      console.log(err);
-      this.toastr.error(err.error.message, 'Error');
-      this.displayModal = false;
-    });
+    //   if(result.status === 200) {
+    //     this.userSvc.storeSession(result.body);
+    //     this.router.navigate(['/']);
+    //   } else {
+    //     this.toastr.error('Something went wrong!', 'Error');
+    //     this.displayModal = false;
+    //   }
+    // },
+    // (err) => {
+    //   console.log(err);
+    //   this.toastr.error(err.error.message, 'Error');
+    //   this.displayModal = false;
+    // });
   }
 }
