@@ -13,9 +13,7 @@ export const adminGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: 
     users = userData;
   })
   if(users.length > 0) {
-    //const role = users[0].roles[0];
-    //if(role === "ROLE_ADMIN") return true;
-    if(users[0].email === environment.ADMIN_EMAIL) {
+    if(users[0].roles[0].name === "ROLE_ADMIN") {
       return true;
     }
     else {

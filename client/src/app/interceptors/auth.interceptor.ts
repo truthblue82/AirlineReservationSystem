@@ -5,40 +5,60 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpErrorResponse
+  HttpErrorResponse,
+  HttpResponse
 } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor(
     private router: Router,
-    private userSvc: UserService,) {}
+    private userSvc: UserService,
+    private toastr: ToastrService
+    ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const user = this.userSvc.getCurrentUser();
-    let token = sessionStorage.getItem('token');
-    if(token) {
-      const cloned = request.clone({
-        headers: request.headers.set('Authorization', 'Bearer ' + token)
-        .set('Access-Control-Request-Headers', 'Origin, X-Auth-Token, Content-Type')
-        .set('Access-Control-Allow-Credentials', '*')
-        //.set('Access-Control-Request-Method', 'GET, POST, PATCH, PUT')
-        //.set('Access-Control-Allow-Origin', '*')
-      });
+    let token = localStorage.getItem('token');
 
-      return next.handle(cloned).pipe(tap(
-        () => {}, (err: any) => {
-          if(err instanceof HttpErrorResponse) {
-            if(err.status === 401) {
-              this.router.navigate(['login']);
+    if(token) {
+      const updatedReq = request.clone();
+      updatedReq.headers.set('Authorization', `Bearer ${token}`)
+      .set('Access-Control-Allow-Origin', environment.APP_BASE_URL);
+      // const cloned = request.clone({
+      //   method: 'GET',
+      //   headers: request.headers.set('Authorization', 'Bearer ' + token)
+      //           .set('Access-Control-Allow-Origin', environment.APP_BASE_URL)
+      // });
+      //.set('Access-Control-Request-Headers', 'Content-Type')
+        //.set('Access-Control-Allow-Credentials', 'true')
+        //.set('Access-Control-Request-Method', 'GET,PUT,POST,DELETE,OPTIONS'),
+
+      return next.handle(updatedReq).pipe(
+        tap({
+          next: (event) => {
+            if(event instanceof HttpResponse) {
+              if(event.status === 401) {
+                this.toastr.error('Unauthorized access!', 'Error');
+                this.router.navigate(['/'], {queryParams: null});
+              }
             }
+            return event;
+          },
+          error: (error) => {
+            if(error.status === 401) {
+              this.toastr.error('Unauthorized access!');
+            } else if(error.status === 404){
+              this.toastr.error('Page not found!', 'Error');
+            }
+            this.router.navigate(['/'], {queryParams: null});
           }
-        }
-      ));
+        }));
     } else
       return next.handle(request);
   }

@@ -40,4 +40,5 @@ public class RegistrationRestController {
         userService.saveRegisteredUser(userDto);
         return ResponseEntity.ok(userDto);
     }
+
 }

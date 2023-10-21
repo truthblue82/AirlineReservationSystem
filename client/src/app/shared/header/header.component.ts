@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
 
   handleLogout() {
     this.userSvc.logout();
-    this.router.navigate(['login']);
+    this.router.navigate(['/']);
   }
   handleLoginButton(event: Event): void {
     console.log(this.gateway_url);

@@ -3,6 +3,7 @@ package com.miu.flightmanagement.authorizationservice.service;
 import com.miu.flightmanagement.authorizationservice.web.dto.UserDto;
 import com.miu.flightmanagement.authorizationservice.persistence.model.User;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
@@ -18,4 +19,5 @@ public interface UserService {
 
 
     UserDto findUserByPrincipal(String principalClaimValue);
+
 }

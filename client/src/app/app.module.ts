@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -76,7 +77,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
       useClass: AuthInterceptor,
       multi: true
     },
-    HttpClient
+    HttpClient,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { User } from 'src/app/models/user';
 
 
 @Component({
@@ -115,8 +116,7 @@ import { ToastrService } from 'ngx-toastr';
   `]
 })
 export class HomeComponent implements OnInit {
-  // airports: Airport[] = [];
-
+  users: User[] = [];
   code!: string;
   carouselImages = [
     '../../assets/flightImages/aeroplane_img.jpg',
@@ -131,27 +131,32 @@ export class HomeComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.appTitle.setTitle('Airport Reservation System - Home page');
+    this.userSvc.getCurrentUser().subscribe(user => {
+      this.users = user;
+    })
     this.route.queryParams.subscribe(params => {
-      this.code = params['code'];
+      this.code = params['code'] || '';
       console.log('code:',this.code);
     });
   }
 
   ngOnInit(): void {
     //get code from url if any
-    console.log('code in ngOnInit', this.code);
-    this.userSvc.authenticate(this.code).subscribe(
-    (result: any) => {
-      console.log('result in authenticate',result);
-      if(result.access_token) {
-        this.userSvc.getLoginUser(result);
-      } else {
-        this.toastr.error(result.error, 'Error');
-      }
-    },
-    error => {
-      console.log(error);
-      this.toastr.error(error.error.message, 'Error');
-    })
+    console.log('user OnInit', this.users);
+    if(this.code && this.users.length === 0) {
+      this.userSvc.authenticate(this.code).subscribe(
+        (result: any) => {
+          console.log('result in authenticate',result);
+          if(result.access_token) {
+            this.userSvc.getLoginUser(result);
+          } else {
+            this.toastr.error(result.error, 'Error1');
+          }
+        },
+        error => {
+          console.log(error);
+          this.toastr.error("Token is expired", 'Error');
+        });
+    }
   }
 }
