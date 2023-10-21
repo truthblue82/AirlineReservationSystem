@@ -1,0 +1,129 @@
+package com.miu.flightmanagement.airlinebookingservice.controller;
+
+import com.miu.flightmanagement.airlinebookingservice.dto.ScheduleFlightRequest;
+import com.miu.flightmanagement.airlinebookingservice.dto.ScheduleFlightSearchRequest;
+import com.miu.flightmanagement.airlinebookingservice.dto.ScheduledFlightsDTO;
+import com.miu.flightmanagement.airlinebookingservice.exception.RecordNotFoundException;
+import com.miu.flightmanagement.airlinebookingservice.exception.ScheduledFlightNotFoundException;
+import com.miu.flightmanagement.airlinebookingservice.model.Schedule;
+import com.miu.flightmanagement.airlinebookingservice.model.ScheduledFlight;
+import com.miu.flightmanagement.airlinebookingservice.service.AirportService;
+import com.miu.flightmanagement.airlinebookingservice.service.FlightService;
+import com.miu.flightmanagement.airlinebookingservice.service.ScheduledFlightService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.Collection;
+
+@RestController
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin
+@RequestMapping("/api/scheduled-flight")
+public class ScheduledFlightController {
+	/*
+	 * Creating Service object
+	 */
+	@Autowired
+	ScheduledFlightService scheduleFlightService;
+
+	@Autowired
+	AirportService airportService;
+
+	@Autowired
+	FlightService flightService;
+
+
+
+	/*
+	 * Controller for adding Scheduled Flights
+	 */
+	@PostMapping()
+	public ResponseEntity<ScheduledFlight> addSF(@RequestBody ScheduleFlightRequest scheduleFlightRequest) {
+		final Schedule schedule = new Schedule();
+		final ScheduledFlight scheduledFlight = new ScheduledFlight();
+		try {
+			schedule.setSrcAirport(airportService.viewAirport(scheduleFlightRequest.getDepartureAirportCode()));
+		} catch (RecordNotFoundException e) {
+			return new ResponseEntity("Airport Not Found", HttpStatus.BAD_REQUEST);
+		}
+		try {
+			schedule.setDstnAirport(airportService.viewAirport(scheduleFlightRequest.getArrivalAirportCode()));
+		} catch (RecordNotFoundException e) {
+			return new ResponseEntity("Airport Not Found", HttpStatus.BAD_REQUEST);
+		}
+		schedule.setDeptDateTime(LocalDateTime.parse(scheduleFlightRequest.getDepartureDateTime()).atOffset(ZoneOffset.UTC));
+		schedule.setArrDateTime(LocalDateTime.parse(scheduleFlightRequest.getArrivalDateTime()).atOffset(ZoneOffset.UTC));
+		try {
+			scheduledFlight.setFlight(flightService.viewFlight(scheduleFlightRequest.getFlightNo()));
+		} catch (RecordNotFoundException e1) {
+			return new ResponseEntity("Flight Not Found", HttpStatus.BAD_REQUEST);
+		}
+		scheduledFlight.setSchedule(schedule);
+		scheduledFlight.setAvailableSeats(scheduledFlight.getFlight().getSeatCapacity());
+		try {
+			return new ResponseEntity<ScheduledFlight>(scheduleFlightService.addScheduledFlight(scheduledFlight),
+					HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity("Error adding Flight." + e, HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	/*
+	 * Controller for modifying existing Scheduled Flights
+	 */
+	@PutMapping()
+	public ResponseEntity<ScheduledFlight> modifyScheduleFlight(@RequestBody ScheduledFlight scheduleFlight) {
+		ScheduledFlight modifySFlight = scheduleFlightService.modifyScheduledFlight(scheduleFlight);
+		if (modifySFlight == null) {
+			return new ResponseEntity("Flight not modified", HttpStatus.INTERNAL_SERVER_ERROR);
+		} else {
+			return new ResponseEntity<ScheduledFlight>(modifySFlight, HttpStatus.OK);
+		}
+
+	}
+
+	/*
+	 * Controller for deleting existing Scheduled Flights
+	 */
+	@DeleteMapping("/{sfId}")
+	public String deleteSF(@PathVariable("sfId") Long scheduledFlightId) throws RecordNotFoundException {
+		return scheduleFlightService.removeScheduledFlight(scheduledFlightId);
+	}
+
+	/*
+	 * Controller for viewing a Scheduled Flight by ID
+	 */
+	@GetMapping("/search")
+	public ResponseEntity<?> viewSF(
+			@RequestBody ScheduleFlightSearchRequest scheduleFlightSearchRequest
+	)  {
+		try {
+			Collection<ScheduledFlight> searchSFlight = scheduleFlightService.viewScheduledFlights(
+					LocalDateTime.parse(scheduleFlightSearchRequest.getDepartureDate()).atOffset(ZoneOffset.UTC).toLocalDate(),
+					scheduleFlightSearchRequest.getDepartureAirportCode(),
+					scheduleFlightSearchRequest.getArrivalAirportCode(),
+					scheduleFlightSearchRequest.getNoOfPassengers()
+			);
+
+			final ScheduledFlightsDTO scheduledFlightDTO = new ScheduledFlightsDTO();
+			scheduledFlightDTO.setScheduledFlights(searchSFlight);
+			return new ResponseEntity<>(scheduledFlightDTO, HttpStatus.OK);
+		}catch (ScheduledFlightNotFoundException ex) {
+			return new ResponseEntity("Flight not present", HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	/*
+	 * Controller for viewing all Scheduled Flights
+	 */
+	@GetMapping()
+	public ResponseEntity<?> viewAllSF() {
+		return ResponseEntity.ok(scheduleFlightService.viewAllScheduledFlights());
+	}
+	
+
+}

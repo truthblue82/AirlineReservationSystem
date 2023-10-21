@@ -80,6 +80,7 @@ public class DefaultSecurityConfig {
         return authProvider;
     }
 
+    // register CORS filter
     @Bean
     public FilterRegistrationBean corsFilterRegistrationBean() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
