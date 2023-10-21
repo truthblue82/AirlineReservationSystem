@@ -1,17 +1,18 @@
 package com.miu.flightmanagement.airlinebookingservice.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 
 @Entity
 @Getter
 @Setter
 @EqualsAndHashCode
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Flight {
 
 	@Id
@@ -19,21 +20,12 @@ public class Flight {
 	private String carrierName;
 	private String flightModel;
 	private int seatCapacity;
+	private BigDecimal economicPrice;
 
 	/*
 	 * @OneToOne(mappedBy = "flightObj", cascade = CascadeType.ALL) private
 	 * ScheduledFlight sfObj;
 	 */
 
-	public Flight() {
-	}
-
-	public Flight(String flightNo, String carrierName, String flightModel, int seatCapacity) {
-		super();
-		this.flightNo = flightNo;
-		this.carrierName = carrierName;
-		this.flightModel = flightModel;
-		this.seatCapacity = seatCapacity;
-	}
 
 }

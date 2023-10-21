@@ -26,14 +26,14 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public ResponseEntity<Booking> createBooking(Booking newBooking) {
 
-		Optional<Booking> findBookingById = bookingDao.findById(newBooking.getBookingId());
+		Optional<Booking> findBookingById = bookingDao.findById(newBooking.getId());
 		try {
 			if (!findBookingById.isPresent()) {
 				bookingDao.save(newBooking);
 				return new ResponseEntity<Booking>(newBooking, HttpStatus.OK);
 			} else
 				throw new RecordAlreadyPresentException(
-						"Booking with Booking Id: " + newBooking.getBookingId() + " already exists!!");
+						"Booking with Booking Id: " + newBooking.getId() + " already exists!!");
 		} catch (RecordAlreadyPresentException e) {
 
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -45,12 +45,12 @@ public class BookingServiceImpl implements BookingService {
 	 */
 	@Override
 	public Booking updateBooking(Booking changedBooking) {
-		Optional<Booking> findBookingById = bookingDao.findById(changedBooking.getBookingId());
+		Optional<Booking> findBookingById = bookingDao.findById(changedBooking.getId());
 		if (findBookingById.isPresent()) {
 			bookingDao.save(changedBooking);
 		} else
 			throw new RecordNotFoundException(
-					"Booking with Booking Id: " + changedBooking.getBookingId() + " not exists!!");
+					"Booking with Booking Id: " + changedBooking.getId() + " not exists!!");
 		return changedBooking;
 	}
 
