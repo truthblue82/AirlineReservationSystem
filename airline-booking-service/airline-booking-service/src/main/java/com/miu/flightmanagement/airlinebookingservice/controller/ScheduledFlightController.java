@@ -2,14 +2,18 @@ package com.miu.flightmanagement.airlinebookingservice.controller;
 
 import com.miu.flightmanagement.airlinebookingservice.dto.ScheduleFlightRequest;
 import com.miu.flightmanagement.airlinebookingservice.dto.ScheduleFlightSearchRequest;
+import com.miu.flightmanagement.airlinebookingservice.dto.ScheduledFlightDTO;
 import com.miu.flightmanagement.airlinebookingservice.dto.ScheduledFlightsDTO;
 import com.miu.flightmanagement.airlinebookingservice.exception.RecordNotFoundException;
+import com.miu.flightmanagement.airlinebookingservice.exception.ScheduledFlightAlreadyBookedException;
 import com.miu.flightmanagement.airlinebookingservice.exception.ScheduledFlightNotFoundException;
 import com.miu.flightmanagement.airlinebookingservice.model.Schedule;
 import com.miu.flightmanagement.airlinebookingservice.model.ScheduledFlight;
 import com.miu.flightmanagement.airlinebookingservice.service.AirportService;
 import com.miu.flightmanagement.airlinebookingservice.service.FlightService;
 import com.miu.flightmanagement.airlinebookingservice.service.ScheduledFlightService;
+import com.miu.flightmanagement.airlinebookingservice.util.ScheduledFlightUtil;
+import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -64,6 +68,8 @@ public class ScheduledFlightController {
 		}
 		scheduledFlight.setSchedule(schedule);
 		scheduledFlight.setAvailableSeats(scheduledFlight.getFlight().getSeatCapacity());
+		scheduledFlight.setTemporaryAvailableSeats(scheduledFlight.getFlight().getSeatCapacity());
+		scheduledFlight.setEconomicPrice(NumberUtils.createBigDecimal(scheduleFlightRequest.getEconomicPrice()));
 		try {
 			return new ResponseEntity<ScheduledFlight>(scheduleFlightService.addScheduledFlight(scheduledFlight),
 					HttpStatus.OK);
@@ -76,12 +82,12 @@ public class ScheduledFlightController {
 	 * Controller for modifying existing Scheduled Flights
 	 */
 	@PutMapping()
-	public ResponseEntity<ScheduledFlight> modifyScheduleFlight(@RequestBody ScheduledFlight scheduleFlight) {
-		ScheduledFlight modifySFlight = scheduleFlightService.modifyScheduledFlight(scheduleFlight);
+	public ResponseEntity<ScheduledFlightDTO> modifyScheduleFlight(@RequestBody ScheduledFlightDTO scheduledFlightDTO) {
+		ScheduledFlight modifySFlight = scheduleFlightService.modifyScheduledFlight(scheduledFlightDTO);
 		if (modifySFlight == null) {
 			return new ResponseEntity("Flight not modified", HttpStatus.INTERNAL_SERVER_ERROR);
 		} else {
-			return new ResponseEntity<ScheduledFlight>(modifySFlight, HttpStatus.OK);
+			return ResponseEntity.ok(scheduledFlightDTO);
 		}
 
 	}
@@ -94,9 +100,6 @@ public class ScheduledFlightController {
 		return scheduleFlightService.removeScheduledFlight(scheduledFlightId);
 	}
 
-	/*
-	 * Controller for viewing a Scheduled Flight by ID
-	 */
 	@GetMapping("/search")
 	public ResponseEntity<?> viewSF(
 			@RequestBody ScheduleFlightSearchRequest scheduleFlightSearchRequest
@@ -109,8 +112,9 @@ public class ScheduledFlightController {
 					scheduleFlightSearchRequest.getNoOfPassengers()
 			);
 
-			final ScheduledFlightsDTO scheduledFlightDTO = new ScheduledFlightsDTO();
-			scheduledFlightDTO.setScheduledFlights(searchSFlight);
+			final ScheduledFlightsDTO scheduledFlightDTO = ScheduledFlightsDTO.builder()
+					.scheduledFlights(ScheduledFlightUtil.toScheduledFlightDTOs(searchSFlight))
+					.build();
 			return new ResponseEntity<>(scheduledFlightDTO, HttpStatus.OK);
 		}catch (ScheduledFlightNotFoundException ex) {
 			return new ResponseEntity("Flight not present", HttpStatus.BAD_REQUEST);
@@ -120,9 +124,16 @@ public class ScheduledFlightController {
 	/*
 	 * Controller for viewing all Scheduled Flights
 	 */
-	@GetMapping()
+	@GetMapping("/viewall")
 	public ResponseEntity<?> viewAllSF() {
-		return ResponseEntity.ok(scheduleFlightService.viewAllScheduledFlights());
+		return ResponseEntity.ok(ScheduledFlightsDTO.builder()
+				.scheduledFlights(ScheduledFlightUtil.toScheduledFlightDTOs(scheduleFlightService.viewAllScheduledFlights()))
+				.build());
+	}
+
+	@ExceptionHandler(value = {ScheduledFlightAlreadyBookedException.class, ScheduledFlightNotFoundException.class})
+	public ResponseEntity<?> handleScheduleFlightModificationError(final Exception ex) {
+		return new ResponseEntity("Scheduled flight not modified - " + ex.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 	
 

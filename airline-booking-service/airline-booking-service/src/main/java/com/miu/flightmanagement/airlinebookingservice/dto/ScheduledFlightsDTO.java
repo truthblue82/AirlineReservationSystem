@@ -1,11 +1,12 @@
 package com.miu.flightmanagement.airlinebookingservice.dto;
 
-import com.miu.flightmanagement.airlinebookingservice.model.ScheduledFlight;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.Collection;
 
 @Data
+@Builder
 public class ScheduledFlightsDTO {
-    private Collection<ScheduledFlight> scheduledFlights;
+    private Collection<ScheduledFlightDTO> scheduledFlights;
 }

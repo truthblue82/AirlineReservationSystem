@@ -4,15 +4,16 @@ import java.math.BigInteger;
 import java.util.Date;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 
 @Entity
 @Getter
 @Setter
 @EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Passenger {
 
 	@Id

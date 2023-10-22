@@ -1,12 +1,19 @@
 package com.miu.flightmanagement.airlinebookingservice.service;
 
+import com.miu.flightmanagement.airlinebookingservice.dao.AirportDao;
+import com.miu.flightmanagement.airlinebookingservice.dao.FlightDao;
 import com.miu.flightmanagement.airlinebookingservice.dao.ScheduleDao;
 import com.miu.flightmanagement.airlinebookingservice.dao.ScheduledFlightDao;
+import com.miu.flightmanagement.airlinebookingservice.dto.ScheduledFlightDTO;
 import com.miu.flightmanagement.airlinebookingservice.exception.RecordNotFoundException;
+import com.miu.flightmanagement.airlinebookingservice.exception.ScheduledFlightAlreadyBookedException;
 import com.miu.flightmanagement.airlinebookingservice.exception.ScheduledFlightNotFoundException;
-import com.miu.flightmanagement.airlinebookingservice.model.Schedule;
+import com.miu.flightmanagement.airlinebookingservice.model.Flight;
 import com.miu.flightmanagement.airlinebookingservice.model.ScheduledFlight;
+import com.miu.flightmanagement.airlinebookingservice.util.ScheduledFlightUtil;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -26,6 +33,12 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	ScheduleDao scheduleDao;
 
 	@Autowired
+	FlightDao flightDao;
+
+	@Autowired
+	AirportDao airportDao;
+
+	@Autowired
 	BookingService bookingService;
 
 	/*
@@ -36,20 +49,28 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		return dao.save(scheduledFlight);
 	}
 
-	/*
-	 * Service method to modify existing Scheduled flight in database
-	 */
+
 	@Override
-	public ScheduledFlight modifyScheduledFlight(ScheduledFlight scheduleFlight) {
-		ScheduledFlight updateScheduleFlight = dao.findById(scheduleFlight.getScheduleFlightId()).get();
-		Schedule updateSchedule = scheduleDao.findById(scheduleFlight.getSchedule().getScheduleId()).get();
-		updateScheduleFlight.setAvailableSeats(scheduleFlight.getAvailableSeats());
-		updateSchedule.setSrcAirport(scheduleFlight.getSchedule().getSrcAirport());
-		updateSchedule.setDstnAirport(scheduleFlight.getSchedule().getDstnAirport());
-		updateSchedule.setArrDateTime(scheduleFlight.getSchedule().getArrDateTime());
-		updateSchedule.setDeptDateTime(scheduleFlight.getSchedule().getDeptDateTime());
-		dao.save(updateScheduleFlight);
-		return scheduleFlight;
+	@Transactional
+	public ScheduledFlight modifyScheduledFlight(@NonNull final ScheduledFlightDTO scheduledFlightDto) {
+		if (this.bookingService.hasBooking(scheduledFlightDto.getScheduleFlightId())) {
+			throw new ScheduledFlightAlreadyBookedException("Scheduled flight has been booked");
+		}
+		if (!this.scheduleDao.existsById(scheduledFlightDto.getScheduleFlightId())) {
+			throw new ScheduledFlightNotFoundException("No scheduled flight found for modification");
+		}
+		return dao.findById(scheduledFlightDto.getScheduleFlightId())
+				.map(scheduledFlight -> {
+					ScheduledFlightUtil.transferDtoToEntity(scheduledFlightDto, scheduledFlight);
+					scheduledFlight.setFlight(flightDao.findById(scheduledFlightDto.getFlight().getFlightNo()).orElse(null));
+					scheduledFlight.getSchedule().setSrcAirport(airportDao.findById(scheduledFlightDto.getSchedule().getSrcAirport().getCode()).orElse(null));
+					scheduledFlight.getSchedule().setDstnAirport(airportDao.findById(scheduledFlightDto.getSchedule().getDstnAirport().getCode()).orElse(null));
+					scheduledFlight.setAvailableSeats(scheduledFlight.getFlight().getSeatCapacity());
+					scheduledFlight.setTemporaryAvailableSeats(scheduledFlight.getAvailableSeats());
+
+					return dao.save(scheduledFlight);
+				}).orElse(null);
+
 	}
 
 	/*

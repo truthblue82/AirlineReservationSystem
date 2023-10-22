@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Flight {
 
 	@Id
@@ -20,7 +21,6 @@ public class Flight {
 	private String carrierName;
 	private String flightModel;
 	private int seatCapacity;
-	private BigDecimal economicPrice;
 
 	/*
 	 * @OneToOne(mappedBy = "flightObj", cascade = CascadeType.ALL) private

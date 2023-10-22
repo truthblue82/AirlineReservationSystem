@@ -14,4 +14,6 @@ public interface BookingService {
 	public Iterable<Booking> displayAllBooking();
 
 	public ResponseEntity<?> findBookingById(Long bookingId);
+
+	boolean hasBooking(final Long scheduledFlightNo);
 }

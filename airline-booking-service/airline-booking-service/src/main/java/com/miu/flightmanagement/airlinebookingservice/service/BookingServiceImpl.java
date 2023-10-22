@@ -4,6 +4,7 @@ import com.miu.flightmanagement.airlinebookingservice.dao.BookingDao;
 import com.miu.flightmanagement.airlinebookingservice.exception.RecordAlreadyPresentException;
 import com.miu.flightmanagement.airlinebookingservice.exception.RecordNotFoundException;
 import com.miu.flightmanagement.airlinebookingservice.model.Booking;
+import com.miu.flightmanagement.airlinebookingservice.model.ScheduledFlight;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -98,5 +99,11 @@ public class BookingServiceImpl implements BookingService {
 		} catch (RecordNotFoundException e) {
 			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
+	}
+
+	@Override
+	public boolean hasBooking(Long scheduledFlightNo) {
+		return bookingDao.findBookingByScheduledFlight(ScheduledFlight.builder().scheduleFlightId(scheduledFlightNo).build())
+				.isPresent();
 	}
 }

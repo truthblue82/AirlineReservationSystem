@@ -1,10 +1,16 @@
 package com.miu.flightmanagement.airlinebookingservice.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ScheduledFlightDTO {
     private Long scheduleFlightId;
 
@@ -13,4 +19,6 @@ public class ScheduledFlightDTO {
     private Integer availableSeats;
 
     private ScheduleDTO schedule;
+
+    private String economicPrice;
 }

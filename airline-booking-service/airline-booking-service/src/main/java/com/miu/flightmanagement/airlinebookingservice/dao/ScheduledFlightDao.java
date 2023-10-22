@@ -15,7 +15,7 @@ public interface ScheduledFlightDao extends CrudRepository<ScheduledFlight,Long>
             + "date(entity.schedule.deptDateTime) = date(:deptDateTime) "
             + "AND entity.schedule.dstnAirport.code = :dstnAirport "
             + "AND entity.schedule.srcAirport.code = :srcAirport "
-            + "AND entity.availableSeats >= :noOfPassengers"
+            + "AND entity.temporaryAvailableSeats >= :noOfPassengers"
     )
     List<ScheduledFlight> fetchByTimeAndLocation(
             final LocalDate deptDateTime,

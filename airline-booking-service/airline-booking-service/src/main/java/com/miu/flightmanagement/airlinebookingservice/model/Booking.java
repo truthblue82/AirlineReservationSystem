@@ -1,9 +1,7 @@
 package com.miu.flightmanagement.airlinebookingservice.model;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.OffsetDateTime;
 import java.util.Collection;
@@ -12,6 +10,9 @@ import java.util.Collection;
 @Getter
 @Setter
 @EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Booking {
 	@Id
 	 @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -24,5 +25,8 @@ public class Booking {
 
 	@OneToMany(mappedBy = "booking")
 	private Collection<Passenger> passengers;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private ScheduledFlight scheduledFlight;
 
 }

@@ -2,10 +2,7 @@ package com.miu.flightmanagement.airlinebookingservice.model;
 
 import jakarta.persistence.*;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @Table(name = "airport")
@@ -13,20 +10,14 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Airport
 {
 	@Id
 	private String code;
 	private String location;
 	private String name;
-
-	public Airport(String airportName, String airportLocation, String airportCode)
-	{
-		this.name = airportName;
-		this.location = airportLocation;
-		this.code = airportCode;
-	}
-
-	public Airport(){}
 
 }
