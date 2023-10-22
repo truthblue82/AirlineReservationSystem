@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -8,16 +8,18 @@ import { User } from 'src/app/models/user';
 import { Role } from 'src/app/models/role';
 import { Router } from '@angular/router';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   users: User[];
+  cookieSvc = inject(CookieService);
 
   constructor(
     private http: HttpClient,
-    private router: Router,
-    private cookieSvc: CookieService ) {
+    private router: Router
+    ) {
     this.users = [];
     if (localStorage.getItem('token') !== null) {
       const data: any = {
@@ -37,7 +39,6 @@ export class UserService {
   }
 
   signUp(user: User) {
-    //return this.http.post(`${environment.BASE_SERVICE_URL}/api/auth/signup`, user, {observe:'response'});
     return this.http.post(
       `${environment.GATEWAY_BASE_URL}/${environment.GATEWAY_USER_REGISTER_URI}`,
       user,
@@ -46,7 +47,6 @@ export class UserService {
   }
 
   authenticate(code: string) {
-    //return this.http.post(`${environment.BASE_SERVICE_URL}/api/auth/signin`, {username: user.username, password: user.password},{observe:'response'});
     let body = new URLSearchParams();
     body.set('grant_type', environment.GATEWAY_GRANT_TYPE);
     body.set('code', code);
@@ -54,16 +54,17 @@ export class UserService {
 
     let authorizationData = 'Basic ' + btoa(environment.GATEWAY_OAUTH2_URI_USERNAME + ':' + environment.GATEWAY_OAUTH2_URI_PASSWORD);
 
-    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    let headers = new HttpHeaders()
+                  .set('Content-Type', 'application/x-www-form-urlencoded')
                   .set('Authorization', authorizationData);
+
     let options = { headers: headers };
 
     return this.http.post(
-      `${environment.GATEWAY_BASE_URL}/${environment.GATEWAY_OAUTH2_URI}`,
-      body.toString(),
-      options);
-
-      //
+          `${environment.GATEWAY_BASE_URL}/${environment.GATEWAY_OAUTH2_URI}`,
+          body.toString(),
+          options
+      );
   }
 
   getLoginUser(data: AuthData):void {
@@ -86,7 +87,7 @@ export class UserService {
     this.http.get(
       `${environment.GATEWAY_BASE_URL}/${environment.GATEWAY_USERINFO_URI}`,
       {observe: 'response'})
-    .subscribe((result) => {
+      .subscribe((result) => {
       console.log('getLoginUser result:', result);
       if(result.status === 200 && result.ok === true) {
         console.log('getLoginUser if result', result);
@@ -110,8 +111,8 @@ export class UserService {
   }
   clearSession():void {
     //JSESSIONID
-    this.cookieSvc.delete("JSESSIONID","/", "localhost",false);
-    this.cookieSvc.deleteAll();
+    //this.cookieSvc.delete("JSESSIONID","/",'localhost',false, 'None');
+    this.cookieSvc.deleteAll("/",'localhost', false, 'None');
     sessionStorage.clear();
     localStorage.clear();
   }
@@ -123,7 +124,7 @@ export class UserService {
     sessionStorage.setItem('roles', data.roles[0].name);
   }
   logout() {
-    sessionStorage.clear();
+    this.clearSession();
     this.users.splice(0,1);
   }
   updateAccountDetails(data: any) {
