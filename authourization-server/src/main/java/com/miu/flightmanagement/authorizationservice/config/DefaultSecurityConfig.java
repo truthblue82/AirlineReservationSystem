@@ -39,6 +39,18 @@ public class DefaultSecurityConfig {
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(final HttpSecurity http) throws Exception {
         http
+                .cors(corsSpec -> {
+                    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                    CorsConfiguration config = new CorsConfiguration();
+                    config.applyPermitDefaultValues();
+                    config.setAllowedOrigins(Arrays.asList("*"));
+                    config.setAllowedHeaders(Arrays.asList("*"));
+                    config.setAllowedMethods(Arrays.asList("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH", "OPTIONS"));
+                    config.setExposedHeaders(Arrays.asList("content-length"));
+                    config.setMaxAge(3600L);
+                    source.registerCorsConfiguration("/**", config);
+                    corsSpec.configurationSource(source);
+                })
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests(authRequests ->
                         authRequests.requestMatchers("/users/registration*").permitAll()
@@ -81,21 +93,21 @@ public class DefaultSecurityConfig {
     }
 
     // register CORS filter
-    @Bean
-    public FilterRegistrationBean corsFilterRegistrationBean() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.applyPermitDefaultValues();
-        config.setAllowCredentials(true);
-        config.setAllowedOriginPatterns(Arrays.asList("*"));
-        config.setAllowedHeaders(Arrays.asList("*"));
-        config.setAllowedMethods(Arrays.asList("*"));
-        config.setExposedHeaders(Arrays.asList("content-length"));
-        config.setMaxAge(3600L);
-        source.registerCorsConfiguration("/**", config);
-        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-        bean.setOrder(0);
-        return bean;
-    }
+//    @Bean
+//    public FilterRegistrationBean corsFilterRegistrationBean() {
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        CorsConfiguration config = new CorsConfiguration();
+//        config.applyPermitDefaultValues();
+//        config.setAllowCredentials(true);
+//        config.setAllowedOriginPatterns(Arrays.asList("*"));
+//        config.setAllowedHeaders(Arrays.asList("*"));
+//        config.setAllowedMethods(Arrays.asList("*"));
+//        config.setExposedHeaders(Arrays.asList("content-length"));
+//        config.setMaxAge(3600L);
+//        source.registerCorsConfiguration("/**", config);
+//        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+//        bean.setOrder(0);
+//        return bean;
+//    }
 
 }

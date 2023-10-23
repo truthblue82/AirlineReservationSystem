@@ -23,7 +23,7 @@ public class Booking {
 	private OffsetDateTime bookingDate;
 	private int noOfPassengers;
 
-	@OneToMany(mappedBy = "booking")
+	@OneToMany(mappedBy = "booking", cascade = {CascadeType.PERSIST})
 	private Collection<Passenger> passengers;
 
 	@ManyToOne(fetch = FetchType.LAZY)

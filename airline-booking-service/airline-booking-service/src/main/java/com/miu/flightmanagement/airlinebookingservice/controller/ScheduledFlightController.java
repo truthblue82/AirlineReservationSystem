@@ -131,10 +131,6 @@ public class ScheduledFlightController {
 				.build());
 	}
 
-	@ExceptionHandler(value = {ScheduledFlightAlreadyBookedException.class, ScheduledFlightNotFoundException.class})
-	public ResponseEntity<?> handleScheduleFlightModificationError(final Exception ex) {
-		return new ResponseEntity("Scheduled flight not modified - " + ex.getMessage(), HttpStatus.BAD_REQUEST);
-	}
 	
 
 }

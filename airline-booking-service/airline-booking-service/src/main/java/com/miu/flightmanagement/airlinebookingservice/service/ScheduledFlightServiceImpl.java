@@ -8,7 +8,6 @@ import com.miu.flightmanagement.airlinebookingservice.dto.ScheduledFlightDTO;
 import com.miu.flightmanagement.airlinebookingservice.exception.RecordNotFoundException;
 import com.miu.flightmanagement.airlinebookingservice.exception.ScheduledFlightAlreadyBookedException;
 import com.miu.flightmanagement.airlinebookingservice.exception.ScheduledFlightNotFoundException;
-import com.miu.flightmanagement.airlinebookingservice.model.Flight;
 import com.miu.flightmanagement.airlinebookingservice.model.ScheduledFlight;
 import com.miu.flightmanagement.airlinebookingservice.util.ScheduledFlightUtil;
 import jakarta.transaction.Transactional;
@@ -79,16 +78,11 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	@Override
 	public String removeScheduledFlight(Long flightId) throws RecordNotFoundException {
 		if (flightId == null)
-			throw new RecordNotFoundException("Enter flight Id");
+			throw new RecordNotFoundException("Flight not found with ID="+ flightId);
 		Optional<ScheduledFlight> scheduleFlight = dao.findById(flightId);
 		if (!scheduleFlight.isPresent())
-			throw new RecordNotFoundException("Enter a valid Flight Id");
+			throw new RecordNotFoundException("Flight not found with ID="+ flightId);
 		else {
-			// try {
-			// cancelBookings(flightId);
-			// } catch (RecordNotFoundException e) {
-			// System.out.println("No Bookings Found");
-			// }
 			dao.deleteById(flightId);
 		}
 		return "Scheduled flight with ID " + flightId + " is not found";

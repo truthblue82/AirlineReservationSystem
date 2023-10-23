@@ -17,6 +17,7 @@ import lombok.*;
 public class Passenger {
 
 	@Id
+
 	private BigInteger pnrNumber;
 
 	private String passengerName;

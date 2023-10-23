@@ -1,4 +1,6 @@
-server.port: 8443
+server:
+  port: 8443
+  forward-headers-strategy: framework
 
 spring:
   application:
@@ -13,13 +15,13 @@ spring:
   cloud:
     gateway:
       globalcors:
-        cors-configurations:
-          '[/**]':
-            allowed-origin-patterns: "*"
-            allowed-methods: "*"
-            allowed-headers: "*"
-            allow-credentials: true
-
+        add-to-simple-url-handler-mapping: true
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+        - AddResponseHeader=Access-Control-Allow-Origin, *
+      filter:
+        add-response-header:
+          enabled: true
 server.ssl:
   key-store-type: PKCS12
   key-store: classpath:keystore/edge.p12
