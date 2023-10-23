@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -10,15 +12,16 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProfileComponent implements OnInit {
   displayModal:boolean = false;
-  curUser: any[];
+  curUser: User;
 
   constructor(
     private appTitle: Title,
     private userSvc: UserService,
+    private router: Router,
     private toastr: ToastrService
   ) {
     this.appTitle.setTitle('Airport Reservation System - Profile');
-    this.curUser = [];
+    this.curUser = {email:'', firstName: '', lastName: '', phone: '', roles: []};
   }
 
   ngOnInit(): void {
@@ -26,7 +29,8 @@ export class ProfileComponent implements OnInit {
     this.userSvc.getCurrentUser().subscribe(
       (result: any) => {
         if(result.length > 0) {
-          this.curUser=result[0];
+          this.curUser = result[0];
+          console.log(this.curUser);
         } else {
           this.toastr.error('Something went wrong!', 'Error');
         }
@@ -38,5 +42,8 @@ export class ProfileComponent implements OnInit {
         this.displayModal = false;
       }
     )
+  }
+  goToUpdate(): void {
+    this.router.navigate(['/account-settings']);
   }
 }

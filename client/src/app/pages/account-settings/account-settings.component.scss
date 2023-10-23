@@ -7,9 +7,10 @@ h1 {
 }
 .column {
   float: left;
-  width: 46%;
+  max-width: 49%;
   box-shadow: '0px 0px 7px #ccc';
 }
+.center{ margin: 0 auto;}
 .column + .column {
   margin-left: 2%;
 }
