@@ -5,7 +5,6 @@ import { environment } from 'src/environments/environment';
 import { AuthData } from '../models/authData';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from 'src/app/models/user';
-import { Role } from 'src/app/models/role';
 import { Router } from '@angular/router';
 
 
@@ -23,12 +22,12 @@ export class UserService {
     this.users = [];
     if (localStorage.getItem('token') !== null) {
       const data: any = {
-        firstName: sessionStorage.getItem('firstName') || '',
-        email: sessionStorage.getItem('email') || '',
-        lastName: sessionStorage.getItem('lastName') || '',
+        firstName: sessionStorage.getItem('firstName'),
+        email: sessionStorage.getItem('email'),
+        lastName: sessionStorage.getItem('lastName'),
         password: '',
-        phone: sessionStorage.getItem('phone') || '',
-        roles: [sessionStorage.getItem('roles') || '']
+        phone: sessionStorage.getItem('phone') ,
+        roles: [sessionStorage.getItem('roles')]
       };
       this.users.push(data);
     }
@@ -52,7 +51,8 @@ export class UserService {
     body.set('code', code);
     body.set('redirect_uri', environment.APP_BASE_URL);
 
-    let authorizationData = 'Basic ' + btoa(environment.GATEWAY_OAUTH2_URI_USERNAME + ':' + environment.GATEWAY_OAUTH2_URI_PASSWORD);
+    let authorizationData = 'Basic ' + btoa(environment.GATEWAY_OAUTH2_URI_USERNAME
+                          + ':' + environment.GATEWAY_OAUTH2_URI_PASSWORD);
 
     let headers = new HttpHeaders()
                   .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -72,46 +72,26 @@ export class UserService {
     localStorage.setItem('refresh_token', data.refresh_token);
     localStorage.setItem('expires_in', data.expires_in.toString());
 
-    const userData: User = {
-        firstName: "Test",
-        lastName: "Test",
-        password: "",
-        email: "test@test.com",
-        phone: "",
-        roles: [
-            {
-                name: "ROLE_ADMIN"
-            }
-        ]
-    };
     this.http.get(
       `${environment.GATEWAY_BASE_URL}/${environment.GATEWAY_USERINFO_URI}`,
       {observe: 'response'})
       .subscribe((result) => {
-      console.log('getLoginUser result:', result);
-      if(result.status === 200 && result.ok === true) {
-        console.log('getLoginUser if result', result);
-
-        this.users.push(userData);
+      if(result.status === 200 && result.ok === true ) {
+        const userData = result.body;
+        this.users.push(userData as User);
+        this.storeSession(userData as User);
         this.router.navigate(['/'], {queryParams: null});
       } else {
-        console.log(result);
-
-        this.users.push(userData);
         this.router.navigate(['/'], {queryParams: null});
       }
     },
     error => {
-      console.log("user service error", error);
-
-      this.users.push(userData);
-      this.storeSession(userData);
       this.router.navigate(['/'], {queryParams: null});
     });
   }
   clearSession():void {
     //cookie JSESSIONID come frome gateway service
-    this.cookieSvc.deleteAll("/",'localhost', false, 'None');
+    this.cookieSvc.deleteAll("/", environment.APP_BASE_URL, false, 'None');
     sessionStorage.clear();
     localStorage.clear();
   }
@@ -127,7 +107,6 @@ export class UserService {
     this.users.splice(0,1);
   }
   updateAccountDetails(data: any) {
-    //return this.http.put(`${environment.BASE_SERVICE_URL}/api/users`, data, {observe: "response"});
     return this.http.put(
       `${environment.GATEWAY_BASE_URL}/users`,
       data,
