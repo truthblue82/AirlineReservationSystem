@@ -12,9 +12,6 @@ spring:
           issuer-uri: http://${app.auth-server}:8771
   cloud:
     gateway:
-      default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
-        - AddResponseHeader=Access-Control-Allow-Origin, *
       globalcors:
         cors-configurations:
           '[/**]':
@@ -22,9 +19,6 @@ spring:
             allowed-methods: "*"
             allowed-headers: "*"
             allow-credentials: true
-            allowedOrigins: "*"
-            allowedMethods: "*"
-            allowedHeaders: "*"
 
 server.ssl:
   key-store-type: PKCS12

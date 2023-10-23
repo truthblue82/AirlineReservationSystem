@@ -52,13 +52,13 @@
         </a>
 
         <div class="navbar-dropdown">
-          <a class="navbar-item" routerLink="/airport">
+          <a class="navbar-item" routerLink="/airports">
             Airport Management
           </a>
-          <a class="navbar-item" routerLink="/flight">
+          <a class="navbar-item" routerLink="/flights">
             Flight Management
           </a>
-          <a class="navbar-item" routerLink="/airport">
+          <a class="navbar-item" routerLink="/schedules">
             Schedule Management
           </a>
           <!-- <a *ngIf="user[0].roles[0] === adminRole" class="navbar-item" routerLink="/add-airport">
@@ -88,11 +88,11 @@
         </div>
       </div>
 
-      <a *ngIf="user.length > 0 && user[0].roles[0] === adminRole"
+      <!-- <a *ngIf="user.length > 0 && user[0].roles[0] === adminRole"
         class="navbar-item"
         routerLink="/user">
         <h3>User Management</h3>
-      </a>
+      </a> -->
 
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">

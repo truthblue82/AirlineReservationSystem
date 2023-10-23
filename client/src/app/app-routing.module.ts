@@ -43,7 +43,7 @@ const routes: Routes = [
     canActivate: [userGuard]
   },
   {
-    path: 'airport',
+    path: 'airports',
     component: AirportComponent,
     canActivate: [adminGuard]
   },
@@ -53,7 +53,7 @@ const routes: Routes = [
     canActivate: [adminGuard]
   },
   {
-    path: 'flight',
+    path: 'flights',
     component: FlightComponent,
     canActivate: [adminGuard]
   },
@@ -76,7 +76,7 @@ const routes: Routes = [
     canActivate: [userGuard]
   },
   {
-    path: 'schedule',
+    path: 'schedules',
     component: ScheduleComponent,
     canActivate: [adminGuard]
   },

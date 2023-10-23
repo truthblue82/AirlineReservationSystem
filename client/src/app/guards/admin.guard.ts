@@ -11,9 +11,10 @@ export const adminGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: 
 
   userSvc.getCurrentUser().subscribe((userData) => {
     users = userData;
+    console.log('users', users);
   })
   if(users.length > 0) {
-    if(users[0].roles[0].name === "ROLE_ADMIN") {
+    if(users[0].roles[0] === "ROLE_ADMIN") {
       return true;
     }
     else {

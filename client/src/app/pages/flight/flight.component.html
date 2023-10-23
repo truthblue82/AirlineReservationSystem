@@ -1,8 +1,37 @@
-<!-- <div class="loader-container" *ngIf="displayModal">
+<div class="loader-container" *ngIf="displayModal">
   <div class="spinner-border text-light spinner-custom" role="status"></div>
   <h3>Loading</h3>
-</div> -->
+</div>
 
 <div class="All container">
-  <h1>Flight Management</h1>
+  <h1>FLIGHT MANAGEMENT</h1>
+  <div class="d-grid mt-4">
+    <button type="button" class="btn btn-primary" (click)="goToAddFlight()">Add Flight</button>
+  </div>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Flight No.</th>
+          <th>Carrier Name</th>
+          <th>Flight Model</th>
+          <th>Seat Capacity</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>4</td>
+          <td>
+            <button type="button" class="btn btn-info">Edit</button>
+            <button type="button" class="btn btn-danger">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>
