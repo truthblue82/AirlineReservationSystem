@@ -110,8 +110,7 @@ export class UserService {
     });
   }
   clearSession():void {
-    //JSESSIONID
-    //this.cookieSvc.delete("JSESSIONID","/",'localhost',false, 'None');
+    //cookie JSESSIONID come frome gateway service
     this.cookieSvc.deleteAll("/",'localhost', false, 'None');
     sessionStorage.clear();
     localStorage.clear();
@@ -128,7 +127,12 @@ export class UserService {
     this.users.splice(0,1);
   }
   updateAccountDetails(data: any) {
-    return this.http.put(`${environment.BASE_SERVICE_URL}/api/users`, data, {observe: "response"});
+    //return this.http.put(`${environment.BASE_SERVICE_URL}/api/users`, data, {observe: "response"});
+    return this.http.put(
+      `${environment.GATEWAY_BASE_URL}/users`,
+      data,
+      {observe: "response"}
+    );
   }
   changeUserPassword(data: any) {
     return this.http.put(`${environment.BASE_SERVICE_URL}/api/users/`, {

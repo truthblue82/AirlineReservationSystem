@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user';
@@ -11,44 +12,31 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class AccountSettingsComponent implements OnInit {
   displayModal = false;
-  curUserData: User[] = [];
-
-  fname: string = '';
-  lname: string = '';
-  phone: string = '';
+  curUser: User;
 
   //change password
   oldPassword: string = '';
   password: string = '';
   confirmPassword: string = '';
 
-  //delete account
-  deleteAccountPwd: string = '';
-  isSureToDelete: boolean = false;
-  isAgreeToDelete: boolean = false;
-
   flags: any = {
-    phone: true, comparePassword: true
+    phone: true, firstName: true, lastName: true, updateBtn: true
   }
 
   constructor(
+    private appTitle: Title,
     private router: Router,
     private userSvc: UserService,
     private toastr: ToastrService
   ) {
-    this.curUserData = [];
-
-    this.fname = '';
-    this.lname = '';
-    this.phone = '';
+    this.appTitle.setTitle('Airport Reservation System - Account Setting');
+    this.curUser = {
+      email: '',
+      firstName: '', lastName: '', phone: '', roles: []};
 
     this.oldPassword = '';
     this.password = '';
     this.confirmPassword = '';
-
-    this.deleteAccountPwd = '';
-    this.isAgreeToDelete = false;
-    this.isSureToDelete = false;
   }
 
   ngOnInit(): void {
@@ -56,9 +44,7 @@ export class AccountSettingsComponent implements OnInit {
     this.userSvc.getCurrentUser().subscribe(
       (result: any) => {
         if(result.length > 0) {
-          this.curUserData.push(result[0]);
-          this.fname = result[0].fname;
-          this.phone = result[0].phone;
+          this.curUser = result[0];
         } else {
           this.toastr.error('Something went wrong!', 'Error');
         }
@@ -72,31 +58,33 @@ export class AccountSettingsComponent implements OnInit {
     )
   }
   validatePhone():void {
-    let flag = /^[0-9]{10}$/.test(this.phone);
-
+    let flag = /^[0-9]{10}$/.test(this.curUser.phone);
     this.flags.phone = flag;
   }
-  comparePassword():void {
-    if(this.password !== this.confirmPassword) {
-      this.flags.comparePassword = false;
-    } else {
-      this.flags.comparePassword = true;
-    }
+  validateString(el: HTMLInputElement): void {
+    let flag = /^[a-zA-Z ]+$/.test(el.value);
+    this.flags[el.name] = flag;
   }
 
   handleUpdateAccoutDetails(event: Event) {
     event.preventDefault();
-
-    const data = {
-      fname: this.fname,
-      lname: this.lname,
-      phone: this.phone
-    };
     this.displayModal = true;
-    this.userSvc.updateAccountDetails(data)
+    this.userSvc.updateAccountDetails(this.curUser)
+        .subscribe((result:any) => {
+          if(result.status === 200) {
+            this.toastr.success('Your information is updated successful!', 'Inform');
+            this.userSvc.storeSession(this.curUser);
+          } else {
+            this.toastr.error('Updated fail!', 'Error');
+          }
+        },
+        (error) => {
+          this.toastr.error('Something went wrong!', 'Error');
+        });
   }
-
-  handleChangePassword(event: Event) {
-    event.preventDefault();
+  enableButton():void {
+    this.flags.updateBtn = this.flags.firstName
+    &&this.flags.lastName
+    &&this.flags.phone
   }
 }

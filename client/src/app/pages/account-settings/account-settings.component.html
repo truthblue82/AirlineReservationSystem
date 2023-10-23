@@ -12,30 +12,31 @@
         <h4 class="card-title font-weight-bold">Update Account Details</h4>
         <form (submit)="handleUpdateAccoutDetails($event)" ngNativeValidate>
           <div class="mb-3 mt-4">
-            <label for="fname" class="form-label">First Name</label>
+            <label for="firstName" class="form-label">First Name</label>
             <input type="text" class="form-control"
-              id="fname" name="fname" placeholder="First Name"
-              [(ngModel)]="fname" required
-            />
+              id="firstName" name="firstName" placeholder="First Name"
+              [(ngModel)]="curUser.firstName" required
+              #firstName (keyup)="validateString(firstName);enableButton();"/>
+              <small *ngIf="!flags.firstName" class="error">Invalid First Name</small>
           </div>
           <div class="mb-3 mt-4">
-            <label for="lname" class="form-label">Last Name</label>
+            <label for="lastName" class="form-label">Last Name</label>
             <input type="text" class="form-control"
-              id="lname" name="lname" placeholder="Last Name"
-              [(ngModel)]="lname" required
-            />
+              id="lastName" name="lastName" placeholder="Last Name"
+              [(ngModel)]="curUser.lastName" required
+              #lastName (keyup)="validateString(lastName);enableButton();"/>
+            <small *ngIf="!flags.lastName" class="error">Invalid Last Name</small>
           </div>
           <div class="mb-3 mt-4">
             <label for="phone" class="form-label">Phone</label>
             <input type="text" class="form-control"
               id="phone" name="phone" placeholder="Phone"
-              (keyup)="validatePhone()"
-              [(ngModel)]="phone" required
-            />
+              (keyup)="validatePhone();enableButton();"
+              [(ngModel)]="curUser.phone" required />
             <small *ngIf="!flags.phone" class="error">Invalid Phone Number</small>
           </div>
           <div class="d-grid mt-4">
-            <button type="submit" class="btn btn-primary">Update Details</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!flags.updateBtn">Update Details</button>
           </div>
         </form>
       </div>

@@ -33,7 +33,7 @@ export class AuthInterceptor implements HttpInterceptor {
           'Content-Type' : 'application/json',
           'Accept'       : 'application/json',
           'Authorization': `Bearer ${token}`,
-          'Access-Control-Allow-Origin': environment.APP_BASE_URL
+          //'Access-Control-Allow-Origin': environment.APP_BASE_URL
         },
       });
 
