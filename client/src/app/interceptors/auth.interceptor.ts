@@ -27,21 +27,17 @@ export class AuthInterceptor implements HttpInterceptor {
     let token = localStorage.getItem('token');
 
     if(token) {
-      const updatedReq = request.clone();
-      updatedReq.headers
-                .set('Authorization', `Bearer ${token}`)
-                .set('Access-Control-Allow-Origin', environment.APP_BASE_URL);
+      console.log('token', token);
+      request = request.clone({
+        setHeaders: {
+          'Content-Type' : 'application/json',
+          'Accept'       : 'application/json',
+          'Authorization': `Bearer ${token}`,
+          'Access-Control-Allow-Origin': environment.APP_BASE_URL
+        },
+      });
 
-      // const cloned = request.clone({
-      //   method: 'GET',
-      //   headers: request.headers.set('Authorization', 'Bearer ' + token)
-      //           .set('Access-Control-Allow-Origin', environment.APP_BASE_URL)
-      // });
-      //.set('Access-Control-Request-Headers', 'Content-Type')
-        //.set('Access-Control-Allow-Credentials', 'true')
-        //.set('Access-Control-Request-Method', 'GET,PUT,POST,DELETE,OPTIONS'),
-
-      return next.handle(updatedReq).pipe(
+      return next.handle(request).pipe(
         tap({
           next: (event) => {
             if(event instanceof HttpResponse) {

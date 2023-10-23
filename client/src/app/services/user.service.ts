@@ -102,7 +102,7 @@ export class UserService {
       }
     },
     error => {
-      console.log("user service error");
+      console.log("user service error", error);
 
       this.users.push(userData);
       this.storeSession(userData);
