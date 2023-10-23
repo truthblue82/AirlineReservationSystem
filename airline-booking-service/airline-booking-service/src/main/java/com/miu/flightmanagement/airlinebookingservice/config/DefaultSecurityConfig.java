@@ -27,8 +27,7 @@ public class DefaultSecurityConfig {
                     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
                     CorsConfiguration config = new CorsConfiguration();
                     config.applyPermitDefaultValues();
-                    config.setAllowCredentials(true);
-                    config.setAllowedOriginPatterns(Arrays.asList("*"));
+                    config.setAllowedOrigins(Arrays.asList("*"));
                     config.setAllowedHeaders(Arrays.asList("*"));
                     config.setAllowedMethods(Arrays.asList("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH", "OPTIONS"));
                     config.setExposedHeaders(Arrays.asList("content-length"));
