@@ -20,14 +20,14 @@ public class AirportController {
 		return ResponseEntity.ok(AirportUtil.toAirportDTO(airportService.viewAirport(code)));
 	}
 
-	@GetMapping("/")
+	@GetMapping
 	public ResponseEntity<?> viewAllAirport() {
 		return ResponseEntity.ok(AirportsDTO.builder()
 				.airports(airportService.viewAllAirport())
 				.build());
 	}
 
-	@PostMapping("/")
+	@PostMapping
 	public ResponseEntity<?> addAirport(@RequestBody AirportDTO airport) {
 		airportService.addAirport(airport);
 		return ResponseEntity.ok(airport);

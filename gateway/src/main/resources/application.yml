@@ -76,6 +76,11 @@ spring.cloud.gateway.routes:
     predicates:
       - Path=/api/airport/**
 
+  - id: airline-airport
+    uri: lb://airline-booking-service
+    predicates:
+      - Path=/api/airport
+
   - id: airline-booking
     uri: lb://airline-booking-service
     predicates:

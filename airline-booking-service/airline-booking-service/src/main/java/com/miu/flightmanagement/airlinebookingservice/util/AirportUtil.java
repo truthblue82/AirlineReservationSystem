@@ -6,7 +6,10 @@ import lombok.experimental.UtilityClass;
 import org.springframework.lang.NonNull;
 
 import java.util.Collection;
+import java.util.Spliterator;
+import java.util.Spliterators;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import static java.util.stream.Stream.iterate;
 
@@ -29,15 +32,16 @@ public class AirportUtil {
 
     public static Airport toAirport(@NonNull final AirportDTO airportDTO) {
         final Airport airport = new Airport();
-        airport.setCode(airport.getCode());
-        airport.setName(airport.getName());
-        airport.setLocation(airport.getLocation());
+        airport.setCode(airportDTO.getCode());
+        airport.setName(airportDTO.getName());
+        airport.setLocation(airportDTO.getLocation());
 
         return airport;
     }
 
     public static Collection<AirportDTO> airportDTOs(@NonNull Iterable<Airport> airports) {
-        return Stream.generate(airports.iterator()::next)
+        return StreamSupport.stream(
+                        Spliterators.spliteratorUnknownSize(airports.iterator(), Spliterator.ORDERED), false)
                 .map(AirportUtil::toAirportDTO)
                 .toList();
     }
