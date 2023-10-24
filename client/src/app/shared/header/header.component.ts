@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
 
@@ -18,7 +17,7 @@ export class HeaderComponent implements OnInit {
   gateway_url: string;
 
   imgSrc = 'assets/images/menu2.png';
-  //@Inject(DOCUMENT) private document: Document
+
   constructor(
     private router: Router,
     private userSvc: UserService

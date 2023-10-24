@@ -54,14 +54,15 @@ export class SignupComponent implements OnInit {
 
       return;
     }
+
     this.displayModal = true;
     const data: User = this.user;
     this.userSvc.signUp(data).subscribe(
       (result: any) => {
         if(result.status === 200) {
-          this.toastr.success('Account Created Successfully', 'Please Login');
+          this.toastr.success('User Created Successfully', 'Please Login');
         } else {
-          this.toastr.error('User registered un successfully!', 'Error');
+          this.toastr.error('User registered unsuccessfully!', 'Error');
         }
         this.displayModal = false;
         this.router.navigate(['/']);

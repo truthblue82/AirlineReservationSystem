@@ -136,7 +136,6 @@ export class HomeComponent implements OnInit {
     })
     this.route.queryParams.subscribe(params => {
       this.code = params['code'] || '';
-      console.log('code:',this.code);
     });
   }
 
