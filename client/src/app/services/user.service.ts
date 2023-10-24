@@ -78,9 +78,10 @@ export class UserService {
       .subscribe((result) => {
       if(result.status === 200 && result.ok === true ) {
         let userData: User = result.body as User;
+        let roles = userData.roles;
         userData = {
           ...userData,
-          //roles: [userData.roles?[0].name as string]
+          roles: [roles[0].name as string]
         }
         this.users.push(userData as User);
         this.storeSession(userData as User);

@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
       (result: any) => {
         if(result.length > 0) {
           this.curUser = result[0];
-          console.log(this.curUser);
+          console.log('cur user',this.curUser);
         } else {
           this.toastr.error('Something went wrong!', 'Error');
         }
