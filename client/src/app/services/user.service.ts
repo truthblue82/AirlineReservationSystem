@@ -77,7 +77,11 @@ export class UserService {
       {observe: 'response'})
       .subscribe((result) => {
       if(result.status === 200 && result.ok === true ) {
-        const userData = result.body;
+        let userData: User = result.body as User;
+        userData = {
+          ...userData,
+          //roles: [userData.roles?[0].name as string]
+        }
         this.users.push(userData as User);
         this.storeSession(userData as User);
         this.router.navigate(['/'], {queryParams: null});

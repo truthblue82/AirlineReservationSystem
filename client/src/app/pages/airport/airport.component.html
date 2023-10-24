@@ -15,19 +15,19 @@
           <th>Airport Code</th>
           <th>Location</th>
           <th>Airport Name</th>
-          <th>Action</th>
+          <!-- <th>Action</th> -->
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>2</td>
-          <td>3</td>
-          <td>4</td>
-          <td>
-            <button type="button" class="btn btn-info">Edit</button>
+
+      <tbody *ngIf="airPorts?.length">
+        <tr *ngFor="let ap of airPorts">
+          <td>{{ap.code}}</td>
+          <td>{{ap.location}}</td>
+          <td>{{ap.name}}</td>
+          <!-- <td>
+            <button type="button" class="btn btn-info" (click)="goToEditAirport(app.code);">Edit</button>
             <button type="button" class="btn btn-danger">Delete</button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>

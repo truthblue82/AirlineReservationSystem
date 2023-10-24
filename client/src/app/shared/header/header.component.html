@@ -21,11 +21,6 @@
         <h3>Book Flight</h3>
       </a>
 
-      <!-- <a class="navbar-item">
-        <h3 style="margin-bottom: 5px; font-family: Georgia">
-          <b> OFFERS </b>
-        </h3>
-      </a> -->
       <div
         *ngIf="user.length > 0 && user[0].roles[0] === userRole"
         class="navbar-item has-dropdown is-hoverable">
@@ -36,10 +31,6 @@
           <a class="navbar-item" routerLink="/flight-history">
             Flight History
           </a>
-          <!-- <hr class="navbar-divider" />
-          <a class="navbar-item" routerLink="/report-issue">
-            Report an issue
-          </a> -->
         </div>
       </div>
 

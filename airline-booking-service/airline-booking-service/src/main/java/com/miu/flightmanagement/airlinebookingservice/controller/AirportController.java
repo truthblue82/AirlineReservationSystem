@@ -7,7 +7,7 @@ import com.miu.flightmanagement.airlinebookingservice.util.AirportUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-//@CrossOrigin("http://localhost:4200")
+
 @CrossOrigin
 @RestController
 @RequestMapping("/api/airport")

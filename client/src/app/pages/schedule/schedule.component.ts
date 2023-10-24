@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-schedule',
@@ -18,7 +21,12 @@ export class ScheduleComponent implements OnInit {
   seats: number = 0;
   ticketPrice: number = 0;
 
-  constructor(){
+  constructor(
+    private appTitle: Title,
+    private router: Router,
+    private toastr: ToastrService
+  ){
+    this.appTitle.setTitle('Airport Reservation System - Schedule Management');
   }
 
   ngOnInit(): void {
@@ -27,5 +35,8 @@ export class ScheduleComponent implements OnInit {
 
   handleFormSubmit(event: Event):void {
     //
+  }
+  goToAddSchedual():void {
+    this.router.navigate(['/add-schedule']);
   }
 }

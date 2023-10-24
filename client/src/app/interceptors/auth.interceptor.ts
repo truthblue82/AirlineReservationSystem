@@ -23,9 +23,10 @@ export class AuthInterceptor implements HttpInterceptor {
     ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    let user = this.userSvc.getCurrentUser();
     let token = localStorage.getItem('token');
 
-    if(token) {
+    if(user && token) {
       request = request.clone({
         setHeaders: {
           'Content-Type' : 'application/json',

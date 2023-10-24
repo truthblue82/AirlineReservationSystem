@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RestController
-@RequestMapping("api/flight")
+@RequestMapping("/api/flight")
 @AllArgsConstructor
 public class FlightController {
 	private final FlightService flightService;

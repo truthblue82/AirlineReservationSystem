@@ -24,7 +24,6 @@ import java.time.ZoneOffset;
 import java.util.Collection;
 
 @RestController
-//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @CrossOrigin
 @RequestMapping("/api/scheduled-flight")
 public class ScheduledFlightController {

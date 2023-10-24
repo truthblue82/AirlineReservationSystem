@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.userSvc.getCurrentUser().subscribe((user) => {
+      console.log('user', user);
       this.user = user;
     });
   }
