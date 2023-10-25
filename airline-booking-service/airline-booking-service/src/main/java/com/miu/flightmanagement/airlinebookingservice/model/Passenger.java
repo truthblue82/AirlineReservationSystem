@@ -17,15 +17,15 @@ import lombok.*;
 public class Passenger {
 
 	@Id
-
-	private BigInteger pnrNumber;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	private String passengerName;
 
 	@Temporal(TemporalType.DATE)
 	private Date dateOfBirth;
 
-	private Double luggage;
+	private Short luggage;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Booking booking;

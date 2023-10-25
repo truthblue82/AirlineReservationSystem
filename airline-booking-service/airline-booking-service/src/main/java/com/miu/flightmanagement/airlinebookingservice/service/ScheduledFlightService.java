@@ -10,13 +10,13 @@ import java.time.LocalDate;
 import java.util.Collection;
 
 public interface ScheduledFlightService {
-	public ScheduledFlight addScheduledFlight(ScheduledFlight scheduledFlight);
+	ScheduledFlight addScheduledFlight(ScheduledFlight scheduledFlight);
 
-	public ScheduledFlight modifyScheduledFlight(ScheduledFlightDTO scheduledFlightDto);
+	ScheduledFlight modifyScheduledFlight(ScheduledFlightDTO scheduledFlightDto);
 
-	public String removeScheduledFlight(Long id) throws RecordNotFoundException;
+	String removeScheduledFlight(Long id) throws RecordNotFoundException;
 
-	public Iterable<ScheduledFlight> viewAllScheduledFlights();
+	Iterable<ScheduledFlight> viewAllScheduledFlights();
 
 	Collection<ScheduledFlight> viewScheduledFlights(
 			final LocalDate deptDateTime,
@@ -24,5 +24,7 @@ public interface ScheduledFlightService {
 			final String dstnAirport,
 			final Short noOfPassengers
 	) throws ScheduledFlightNotFoundException;
+
+	void reserveSeats(final Long scheduledFlightId, final Short numberOfSeats);
 
 }

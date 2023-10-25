@@ -4,11 +4,12 @@ import com.miu.flightmanagement.airlinebookingservice.dto.ScheduleDTO;
 import com.miu.flightmanagement.airlinebookingservice.model.Airport;
 import com.miu.flightmanagement.airlinebookingservice.model.Schedule;
 import lombok.experimental.UtilityClass;
+import org.springframework.lang.NonNull;
 
 @UtilityClass
 public class ScheduleUtil {
 
-    public static ScheduleDTO toScheduleDTO(final Schedule schedule) {
+    public static ScheduleDTO toScheduleDTO(@NonNull final Schedule schedule) {
         return ScheduleDTO.builder()
                 .arrDateTime(schedule.getArrDateTime())
                 .deptDateTime(schedule.getDeptDateTime())

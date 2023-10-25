@@ -88,21 +88,6 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		return "Scheduled flight with ID " + flightId + " is not found";
 	}
 
-	// @Override
-	// public boolean cancelBookings(BigInteger flightId) throws
-	// RecordNotFoundException {
-	// Iterable<Booking> bookingList = bookingService.displayAllBooking();
-	// for (Booking booking : bookingList) {
-	// if (booking.getScheduleFlight().getScheduleFlightId().equals(flightId)) {
-	// bookingService.deleteBooking(booking.getBookingId());
-	// }
-	// }
-	// return true;
-	// }
-
-	/*
-	 * Service method to view all Scheduled flights in database
-	 */
 	@Override
 	public Iterable<ScheduledFlight> viewAllScheduledFlights() {
 		return dao.findAll();
@@ -124,6 +109,18 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 			throw new ScheduledFlightNotFoundException("No flights being scheduled.");
 		}
 		return scheduledFlights;
+	}
+
+	@Override
+	public void reserveSeats(final Long scheduledFlightId, final Short numberOfSeats) {
+		dao.findById(scheduledFlightId)
+				.ifPresent(scheduledFlight -> {
+					final Integer availableSeats = scheduledFlight.getAvailableSeats() - numberOfSeats;
+					if (availableSeats >= 0) {
+						scheduledFlight.setTemporaryAvailableSeats(availableSeats);
+						dao.save(scheduledFlight);
+					}
+				});
 	}
 
 }

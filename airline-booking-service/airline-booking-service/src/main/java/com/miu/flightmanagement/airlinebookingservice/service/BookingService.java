@@ -1,19 +1,15 @@
 package com.miu.flightmanagement.airlinebookingservice.service;
 
-import com.miu.flightmanagement.airlinebookingservice.model.Booking;
-import org.springframework.http.ResponseEntity;
+
+import com.miu.flightmanagement.airlinebookingservice.dto.BookingDTO;
+import com.miu.flightmanagement.airlinebookingservice.dto.BookingWithPaymentRequest;
 
 public interface BookingService {
 
-	public ResponseEntity<?> createBooking(Booking newBooking);
+	BookingDTO bookTicketsWithPayment(final BookingWithPaymentRequest bookingRequest);
 
-	public Booking updateBooking(Booking newBooking);
+	BookingDTO findBooking(final String bookingCode);
 
-	public String deleteBooking(Long bookingId);
+	boolean hasBooking(final Long scheduledFlightId);
 
-	public Iterable<Booking> displayAllBooking();
-
-	public ResponseEntity<?> findBookingById(Long bookingId);
-
-	boolean hasBooking(final Long scheduledFlightNo);
 }

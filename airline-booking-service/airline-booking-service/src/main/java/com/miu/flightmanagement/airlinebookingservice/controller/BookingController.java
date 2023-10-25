@@ -1,52 +1,37 @@
 package com.miu.flightmanagement.airlinebookingservice.controller;
 
-import com.miu.flightmanagement.airlinebookingservice.exception.RecordAlreadyPresentException;
+import com.miu.flightmanagement.airlinebookingservice.dto.BookingWithPaymentRequest;
+import com.miu.flightmanagement.airlinebookingservice.dto.SeatReservation;
 import com.miu.flightmanagement.airlinebookingservice.exception.RecordNotFoundException;
-import com.miu.flightmanagement.airlinebookingservice.model.Booking;
 import com.miu.flightmanagement.airlinebookingservice.service.BookingService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.miu.flightmanagement.airlinebookingservice.service.ScheduledFlightService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/api/booking")
+@AllArgsConstructor
 public class BookingController {
 
-	@Autowired(required= true)
-	BookingService bookingService;
-
-	@PostMapping("/createBooking")
-	@ExceptionHandler(RecordAlreadyPresentException.class)
-	public void addBooking(@RequestBody Booking newBooking) {
-
-		bookingService.createBooking(newBooking);
+	private final BookingService bookingService;
+	private final ScheduledFlightService scheduledFlightService;
+	@PostMapping
+	public ResponseEntity<?> addBooking(@RequestBody BookingWithPaymentRequest newBooking) {
+		return ResponseEntity.ok(bookingService.bookTicketsWithPayment(newBooking));
 	}
 
-	@GetMapping("/readAllBooking")
-	public Iterable<Booking> readAllBookings() {
-
-		return bookingService.displayAllBooking();
-	}
-
-	@PutMapping("/updateBooking")
+	@GetMapping("/search")
 	@ExceptionHandler(RecordNotFoundException.class)
-	public void modifyBooking(@RequestBody Booking updateBooking) {
-
-		bookingService.updateBooking(updateBooking);
+	public ResponseEntity<?> searchBookingByCode(@RequestParam("code") String bookingCode) {
+		return ResponseEntity.ok(bookingService.findBooking(bookingCode));
 	}
 
-	@GetMapping("/searchBooking/{id}")
-	@ExceptionHandler(RecordNotFoundException.class)
-	public ResponseEntity<?> searchBookingByID(@PathVariable("id") Long bookingId) {
-
-		return bookingService.findBookingById(bookingId);
+	@PostMapping("/reserveSeats")
+	public ResponseEntity<?> reserveSeats(@RequestBody SeatReservation seatReservation) {
+		scheduledFlightService.reserveSeats(seatReservation.getScheduledFlightId(), seatReservation.getNumberOfSeats());
+		return ResponseEntity.ok().build();
 	}
 
-	@DeleteMapping("/deleteBooking/{id}")
-	@ExceptionHandler(RecordNotFoundException.class)
-	public void deleteBookingByID(@PathVariable("id") Long bookingId) {
-
-		bookingService.deleteBooking(bookingId);
-	}
 }

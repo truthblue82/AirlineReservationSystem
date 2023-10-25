@@ -2,12 +2,15 @@ package com.miu.flightmanagement.airlinebookingservice.util;
 
 import com.miu.flightmanagement.airlinebookingservice.dto.FlightDTO;
 import com.miu.flightmanagement.airlinebookingservice.dto.ScheduledFlightDTO;
+import com.miu.flightmanagement.airlinebookingservice.model.Flight;
 import com.miu.flightmanagement.airlinebookingservice.model.ScheduledFlight;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.lang.NonNull;
 
+import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.stream.StreamSupport;
@@ -19,11 +22,15 @@ public class ScheduledFlightUtil {
         return ScheduledFlightDTO.builder()
                 .scheduleFlightId(scheduledFlight.getScheduleFlightId())
                 .availableSeats(scheduledFlight.getTemporaryAvailableSeats())
-                .schedule(ScheduleUtil.toScheduleDTO(scheduledFlight.getSchedule()))
-                .economicPrice(scheduledFlight.getEconomicPrice().toString())
+                .schedule(
+                        Optional.ofNullable(scheduledFlight.getSchedule())
+                                        .map(schedule -> ScheduleUtil.toScheduleDTO(schedule))
+                                .orElse(null)
+                )
+                .economicPrice(Optional.ofNullable(scheduledFlight.getEconomicPrice()).map(BigDecimal::toString).orElse(null))
                 .flight(FlightDTO.builder()
-                        .flightModel(scheduledFlight.getFlight().getFlightModel())
-                        .flightNo(scheduledFlight.getFlight().getFlightNo())
+                        .flightModel(Optional.ofNullable(scheduledFlight.getFlight()).map(Flight::getFlightModel).orElse(null))
+                        .flightNo(Optional.ofNullable(scheduledFlight.getFlight()).map(Flight::getFlightNo).orElse(null))
                         .build()
                 )
                 .build();

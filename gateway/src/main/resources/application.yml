@@ -46,11 +46,6 @@ eureka:
 
 spring.cloud.gateway.routes:
 
-#  - id: product-composite
-#    uri: lb://product-composite
-#    predicates:
-#      - Path=/product-composite/**
-
   - id: oauth2-server
     uri: lb://auth-server
     predicates:
@@ -76,7 +71,7 @@ spring.cloud.gateway.routes:
     predicates:
       - Path=/api/airport/**
 
-  - id: airline-airport
+  - id: airline-airport-root
     uri: lb://airline-booking-service
     predicates:
       - Path=/api/airport
@@ -85,6 +80,11 @@ spring.cloud.gateway.routes:
     uri: lb://airline-booking-service
     predicates:
       - Path=/api/booking/**
+
+  - id: airline-booking-root
+    uri: lb://airline-booking-service
+    predicates:
+      - Path=/api/booking
 
   - id: airline-flight
     uri: lb://airline-booking-service
@@ -95,11 +95,6 @@ spring.cloud.gateway.routes:
     uri: lb://airline-booking-service
     predicates:
       - Path=/api/scheduled-flight/**
-
-#  - id: product-composite-swagger-ui-webjars
-#    uri: lb://product-composite
-#    predicates:
-#      - Path=/webjars/**
 
   - id: eureka-api
     uri: http://${app.eureka-server}:8761

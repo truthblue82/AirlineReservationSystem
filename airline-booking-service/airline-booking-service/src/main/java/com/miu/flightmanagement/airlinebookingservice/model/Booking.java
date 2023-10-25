@@ -13,6 +13,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class Booking {
 	@Id
 	 @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -26,7 +27,7 @@ public class Booking {
 	@OneToMany(mappedBy = "booking", cascade = {CascadeType.PERSIST})
 	private Collection<Passenger> passengers;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private ScheduledFlight scheduledFlight;
 
 }
