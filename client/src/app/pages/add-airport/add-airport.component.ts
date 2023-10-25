@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AirportService } from 'src/app/services/airport.service';
 
 @Component({
   selector: 'app-add-airport',
@@ -7,8 +11,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddAirportComponent implements OnInit {
   displayModal: boolean = false;
+  //airports: Airport[];
 
-  constructor() {}
+  constructor(
+    private appTitle: Title,
+    private airportSvc: AirportService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {
+    //this.appTitle.setTitle('')
+  }
 
   ngOnInit(): void {
     //

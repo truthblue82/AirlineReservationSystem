@@ -18,12 +18,6 @@ export const environment = {
   GATEWAY_OAUTH2_URI_PASSWORD: 'secret-writer',
   GATEWAY_REGISTRATION_USER_CMD: 'curl -X POST -H "Content-Type: application/json" -d \'{"firstName": "{FIRSTNAME}", "lastName": "{LASTNAME}", "password": "{PASSWORD}", "email": "{EMAIL}"}, "phone": "{PHONE}"\' -k {GATEWAY_USER_REGISTER_URL}',
   GATEWAY_USERINFO_CMD: 'curl -X GET -H "Content-Type: application/json" -d \'\' ',
-
-  BASE_SERVICE_URL: "http://localhost:8080",
-  USER_SERVICE_URL: "http://localhost:8080/",
-  AUTH_SERVICE_URL: "http://localhost:8080/",
-  RESERVATION_SERVICES_URL: "http://localhost:8080/",
-  MANAGEMENT_SERVICE_URL: "http://localhost:8080/",
 };
 
 /*

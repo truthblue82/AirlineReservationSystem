@@ -14,10 +14,7 @@
         </a>
       </div>
 
-      <a
-        class="navbar-item"
-        routerLink="/flight-booking"
-      >
+      <a *ngIf="user.length > 0" class="navbar-item" routerLink="/flight-booking" >
         <h3>Book Flight</h3>
       </a>
 

@@ -24,12 +24,14 @@ export class AirportComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    //this.airPorts = this.airPortSvc.getAllAirports();
+    this.airPorts = this.airPortSvc.getAllAirports();
+
+    console.log('airPorts', this.airPorts);
   }
   goToAddAirPort():void {
     this.router.navigate(['/add-airport']);
   }
-  goToEditAirport(code: string):void {
-    this.router.navigate(['/edit-airport']);
-  }
+  // goToEditAirport(code: string):void {
+  //   this.router.navigate(['/edit-airport/' + code]);
+  // }
 }

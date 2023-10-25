@@ -105,7 +105,7 @@ export class UserService {
     sessionStorage.setItem('lastName', data.lastName);
     sessionStorage.setItem('email', data.email);
     sessionStorage.setItem('phone', data.phone);
-    sessionStorage.setItem('roles', data.roles[0].name);
+    sessionStorage.setItem('roles', data.roles[0]);
   }
   logout() {
     this.clearSession();
@@ -118,9 +118,9 @@ export class UserService {
       {observe: "response"}
     );
   }
-  changeUserPassword(data: any) {
-    return this.http.put(`${environment.BASE_SERVICE_URL}/api/users/`, {
-      data: {oldpassword: data.oldPassword, newpassword: data.newPassword},
-    }, {observe: "response"});
-  }
+  // changeUserPassword(data: any) {
+  //   return this.http.put(`${environment.BASE_SERVICE_URL}/api/users/`, {
+  //     data: {oldpassword: data.oldPassword, newpassword: data.newPassword},
+  //   }, {observe: "response"});
+  // }
 }
