@@ -33,6 +33,7 @@ import { AddAirportComponent } from './pages/add-airport/add-airport.component';
 import { AddFlightComponent } from './pages/add-flight/add-flight.component';
 import { UserComponent } from './pages/user/user.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { FlightBookingListComponent } from './pages/flight-booking-list/flight-booking-list.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
     AccountSettingsComponent,
     ContactUsComponent,
     FlightBookingComponent,
+    FlightBookingListComponent,
     FlightDetailComponent,
     FlightHistoryComponent,
     FlightTicketsComponent,

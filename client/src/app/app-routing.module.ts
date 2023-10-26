@@ -19,6 +19,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { FlightHistoryComponent } from './pages/flight-history/flight-history.component';
 import { adminGuard } from './guards/admin.guard';
 import { userGuard } from './guards/user.guard';
+import { FlightBookingListComponent } from './pages/flight-booking-list/flight-booking-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -88,6 +89,10 @@ const routes: Routes = [
   {
     path: 'flight-booking',
     component: FlightBookingComponent,
+  },
+  {
+    path: 'flight-booking-list',
+    component: FlightBookingListComponent,
   },
   {
     path: 'about',

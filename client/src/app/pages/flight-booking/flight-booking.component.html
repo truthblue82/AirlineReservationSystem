@@ -11,7 +11,7 @@
       <div class="container">
         <div class="row">
           <div class="booking-form">
-            <form  ngNativeValidate>
+            <form  ngNativeValidate (ngSubmit)="onSubmit()">
               <!-- <div class="form-group">
                 <div class="form-group">
                   <span class="form-label">Trip Type</span>
@@ -38,11 +38,10 @@
                       id="from"
                       name="from"
                       class="form-control departsfrom-select"
-
+                      [(ngModel)]="selectedArrAirport"
                       required
                     >
-                    <option value="CDA">Cedar Rapids Airport</option>
-                    <option value="SNA">John Wayne Airport</option>
+                    <option *ngFor="let airport of airportList" ngValue="{{airport.code}}">{{airport.name}} - {{airport.code}}</option>
                     </select>
                   </div>
                 </div>
@@ -54,11 +53,10 @@
                       id="from"
                       name="from"
                       class="form-control departsfrom-select"
-
+                      [(ngModel)]="selectedDeptAirport"
                       required
                     >
-                      <option value="CDA">Cedar Rapids Airport</option>
-                      <option value="SNA">John Wayne Airport</option>
+                      <option *ngFor="let airport of airportList" ngValue="{{airport.code}}">{{airport.name}} - {{airport.code}}</option>
                     </select>
                   </div>
                 </div>
@@ -72,28 +70,28 @@
                       type="date"
                       name="departureDate"
                       required
-
+                      [(ngModel)]="departureDate"
                     />
                   </div>
                 </div>
                 <div class="col-md-5">
-                  <div class="form-group">
-                    <span class="form-label">Returning</span>
+                  <!-- <div class="form-group">
+                    <span class="form-label">Arriving</span>
                     <input
                       class="form-control"
                       type="date"
                       required
-                      name="returnDate"
-
+                      name="arDate"
+                      [(ngModel)]="departureDate"
                     />
-                  </div>
+                  </div> -->
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <span class="form-label">Adults (18+)</span>
                     <select
                       class="form-control"
-
+                      [(ngModel)]="selectedNoAdults"
                       name="adult-count"
                       required
                     >
@@ -113,7 +111,7 @@
                     <span class="form-label">Children (0-17)</span>
                     <select
                       class="form-control"
-
+                      [(ngModel)]="selectedNoChildren"
                       name="childrenCount"
                       required
                     >

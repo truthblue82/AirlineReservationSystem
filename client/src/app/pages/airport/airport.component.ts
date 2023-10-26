@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Airport } from 'src/app/models/airport';
+import { Airports } from 'src/app/models/airports';
 import { AirportService } from 'src/app/services/airport.service';
 
 @Component({
@@ -24,7 +25,7 @@ export class AirportComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.airPorts = this.airPortSvc.getAllAirports();
+    this.airPortSvc.getAllAirports().subscribe((value: Airports) => this.airPorts = value.airports);
 
     console.log('airPorts', this.airPorts);
   }
