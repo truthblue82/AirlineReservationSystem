@@ -110,8 +110,8 @@ public class ScheduledFlightController {
 		try {
 			Collection<ScheduledFlight> searchSFlight = scheduleFlightService.viewScheduledFlights(
 					LocalDateTime.parse(deptDate, DateTimeFormatter.ISO_DATE_TIME).atOffset(ZoneOffset.UTC).toLocalDate(),
-					deptAirport,
 					arrAirport,
+					deptAirport,
 					onOfPassengers
 			);
 
