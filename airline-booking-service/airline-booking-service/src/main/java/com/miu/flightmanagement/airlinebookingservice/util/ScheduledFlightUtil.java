@@ -28,10 +28,7 @@ public class ScheduledFlightUtil {
                                 .orElse(null)
                 )
                 .economicPrice(Optional.ofNullable(scheduledFlight.getEconomicPrice()).map(BigDecimal::toString).orElse(null))
-                .flight(FlightDTO.builder()
-                        .flightModel(Optional.ofNullable(scheduledFlight.getFlight()).map(Flight::getFlightModel).orElse(null))
-                        .flightNo(Optional.ofNullable(scheduledFlight.getFlight()).map(Flight::getFlightNo).orElse(null))
-                        .build()
+                .flight(Optional.ofNullable(scheduledFlight.getFlight()).map(FlightUtil::toFlightDTO).orElse(null)
                 )
                 .build();
     }

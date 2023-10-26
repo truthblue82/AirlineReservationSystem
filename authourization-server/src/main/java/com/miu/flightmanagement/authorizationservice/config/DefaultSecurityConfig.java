@@ -94,22 +94,4 @@ public class DefaultSecurityConfig {
         return authProvider;
     }
 
-    // register CORS filter
-//    @Bean
-//    public FilterRegistrationBean corsFilterRegistrationBean() {
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        CorsConfiguration config = new CorsConfiguration();
-//        config.applyPermitDefaultValues();
-//        config.setAllowCredentials(true);
-//        config.setAllowedOriginPatterns(Arrays.asList("*"));
-//        config.setAllowedHeaders(Arrays.asList("*"));
-//        config.setAllowedMethods(Arrays.asList("*"));
-//        config.setExposedHeaders(Arrays.asList("content-length"));
-//        config.setMaxAge(3600L);
-//        source.registerCorsConfiguration("/**", config);
-//        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-//        bean.setOrder(0);
-//        return bean;
-//    }
-
 }

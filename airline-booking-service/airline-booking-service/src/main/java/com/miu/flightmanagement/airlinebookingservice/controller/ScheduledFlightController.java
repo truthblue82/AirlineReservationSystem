@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
 @RestController
@@ -101,14 +102,17 @@ public class ScheduledFlightController {
 
 	@GetMapping("/search")
 	public ResponseEntity<?> viewSF(
-			@RequestBody ScheduleFlightSearchRequest scheduleFlightSearchRequest
+			@RequestParam("deptAirport") final String deptAirport,
+			@RequestParam("arrAirport") final String arrAirport,
+			@RequestParam("deptDate") final String deptDate,
+			@RequestParam("noOfPassengers") final Short onOfPassengers
 	)  {
 		try {
 			Collection<ScheduledFlight> searchSFlight = scheduleFlightService.viewScheduledFlights(
-					LocalDateTime.parse(scheduleFlightSearchRequest.getDepartureDate()).atOffset(ZoneOffset.UTC).toLocalDate(),
-					scheduleFlightSearchRequest.getDepartureAirportCode(),
-					scheduleFlightSearchRequest.getArrivalAirportCode(),
-					scheduleFlightSearchRequest.getNoOfPassengers()
+					LocalDateTime.parse(deptDate, DateTimeFormatter.ISO_DATE_TIME).atOffset(ZoneOffset.UTC).toLocalDate(),
+					deptAirport,
+					arrAirport,
+					onOfPassengers
 			);
 
 			final ScheduledFlightsDTO scheduledFlightDTO = ScheduledFlightsDTO.builder()
@@ -116,7 +120,7 @@ public class ScheduledFlightController {
 					.build();
 			return new ResponseEntity<>(scheduledFlightDTO, HttpStatus.OK);
 		}catch (ScheduledFlightNotFoundException ex) {
-			return new ResponseEntity("Flight not present", HttpStatus.BAD_REQUEST);
+			return ResponseEntity.noContent().build();
 		}
 	}
 
