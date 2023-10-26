@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ScheduleFlightFlightService } from '../../services/scheduleFlight.service';
+import { ScheduledFlightSearch } from 'src/app/models/scheduledFlightSearch';
+import { ScheduledFlight } from '../../models/scheduledFlight';
+import { ScheduledFlights } from 'src/app/models/scheduledFlights';
 
 @Component({
   selector: 'app-schedule',
@@ -10,6 +14,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ScheduleComponent implements OnInit {
   displayModal: boolean = false;
+  scheduledFlights: ScheduledFlight[];
+
   flightflightno: string = '';
   origin: string = '';
   destination: string = '';
@@ -24,13 +30,16 @@ export class ScheduleComponent implements OnInit {
   constructor(
     private appTitle: Title,
     private router: Router,
+    private scheduleFlightFlightSvc: ScheduleFlightFlightService,
     private toastr: ToastrService
   ){
     this.appTitle.setTitle('Airport Reservation System - Schedule Management');
+    this.scheduledFlights = [];
   }
 
   ngOnInit(): void {
-    //
+    this.scheduleFlightFlightSvc.getAllScheduleFlights()
+    .subscribe((value: ScheduledFlights) => this.scheduledFlights = value.scheduledFlights);
   }
 
   handleFormSubmit(event: Event):void {

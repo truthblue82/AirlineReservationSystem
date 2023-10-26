@@ -32,7 +32,4 @@ export class AirportComponent implements OnInit{
   goToAddAirPort():void {
     this.router.navigate(['/add-airport']);
   }
-  // goToEditAirport(code: string):void {
-  //   this.router.navigate(['/edit-airport/' + code]);
-  // }
 }

@@ -19,13 +19,13 @@
           <!-- <th>Action</th> -->
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>2</td>
-          <td>3</td>
-          <td>4</td>
-          <!-- <td>
+      <tbody *ngIf="flights?.length">
+        <tr *ngFor="let fl of flights">
+          <td>{{fl.flightNo}}</td>
+          <td>{{fl.carrierName}}</td>
+          <td>{{fl.flightModel}}</td>
+          <td>{{fl.seatCapacity}}</td>
+           <!-- <td>
             <button type="button" class="btn btn-info">Edit</button>
             <button type="button" class="btn btn-danger">Delete</button>
           </td> -->

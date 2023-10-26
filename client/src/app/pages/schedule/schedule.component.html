@@ -5,28 +5,37 @@
 
 <div class="All container">
   <h1>SCHEDUAL MANAGEMENT</h1>
-  <div class="d-grid mt-4">
+  <!-- <div class="d-grid mt-4">
     <button type="button" class="btn btn-primary" (click)="goToAddSchedual()">Add Schedual</button>
-  </div>
+  </div> -->
   <div class="table-responsive">
     <table class="table">
       <thead>
         <tr>
-          <th>Airport Code</th>
-          <th>Location</th>
-          <th>Airport Name</th>
-          <th>Action</th>
+          <th>Flight Number</th>
+          <th>Carrier Name</th>
+          <th>Flight Model</th>
+          <th>Departure From</th>
+          <th>Arrive At</th>
+          <th>Departure Time</th>
+          <th>Arrival Time</th>
+          <th>Economic Class Price</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>2</td>
-          <td>3</td>
-          <td>
+      <tbody *ngIf="scheduledFlights.length">
+        <tr *ngFor="let sl of scheduledFlights">
+          <td>{{sl.flight.flightNo}}</td>
+          <td>{{sl.flight.carrierName}}</td>
+          <td>{{sl.flight.flightModel}}</td>
+          <td>{{sl.schedule.srcAirport.name}}</td>
+          <td>{{sl.schedule.dstnAirport.name}}</td>
+          <td>{{sl.schedule.deptDateTime}}</td>
+          <td>{{sl.schedule.arrDateTime}}</td>
+          <td>{{sl.economicPrice}}</td>
+          <!-- <td>
             <button type="button" class="btn btn-info">Edit</button>
             <button type="button" class="btn btn-danger">Delete</button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>

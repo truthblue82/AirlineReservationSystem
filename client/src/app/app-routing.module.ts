@@ -68,9 +68,6 @@ const routes: Routes = [
     component: FlightHistoryComponent,
     canActivate: [userGuard]
   },
-  // {
-  //   path: 'flight-booking-list',
-  // },
   {
     path: 'account-settings',
     component: AccountSettingsComponent,

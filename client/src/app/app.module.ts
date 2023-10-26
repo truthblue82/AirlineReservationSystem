@@ -21,7 +21,6 @@ import { FlightBookingComponent } from './pages/flight-booking/flight-booking.co
 import { FlightDetailComponent } from './pages/flight-detail/flight-detail.component';
 import { FlightHistoryComponent } from './pages/flight-history/flight-history.component';
 import { FlightTicketsComponent } from './pages/flight-tickets/flight-tickets.component';
-import { DisplayIssuesComponent } from './pages/display-issues/display-issues.component';
 import { InvoiceComponent } from './pages/invoice/invoice.component';
 import { ReportComponent } from './pages/report/report.component';
 import { AirportComponent } from './pages/airport/airport.component';
@@ -52,7 +51,6 @@ import { FlightBookingListComponent } from './pages/flight-booking-list/flight-b
     FlightDetailComponent,
     FlightHistoryComponent,
     FlightTicketsComponent,
-    DisplayIssuesComponent,
     InvoiceComponent,
     ReportComponent,
     AirportComponent,

@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Flight } from 'src/app/models/flight';
+import { Flights } from 'src/app/models/flights';
 import { FlightService } from 'src/app/services/flight.service';
 
 @Component({
@@ -25,7 +26,8 @@ export class FlightComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.flights = this.flightSvc.getAllFlights();
+    this.flightSvc.getAllFlights()
+    .subscribe((value: Flights) => this.flights = value.flights);
   }
 
   goToAddFlight():void {
