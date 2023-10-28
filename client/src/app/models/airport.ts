@@ -3,3 +3,7 @@ export interface Airport {
   code: string;
   location: string;
 }
+
+export interface Airports {
+  airports: Airport[]
+}

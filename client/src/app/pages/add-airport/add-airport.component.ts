@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AirportService } from 'src/app/services/airport.service';
+import { Airport } from 'src/app/models/airport';
 
 @Component({
   selector: 'app-add-airport',
@@ -11,7 +12,7 @@ import { AirportService } from 'src/app/services/airport.service';
 })
 export class AddAirportComponent implements OnInit {
   displayModal: boolean = false;
-  //airports: Airport[];
+  airport: Airport;
 
   constructor(
     private appTitle: Title,
@@ -19,10 +20,17 @@ export class AddAirportComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService
   ) {
-    //this.appTitle.setTitle('')
+    this.appTitle.setTitle('Airport Reservation System - Add New Airport');
+    this.airport = {
+      name: '', code: '', location: ''
+    };
   }
 
   ngOnInit(): void {
+    //
+  }
+
+  onSubmit(): void {
     //
   }
 }

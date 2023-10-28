@@ -6,7 +6,15 @@ import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from '@angular/common
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieService } from 'ngx-cookie-service';
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header/header.component';
@@ -33,7 +41,7 @@ import { AddFlightComponent } from './pages/add-flight/add-flight.component';
 import { UserComponent } from './pages/user/user.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { FlightBookingListComponent } from './pages/flight-booking-list/flight-booking-list.component';
-
+import { CustomDialogComponent } from './shared/custom-dialog/custom-dialog.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +68,8 @@ import { FlightBookingListComponent } from './pages/flight-booking-list/flight-b
     AddAirportComponent,
     AddFlightComponent,
     UserComponent,
-    ProfileComponent
+    ProfileComponent,
+    CustomDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -69,13 +78,29 @@ import { FlightBookingListComponent } from './pages/flight-booking-list/flight-b
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatCardModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
     ToastrModule.forRoot(),
+  ],
+  exports: [
+    CustomDialogComponent,
+    MatDialogModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
+    },
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: {hasBackdrop: false}
     },
     HttpClient,
     CookieService

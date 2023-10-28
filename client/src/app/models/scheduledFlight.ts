@@ -9,3 +9,6 @@ export interface ScheduledFlight {
   economicPrice: string | number;
 }
 
+export interface ScheduledFlights {
+  scheduledFlights: ScheduledFlight[];
+}

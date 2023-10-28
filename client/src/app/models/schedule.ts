@@ -6,3 +6,7 @@ export interface Schedule {
   deptDateTime: string;
   arrDateTime: string;
 }
+
+export interface Schedules {
+  schedules: Schedule[]
+}

@@ -24,4 +24,6 @@ export class AirportService {
     return this.http.get(
       `${environment.GATEWAY_BASE_URL}/api/airport`);
   }
+
+
 }

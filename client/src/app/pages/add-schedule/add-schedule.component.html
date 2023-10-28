@@ -64,23 +64,13 @@
             <div style="display: flex">
               <input type="date" id="Departdate"
                 name="Departdate" min="2000-01-02"
-                style="
-                  font-size: 20px;
-                  border: 4cm;
-                  flex: 1;
-                  padding: 12px 20px;
-                "
+                style="font-size: 20px;border: 4cm;flex: 1;padding: 12px 20px;"
                 [(ngModel)]="departureDate" required
               />
 
               <input type="time" id="departTime"
                 name="departTime"
-                style="
-                  font-size: 20px;
-                  border: 4cm;
-                  margin-left: 10px;
-                  padding: 12px 20px;
-                "
+                style="font-size: 20px;border: 4cm;margin-left: 10px;padding: 12px 20px;"
                 [(ngModel)]="departureTime" required
               />
             </div>
@@ -92,17 +82,12 @@
               >Arrive Date and Time
             </label>
             <div style="display: flex">
-              <input type="date" id="Returndate"
-                name="Returndate" min="2000-01-02"
-                style="border: 2cm; font-size: 20px; flex: 1"
-                [(ngModel)]="returnDate"
-                required
+              <input type="date" id="Returndate" name="Returndate" min="2000-01-02"
+                style="border: 2cm; font-size: 20px; flex: 1" [(ngModel)]="returnDate" required
               />
               <input type="time" id="ReturnTime" name="ReturnTime"
                 style="margin-left: 10px; font-size: 20px; border: 4cm"
-                [(ngModel)]="returnTime"
-                required
-              />
+                [(ngModel)]="returnTime" required />
             </div>
           </div>
         </div>
@@ -110,45 +95,26 @@
       </div>
 
       <!-- Economy Class -->
-      <div
-        class="card mt-5"
-        style="
-          width: 100%;
-          box-shadow: '0px 0px 7px #ccc';
-          background-color: white;
-        "
+      <div class="card mt-5"
+        style="width: 100%;box-shadow: '0px 0px 7px #ccc';background-color: white;"
       >
         <div class="card-body">
           <h4 class="card-title font-weight-bold">Flight Details</h4>
           <div>
-            <label
-              for="Fclass"
-              style="font-size: 18px; font-weight: bold; color: black"
-              >Total Seats
+            <label for="Fclass"
+              style="font-size: 18px; font-weight: bold; color: black" >
+              Total Seats
             </label>
-            <input
-              type="text"
-              id="Fclass"
-              name="totalSeats"
-              placeholder="Enter Total Seats"
-              [(ngModel)]="seats"
-            />
+            <input type="text" id="Fclass" name="totalSeats" placeholder="Enter Total Seats"
+            [(ngModel)]="seats" />
           </div>
 
           <div>
-            <label
-              for="Fcapacity"
-              style="font-size: 18px; font-weight: bold; color: black"
-            >
+            <label for="Fcapacity" style="font-size: 18px; font-weight: bold; color: black" >
               Ticket Price
             </label>
-            <input
-              type="text"
-              id="Fcapacity"
-              name="ticketPrice"
-              placeholder="Enter Ticket Price"
-              [(ngModel)]="ticketPrice"
-            />
+            <input type="text" id="Fcapacity"  name="ticketPrice"
+              placeholder="Enter Ticket Price" [(ngModel)]="ticketPrice" />
           </div>
         </div>
       </div>

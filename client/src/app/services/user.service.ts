@@ -95,7 +95,6 @@ export class UserService {
     });
   }
   clearSession():void {
-    //cookie JSESSIONID come frome gateway service
     this.cookieSvc.deleteAll("/", environment.APP_BASE_URL, false, 'None');
     sessionStorage.clear();
     localStorage.clear();

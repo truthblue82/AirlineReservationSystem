@@ -3,6 +3,39 @@
   <h3>Loading</h3>
 </div>
 
-<div class="All container">
+<div class="All container" *ngIf="!displayModal">
   <h1>ADD AIRPORT</h1>
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="row" style="margin:0 auto;">
+      <div class="card mt-4 cart-custom" >
+        <div class="card-body">
+          <div class="form-group">
+            <label for="code">Airport Code</label>
+            <input type="text" placeholder="Airport Code" required #code pattern="^[A-Z0-9]{1,5}$"
+            class="form-control" id="code" required [(ngModel)]="airport.code" name="code">
+            <small class="text-danger">Code should contain max 5 letters</small>
+          </div>
+
+          <div class="form-group">
+            <label for="name">Airport Name</label>
+            <input type="text" placeholder="Airport Name" required #name="ngModel" class="form-control"
+            id="name" required [(ngModel)]="airport.name" name="name">
+            <small class="text-danger">Name is required</small>
+          </div>
+
+          <div class="form-group">
+            <label for="location">Airport Location</label>
+            <input type="text" placeholder="Airport Location" required #location="ngModel"
+            class="form-control" id="location" required [(ngModel)]="airport.location"
+            name="location">
+            <small class="text-danger">Location is required</small>
+          </div>
+
+          <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+
 </div>

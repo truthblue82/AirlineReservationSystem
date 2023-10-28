@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Flight } from 'src/app/models/flight';
-import { Flights } from 'src/app/models/flights';
+import { Flight, Flights } from 'src/app/models/flight';
 import { FlightService } from 'src/app/services/flight.service';
 
 @Component({

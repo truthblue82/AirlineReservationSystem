@@ -15,9 +15,7 @@ export const environment = {
   GATEWAY_GRANT_TYPE: "authorization_code",
   GATEWAY_USERINFO_URI: "users/info",
   GATEWAY_OAUTH2_URI_USERNAME: 'writer',
-  GATEWAY_OAUTH2_URI_PASSWORD: 'secret-writer',
-  GATEWAY_REGISTRATION_USER_CMD: 'curl -X POST -H "Content-Type: application/json" -d \'{"firstName": "{FIRSTNAME}", "lastName": "{LASTNAME}", "password": "{PASSWORD}", "email": "{EMAIL}"}, "phone": "{PHONE}"\' -k {GATEWAY_USER_REGISTER_URL}',
-  GATEWAY_USERINFO_CMD: 'curl -X GET -H "Content-Type: application/json" -d \'\' ',
+  GATEWAY_OAUTH2_URI_PASSWORD: 'secret-writer'
 };
 
 /*

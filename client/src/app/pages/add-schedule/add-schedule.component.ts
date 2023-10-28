@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddScheduleComponent implements OnInit{
   displayModal: boolean = false;
+
   flightflightno: string = '';
   origin: string = '';
   destination: string = '';

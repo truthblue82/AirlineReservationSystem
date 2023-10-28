@@ -4,3 +4,7 @@ export interface Flight {
   flightModel: string;
   seatCapacity: number;
 }
+
+export interface Flights {
+  flights: Flight[];
+}

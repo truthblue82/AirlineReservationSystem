@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>
+  {{title}}
+</h1>
+
+<div mat-dialog-content>
+  <p>{{subtitle}}</p>
+  <div *ngIf="objData.length > 0">
+    <div *ngFor="let data of objData">
+      <mat-form-field>
+        <mat-label>{{data.label}}</mat-label>
+        <input matInput [(ngModel)]="data.input" required={{data.required}}/>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+
+<div mat-dialog-actions align="center">
+  <button mat-raised-button color="warn" (click)="onDismiss()">{{cancelBtn}}</button>
+  <button mat-raised-button color="primary" (click)="onAction()">{{okBtn}}</button>
+</div>

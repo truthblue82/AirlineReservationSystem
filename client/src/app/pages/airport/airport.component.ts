@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Airport } from 'src/app/models/airport';
-import { Airports } from 'src/app/models/airports';
+import { Observable } from 'rxjs';
+import { Airport, Airports } from 'src/app/models/airport';
 import { AirportService } from 'src/app/services/airport.service';
+import { CustomDialogComponent } from 'src/app/shared/custom-dialog/custom-dialog.component';
 
 @Component({
   selector: 'app-airport',
@@ -14,22 +16,59 @@ import { AirportService } from 'src/app/services/airport.service';
 export class AirportComponent implements OnInit{
   displayModal: boolean = false;
   airPorts?: Airport[];
+  airPort?: Airport;
 
   constructor(
     private appTitle: Title,
     private router: Router,
     private airPortSvc: AirportService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public dialog: MatDialog
   ) {
     this.appTitle.setTitle('Airport Reservation System - Airport Management');
+    this.airPort = {
+      code: '', name: '', location: ''
+    };
+  }
+
+  showAddAirport(): void {
+    let customDialog = this.dialog.open(
+      CustomDialogComponent,
+      {
+        data: {
+          title: "Add Airport",
+          subTitle: "Please input airport information",
+          cancelBtn: "Cancel",
+          okBtn: "Submit",
+          objData: [{
+            label: 'code',
+            input: '',
+            required: true
+          }, {
+            label: 'name',
+            input: '',
+            required: true
+          }, {
+            label: 'location',
+            input: '',
+            required: true
+          }]
+        }
+      }
+    );
+    customDialog.afterClosed().subscribe(result => {
+      console.log('result', result);
+      if(result) {
+        //
+      }
+    });
   }
 
   ngOnInit(): void {
     this.airPortSvc.getAllAirports().subscribe((value: Airports) => this.airPorts = value.airports);
-
-    console.log('airPorts', this.airPorts);
   }
-  goToAddAirPort():void {
-    this.router.navigate(['/add-airport']);
+
+  deleteAirport(code: string): void {
+    //
   }
 }

@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ScheduleFlightFlightService } from '../../services/scheduleFlight.service';
 import { ScheduledFlightSearch } from 'src/app/models/scheduledFlightSearch';
-import { ScheduledFlight } from '../../models/scheduledFlight';
-import { ScheduledFlights } from 'src/app/models/scheduledFlights';
+import { ScheduledFlight, ScheduledFlights } from '../../models/scheduledFlight';
 
 @Component({
   selector: 'app-schedule',

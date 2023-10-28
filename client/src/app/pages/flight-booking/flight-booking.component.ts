@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { Airport } from 'src/app/models/airport';
-import { Airports } from 'src/app/models/airports';
+import { Airport, Airports } from 'src/app/models/airport';
 import { ScheduledFlightSearch } from 'src/app/models/scheduledFlightSearch';
-import { ScheduledFlights } from 'src/app/models/scheduledFlights';
+import { ScheduledFlights } from 'src/app/models/scheduledFlight';
 import { AirportService } from 'src/app/services/airport.service';
 import { BookingService } from 'src/app/services/booking.service';
 

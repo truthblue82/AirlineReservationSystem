@@ -54,6 +54,11 @@ const routes: Routes = [
     canActivate: [adminGuard]
   },
   {
+    path: 'edit/:code',
+    component: AddAirportComponent,
+    canActivate: [adminGuard]
+  },
+  {
     path: 'flights',
     component: FlightComponent,
     canActivate: [adminGuard]
