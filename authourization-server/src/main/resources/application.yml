@@ -11,7 +11,7 @@ app:
   host-name: ${AUTH_SERVER_NAME}
   security:
     #change to local URL
-    redirect-url: http://localhost:4000
+    redirect-url: ${AUTH_REDIRECT_URL:http://localhost:4000}
 
 eureka:
   client:
