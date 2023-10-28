@@ -1,45 +1,79 @@
-version: "3.7"
+version: "3.8"
 
 networks:
   airline:
     driver: bridge
 
 services:
-  client:
-    container_name: client
-    image: 'node:latest'
-    volumes:
-      - ./client:/app
+  eureka:
+    container_name: flightmanagement-eureka
+    build: ./eureka-service/eureka-service
+    hostname: eureka-service
+    networks:
+      - airline
+    environment:
+      SERVER_PORT: 8761
+
+  auth:
+    depends_on:
+      - eureka
+      - db
+    container_name: flightmanagement-auth
+    build: ./authourization-server
+    hostname: auth-service
+    networks:
+      - airline
+    environment:
+      SERVER_PORT: 8771
+      EUREKA_PORT: 8761
+      EUREKA_HOST: eureka-service
+      DB_SERVER: mysql
+      AUTH_SERVER_NAME: auth-service
+    command: ["/authourization-server/docker-entrypoint.sh"]
+
+  airline:
+    depends_on:
+      - eureka
+      - db
+    container_name: flightmanagement-airlinebookingservice
+    build: ./airline-booking-service/airline-booking-service
+    hostname: airline-service
+    networks:
+      - airline
+    environment:
+      SERVER_PORT: 8089
+      EUREKA_PORT: 8761
+      EUREKA_HOST: eureka-service
+      DB_SERVER: mysql
+      AUTH_SERVER_HOST: auth-service
+      AUTH_PORT: 8771
+    command: ["/airline-booking-service/docker-entrypoint.sh"]
+
+  gateway:
+    depends_on:
+      - eureka
+      - auth
+    container_name: flightmanagement-gateway
+    build: ./gateway
     networks:
       - airline
     ports:
-      - '3000:3000'
-    entrypoint: /bin/sh
-    command: -c "sleep 5 && cd /app/ && npm ci && npm run build && npm run start"
-
-  #admin
-
-  user:
-    container_name: user
-    image: openjdk:17
+      - 8443:8443
+    environment:
+      SERVER_PORT: 8443
+      EUREKA_PORT: 8761
+      EUREKA_HOST: eureka-service
+      AUTH_SERVER_HOST: auth-service
+      AUTH_PORT: 8771
+  db:
+    image: mysql:latest
+    container_name: mysql_flight
+    hostname: mysql
     networks:
       - airline
     ports:
-      - 8081:8081
-    volumes:
-      - ./user:/usr/src/user
-    entrypoint: /bin/bash
-    command: -c "/usr/src/user/mvnw clean package -B && java --jar user-0.0.1-0.0.1-SNAPSHOT.jar --spring.config.location=file:application.yml"
-
-#  mysql:
-#    image: mysql:latest
-#    container_name: mysql
-#    networks:
-#      - airline
-#    ports:
-#      - 3306:3306
-#    environment:
-#      - USER=root
-#      - PASSWORD=''
-#      - DB='fms'
-
+      - 3306:3306
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - USER=root
+      - PASSWORD=''

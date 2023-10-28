@@ -11,7 +11,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://${app.auth-server}:8771
+          issuer-uri: http://${app.auth-server}:${app.auth-server-port}
   cloud:
     gateway:
       globalcors:
@@ -31,13 +31,15 @@ server.ssl:
 app:
   eureka-username: u
   eureka-password: p
-  eureka-server: localhost
-  auth-server: localhost
+  eureka-server: ${EUREKA_HOST}
+  eureka-port: ${EUREKA_PORT}
+  auth-server: ${AUTH_SERVER_HOST}
+  auth-server-port: ${AUTH_PORT}
 
 eureka:
   client:
     serviceUrl:
-      defaultZone: "http://${app.eureka-username}:${app.eureka-password}@${app.eureka-server}:8761/eureka/"
+      defaultZone: "http://${app.eureka-username}:${app.eureka-password}@${app.eureka-server}:${app.eureka-port}/eureka/"
     initialInstanceInfoReplicationIntervalSeconds: 5
     registryFetchIntervalSeconds: 5
   instance:

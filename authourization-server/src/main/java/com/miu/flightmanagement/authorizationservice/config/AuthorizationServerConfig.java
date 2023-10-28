@@ -139,8 +139,12 @@ public class AuthorizationServerConfig {
     }
 
     @Bean
-    public AuthorizationServerSettings authorizationServerSettings() {
-        return AuthorizationServerSettings.builder().issuer("http://localhost:8771").build();
+    public AuthorizationServerSettings authorizationServerSettings(
+            @Value("${app.host-name}") final String hostName,
+            @Value("${server.port}") final String serverPort
+    ) {
+        final String url = "http://" + hostName + ":" + serverPort;
+        return AuthorizationServerSettings.builder().issuer(url).build();
     }
 
     @Bean
