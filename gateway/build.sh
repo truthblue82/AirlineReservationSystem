@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PREFIX=khoaledockloud
+PREFIX=truthblue82
 NAME=flightmanagement-gateway
 IMAGE_NAME=$PREFIX/$NAME
 
