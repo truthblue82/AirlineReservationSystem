@@ -141,11 +141,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     //get code from url if any
-    console.log('user OnInit', this.users);
     if(this.code && this.users.length === 0) {
       this.userSvc.authenticate(this.code).subscribe(
         (result: any) => {
-          console.log('result in authenticate',result);
           if(result.access_token) {
             this.userSvc.getLoginUser(result);
           } else {
@@ -153,7 +151,6 @@ export class HomeComponent implements OnInit {
           }
         },
         error => {
-          console.log(error);
           this.toastr.error("Token is expired", 'Error');
         });
     }

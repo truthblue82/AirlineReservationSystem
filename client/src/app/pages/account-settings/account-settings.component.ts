@@ -51,7 +51,6 @@ export class AccountSettingsComponent implements OnInit {
         this.displayModal = false;
       },
       (error) => {
-        console.log('Error Occured:', error.console.error.msq);
         this.toastr.error(error.error.msg, 'Error');
         this.displayModal = false;
       }

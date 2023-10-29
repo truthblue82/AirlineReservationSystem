@@ -30,7 +30,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.userSvc.getCurrentUser().subscribe((user) => {
-      console.log('user', user);
       this.user = user;
     });
   }
@@ -40,7 +39,6 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/']);
   }
   handleLoginButton(event: Event): void {
-    console.log(this.gateway_url);
     location.assign(this.gateway_url);
   }
 }

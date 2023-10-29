@@ -42,6 +42,7 @@ import { UserComponent } from './pages/user/user.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { FlightBookingListComponent } from './pages/flight-booking-list/flight-booking-list.component';
 import { CustomDialogComponent } from './shared/custom-dialog/custom-dialog.component';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { CustomDialogComponent } from './shared/custom-dialog/custom-dialog.comp
     AddFlightComponent,
     UserComponent,
     ProfileComponent,
-    CustomDialogComponent
+    CustomDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,

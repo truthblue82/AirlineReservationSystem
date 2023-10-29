@@ -19,7 +19,6 @@ export const userGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: R
     users = userData;
   });
   if(users.length === 0) {
-    //router.navigate(['/']);
     router.navigate(['/']);
     return false;
   } else {
