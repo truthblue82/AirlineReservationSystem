@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Airport, Airports } from 'src/app/models/airport';
 import { AirportService } from 'src/app/services/airport.service';
 import { CustomDialogComponent } from 'src/app/shared/custom-dialog/custom-dialog.component';
@@ -57,9 +57,18 @@ export class AirportComponent implements OnInit{
       }
     );
     customDialog.afterClosed().subscribe(result => {
-      console.log('result', result);
-      if(result) {
-        //
+      if(result.length) {
+        const data = result.reduce((prev: any, cur:any) => {
+          prev[cur.label] = cur.input;
+          return prev;
+        }, {});
+        this.airPortSvc.addAirport(data).subscribe(
+          data => {
+            this.airPorts?.push(data);
+          },
+          error => {
+            console.log('error', error);
+          });
       }
     });
   }

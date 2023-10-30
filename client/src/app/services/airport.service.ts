@@ -25,5 +25,11 @@ export class AirportService {
       `${environment.GATEWAY_BASE_URL}/api/airport`);
   }
 
+  addAirport(airport: Airport): Observable<any> {
+    return this.http.post(
+      `${environment.GATEWAY_BASE_URL}/api/airport`,
+      airport
+    );
+  }
 
 }

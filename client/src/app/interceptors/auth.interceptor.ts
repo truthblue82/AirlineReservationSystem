@@ -42,9 +42,9 @@ export class AuthInterceptor implements HttpInterceptor {
             if(event instanceof HttpResponse) {
               if(event.status === 401) {
                 this.toastr.error('Unauthorized access!', 'Error');
-                //this.router.navigate(['/'], {queryParams: null});
-                this.userSvc.clearSession();
-                location.assign('/');
+                console.log('error 401');
+                //this.userSvc.clearSession();
+                //location.assign('/');
               }
             }
             return event;
@@ -55,9 +55,9 @@ export class AuthInterceptor implements HttpInterceptor {
             } else if(error.status === 404){
               this.toastr.error('Page not found!', 'Error');
             }
-            this.userSvc.clearSession();
-            location.assign('/');
-            //this.router.navigate(['/'], {queryParams: null});
+            console.log('error', error);
+            //this.userSvc.clearSession();
+            //location.assign('/');
           }
         }));
     } else
