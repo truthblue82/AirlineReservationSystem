@@ -29,6 +29,9 @@ export class FlightComponent implements OnInit {
     .subscribe((value: Flights) => this.flights = value.flights);
   }
 
+  showAddFlight(): void {
+    //
+  }
   goToAddFlight():void {
     this.router.navigate(['/add-flight']);
   }

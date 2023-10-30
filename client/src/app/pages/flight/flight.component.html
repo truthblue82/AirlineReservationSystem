@@ -5,9 +5,13 @@
 
 <div class="All container">
   <h1>FLIGHT MANAGEMENT</h1>
-  <!-- <div class="d-grid mt-4">
-    <button type="button" class="btn btn-primary" (click)="goToAddFlight()">Add Flight</button>
-  </div> -->
+
+  <div class="d-grid mt-4">
+    <button mat-mini-fab color="primary" class="btn-outline-primary" (click)="showAddFlight()" aria-label="Add Flight">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
   <div class="table-responsive">
     <table class="table">
       <thead>
@@ -16,7 +20,7 @@
           <th>Carrier Name</th>
           <th>Flight Model</th>
           <th>Seat Capacity</th>
-          <!-- <th>Action</th> -->
+          <th>Action</th>
         </tr>
       </thead>
       <tbody *ngIf="flights?.length">
@@ -25,10 +29,20 @@
           <td>{{fl.carrierName}}</td>
           <td>{{fl.flightModel}}</td>
           <td>{{fl.seatCapacity}}</td>
-           <!-- <td>
-            <button type="button" class="btn btn-info">Edit</button>
-            <button type="button" class="btn btn-danger">Delete</button>
-          </td> -->
+           <td>
+            <div class="mini-button">
+              <button mat-mini-fab color="primary">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+
+            <div class="mini-button">
+              <button mat-mini-fab color="warn" >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+
+          </td>
         </tr>
       </tbody>
     </table>

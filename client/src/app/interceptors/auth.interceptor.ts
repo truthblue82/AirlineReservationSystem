@@ -42,7 +42,6 @@ export class AuthInterceptor implements HttpInterceptor {
             if(event instanceof HttpResponse) {
               if(event.status === 401) {
                 this.toastr.error('Unauthorized access!', 'Error');
-                console.log('error 401');
                 //this.userSvc.clearSession();
                 //location.assign('/');
               }
@@ -55,7 +54,6 @@ export class AuthInterceptor implements HttpInterceptor {
             } else if(error.status === 404){
               this.toastr.error('Page not found!', 'Error');
             }
-            console.log('error', error);
             //this.userSvc.clearSession();
             //location.assign('/');
           }

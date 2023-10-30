@@ -32,4 +32,16 @@ export class AirportService {
     );
   }
 
+  updateAirport(code: string, airport: Airport): Observable<any> {
+    return this.http.put(
+      `${environment.GATEWAY_BASE_URL}/api/airport/${code}`,
+      airport
+    );
+  }
+
+  deleteAirport(code: String): Observable<any> {
+    return this.http.delete(
+      `${environment.GATEWAY_BASE_URL}/api/airport/${code}`
+    );
+  }
 }

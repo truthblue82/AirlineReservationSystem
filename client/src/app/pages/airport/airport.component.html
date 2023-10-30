@@ -29,12 +29,18 @@
           <td>{{ap.location}}</td>
           <td>{{ap.name}}</td>
           <td>
-            <button mat-mini-fab color="primary" [routerLink]="['/edit', ap.code]" routerLinkActive="router-link-active">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-mini-fab color="warn" (click)="deleteAirport(ap.code);">
-              <mat-icon>delete</mat-icon>
-            </button>
+            <div class="mini-button">
+              <button mat-mini-fab color="primary" (click)="showEditAiport(ap.code)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+
+            <div class="mini-button">
+              <button mat-mini-fab color="warn" (click)="deleteAirport(ap.code);">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+
             <!-- <button type="button" class="btn btn-outline-info" [routerLink]="['/edit', ap.code]" routerLinkActive="router-link-active" >Edit</button>
             <button type="button" class="btn btn-outline-danger" (click)="deleteAirport(ap.code);">Delete</button> -->
           </td>
