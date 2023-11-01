@@ -18,10 +18,29 @@ export class FlightService {
     private toastr: ToastrService
   ) {
     this.flights = [];
-   }
+  }
 
   getAllFlights(): Observable<any> {
     return this.http.get(
       `${environment.GATEWAY_BASE_URL}/api/flight/allFlight`);
+  }
+
+  addFlight(flight: Flight): Observable<any> {
+    return this.http.post(
+      `${environment.GATEWAY_BASE_URL}/api/flight/addFlight`,
+      flight
+    );
+  }
+
+  updateFlight(flight: Flight): Observable<any> {
+    return this.http.put(
+      `${environment.GATEWAY_BASE_URL}/api/flight/updateFlight`,
+      flight
+    )
+  }
+
+  deleteFlight(flightNo: string): Observable<any> {
+    return this.http.delete(
+      `${environment.GATEWAY_BASE_URL}/api/flight/deleteFlight/${flightNo}`);
   }
 }
