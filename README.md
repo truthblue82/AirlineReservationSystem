@@ -30,6 +30,6 @@ Scope Details : The system should allow the customers and the admins to make use
 ## Technical Skills
 
 1. Backend: Microservices with Java Spring Boot
-2. Frontend: Angular v19.x
+2. Frontend: Angular v16.x
 3. Database: MySQL
 4. 
