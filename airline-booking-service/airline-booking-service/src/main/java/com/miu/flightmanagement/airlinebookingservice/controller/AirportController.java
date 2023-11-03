@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/airport")
+@RequestMapping("/api/airports")
 @AllArgsConstructor
 public class AirportController {
 	private final AirportService airportService;

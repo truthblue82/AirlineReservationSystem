@@ -11,7 +11,7 @@ public interface FlightService {
 
 	public Flight viewFlight(String flightNumber);
 
-	public Flight modifyFlight(FlightDTO flight);
+	public Flight modifyFlight(String flightNumber, FlightDTO flight);
 
 	public void removeFlight(String flightNumber);
 

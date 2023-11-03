@@ -23,7 +23,7 @@ export class BookingService {
 
   findScheduledFlights(criteria: ScheduledFlightSearch): Observable<any> {
     return this.http.get(
-      `${environment.GATEWAY_BASE_URL}/api/scheduled-flight/search?deptAirport=${criteria.departureAirportCode}&arrAirport=${criteria.arrivalAirportCode}&deptDate=${criteria.departureDate}&noOfPassengers=${criteria.noOfPassengers}`);
+      `${environment.GATEWAY_BASE_URL}/api/scheduled-flights/search?deptAirport=${criteria.departureAirportCode}&arrAirport=${criteria.arrivalAirportCode}&deptDate=${criteria.departureDate}&noOfPassengers=${criteria.noOfPassengers}`);
   }
 }
 

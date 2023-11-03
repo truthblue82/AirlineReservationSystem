@@ -71,32 +71,32 @@ spring.cloud.gateway.routes:
   - id: airline-airport
     uri: lb://airline-booking-service
     predicates:
-      - Path=/api/airport/**
+      - Path=/api/airports/**
 
   - id: airline-airport-root
     uri: lb://airline-booking-service
     predicates:
-      - Path=/api/airport
+      - Path=/api/airports
 
   - id: airline-booking
     uri: lb://airline-booking-service
     predicates:
-      - Path=/api/booking/**
+      - Path=/api/bookings/**
 
   - id: airline-booking-root
     uri: lb://airline-booking-service
     predicates:
-      - Path=/api/booking
+      - Path=/api/bookings
 
   - id: airline-flight
     uri: lb://airline-booking-service
     predicates:
-      - Path=/api/flight/**
+      - Path=/api/flights/**
 
   - id: airline-scheduled-flight
     uri: lb://airline-booking-service
     predicates:
-      - Path=/api/scheduled-flight/**
+      - Path=/api/scheduled-flights/**
 
   - id: eureka-api
     uri: http://${app.eureka-server}:8761

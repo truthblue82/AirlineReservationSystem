@@ -26,7 +26,7 @@ import java.util.Collection;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/scheduled-flight")
+@RequestMapping("/api/scheduled-flights")
 public class ScheduledFlightController {
 	/*
 	 * Creating Service object
@@ -39,8 +39,6 @@ public class ScheduledFlightController {
 
 	@Autowired
 	FlightService flightService;
-
-
 
 	/*
 	 * Controller for adding Scheduled Flights
@@ -81,9 +79,10 @@ public class ScheduledFlightController {
 	/*
 	 * Controller for modifying existing Scheduled Flights
 	 */
-	@PutMapping()
-	public ResponseEntity<ScheduledFlightDTO> modifyScheduleFlight(@RequestBody ScheduledFlightDTO scheduledFlightDTO) {
-		ScheduledFlight modifySFlight = scheduleFlightService.modifyScheduledFlight(scheduledFlightDTO);
+	@PutMapping("/{sfId}")
+	public ResponseEntity<ScheduledFlightDTO> modifyScheduleFlight(@PathVariable("sfId") Long scheduledFlightId,
+																   @RequestBody ScheduledFlightDTO scheduledFlightDTO) {
+		ScheduledFlight modifySFlight = scheduleFlightService.modifyScheduledFlight(scheduledFlightId, scheduledFlightDTO);
 		if (modifySFlight == null) {
 			return new ResponseEntity("Flight not modified", HttpStatus.INTERNAL_SERVER_ERROR);
 		} else {
@@ -127,13 +126,11 @@ public class ScheduledFlightController {
 	/*
 	 * Controller for viewing all Scheduled Flights
 	 */
-	@GetMapping("/viewall")
+	@GetMapping
 	public ResponseEntity<?> viewAllSF() {
 		return ResponseEntity.ok(ScheduledFlightsDTO.builder()
 				.scheduledFlights(ScheduledFlightUtil.toScheduledFlightDTOs(scheduleFlightService.viewAllScheduledFlights()))
 				.build());
 	}
-
-	
 
 }

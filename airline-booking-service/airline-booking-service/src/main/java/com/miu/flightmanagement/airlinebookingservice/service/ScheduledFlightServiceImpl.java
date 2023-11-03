@@ -51,8 +51,8 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 
 	@Override
 	@Transactional
-	public ScheduledFlight modifyScheduledFlight(@NonNull final ScheduledFlightDTO scheduledFlightDto) {
-		if (this.bookingService.hasBooking(scheduledFlightDto.getScheduleFlightId())) {
+	public ScheduledFlight modifyScheduledFlight(Long id, @NonNull final ScheduledFlightDTO scheduledFlightDto) {
+		if (this.bookingService.hasBooking(id)) {
 			throw new ScheduledFlightAlreadyBookedException("Scheduled flight has been booked");
 		}
 		if (!this.scheduleDao.existsById(scheduledFlightDto.getScheduleFlightId())) {

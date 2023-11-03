@@ -9,33 +9,38 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RestController
-@RequestMapping("/api/flight")
+@RequestMapping("/api/flights")
 @AllArgsConstructor
 public class FlightController {
 	private final FlightService flightService;
 
-	@PostMapping("/addFlight")
+	//@PostMapping("/addFlight")
+	@PostMapping
 	public ResponseEntity<?> addFlight(@RequestBody FlightDTO flight) {
 		flightService.addFlight(flight);
 		return ResponseEntity.ok(flight);
 	}
 
-	@RequestMapping("/allFlight")
+	//@RequestMapping("/allFlight")
+	@GetMapping
 	public ResponseEntity<?> viewAllFlight() {
 		return ResponseEntity.ok(FlightsDTO.builder().flights(FlightUtil.flightDTOs(flightService.viewAllFlight())).build());
 	}
 
-	@RequestMapping("/viewFlight/{id}")
+	//@RequestMapping("/viewFlight/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<?> viewFlight(@PathVariable("id") String flightNo) {
 		return ResponseEntity.ok(FlightUtil.toFlightDTO(flightService.viewFlight(flightNo)));
 	}
 
-	@PutMapping("/updateFlight")
-	public ResponseEntity<?> modifyFlight(@RequestBody FlightDTO flight) {
-		return ResponseEntity.ok(FlightUtil.toFlightDTO(flightService.modifyFlight(flight)));
+	//@PutMapping("/updateFlight")
+	@PutMapping("/{id}")
+	public ResponseEntity<?> modifyFlight(@PathVariable("id") String flightNo, @RequestBody FlightDTO flight) {
+		return ResponseEntity.ok(FlightUtil.toFlightDTO(flightService.modifyFlight(flightNo, flight)));
 	}
 
-	@DeleteMapping("/deleteFlight/{id}")
+	//@DeleteMapping("/deleteFlight/{id}")
+	@DeleteMapping("/{id}")
 	public void removeFlight(@PathVariable("id") String flightNo) {
 		flightService.removeFlight(flightNo);
 	}

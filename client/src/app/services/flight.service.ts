@@ -22,25 +22,25 @@ export class FlightService {
 
   getAllFlights(): Observable<any> {
     return this.http.get(
-      `${environment.GATEWAY_BASE_URL}/api/flight/allFlight`);
+      `${environment.GATEWAY_BASE_URL}/api/flights`);
   }
 
   addFlight(flight: Flight): Observable<any> {
     return this.http.post(
-      `${environment.GATEWAY_BASE_URL}/api/flight/addFlight`,
+      `${environment.GATEWAY_BASE_URL}/api/flights`,
       flight
     );
   }
 
   updateFlight(flight: Flight): Observable<any> {
     return this.http.put(
-      `${environment.GATEWAY_BASE_URL}/api/flight/updateFlight`,
+      `${environment.GATEWAY_BASE_URL}/api/flights/${flight.flightNo}`,
       flight
     )
   }
 
   deleteFlight(flightNo: string): Observable<any> {
     return this.http.delete(
-      `${environment.GATEWAY_BASE_URL}/api/flight/deleteFlight/${flightNo}`);
+      `${environment.GATEWAY_BASE_URL}/api/flights/${flightNo}`);
   }
 }

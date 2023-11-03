@@ -22,26 +22,26 @@ export class AirportService {
 
   getAllAirports(): Observable<any> {
     return this.http.get(
-      `${environment.GATEWAY_BASE_URL}/api/airport`);
+      `${environment.GATEWAY_BASE_URL}/api/airports`);
   }
 
   addAirport(airport: Airport): Observable<any> {
     return this.http.post(
-      `${environment.GATEWAY_BASE_URL}/api/airport`,
+      `${environment.GATEWAY_BASE_URL}/api/airports`,
       airport
     );
   }
 
   updateAirport(code: string, airport: Airport): Observable<any> {
     return this.http.put(
-      `${environment.GATEWAY_BASE_URL}/api/airport/${code}`,
+      `${environment.GATEWAY_BASE_URL}/api/airports/${code}`,
       airport
     );
   }
 
   deleteAirport(code: String): Observable<any> {
     return this.http.delete(
-      `${environment.GATEWAY_BASE_URL}/api/airport/${code}`
+      `${environment.GATEWAY_BASE_URL}/api/airports/${code}`
     );
   }
 }

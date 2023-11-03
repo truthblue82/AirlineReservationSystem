@@ -12,7 +12,7 @@ import java.util.Collection;
 public interface ScheduledFlightService {
 	ScheduledFlight addScheduledFlight(ScheduledFlight scheduledFlight);
 
-	ScheduledFlight modifyScheduledFlight(ScheduledFlightDTO scheduledFlightDto);
+	ScheduledFlight modifyScheduledFlight(Long id, ScheduledFlightDTO scheduledFlightDto);
 
 	String removeScheduledFlight(Long id) throws RecordNotFoundException;
 

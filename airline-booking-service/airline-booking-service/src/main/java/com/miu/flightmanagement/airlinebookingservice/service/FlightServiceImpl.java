@@ -47,8 +47,8 @@ public class FlightServiceImpl implements FlightService {
 	}
 
 	@Override
-	public Flight modifyFlight(FlightDTO flightDto) {
-		Optional<Flight> maybeFlight = flightDao.findById(flightDto.getFlightNo());
+	public Flight modifyFlight(String flightNumber, FlightDTO flightDto) {
+		Optional<Flight> maybeFlight = flightDao.findById(flightNumber);
 		if (maybeFlight.isPresent()) {
 			return flightDao.save(FlightUtil.transferFromDTOtoEntity(flightDto, maybeFlight.get()));
 		} else

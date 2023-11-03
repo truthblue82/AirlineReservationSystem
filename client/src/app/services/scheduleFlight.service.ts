@@ -22,6 +22,6 @@ export class ScheduleFlightFlightService {
 
   getAllScheduleFlights(): Observable<any> {
     return this.http.get(
-      `${environment.GATEWAY_BASE_URL}/api/scheduled-flight/viewall`);
+      `${environment.GATEWAY_BASE_URL}/api/scheduled-flights`);
   }
 }
