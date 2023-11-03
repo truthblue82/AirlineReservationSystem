@@ -70,6 +70,7 @@ export class AirportComponent implements OnInit{
         this.airPortSvc.addAirport(data).subscribe(
           data => {
             this.airPorts?.push(data);
+            this.toastr.success('Airport is added successful!', 'Inform');
           },
           error => {
             console.log('error', error);
@@ -117,6 +118,7 @@ export class AirportComponent implements OnInit{
             let idx = this.airPorts?.findIndex(ap => ap.code === code);
             if(idx)
               this.airPorts?.splice(idx, 1, data);
+            this.toastr.success('Airport is updated successful!', 'Inform');
           },
           error => {
             console.log('error', error);
@@ -142,7 +144,7 @@ export class AirportComponent implements OnInit{
         this.airPortSvc.deleteAirport(code).subscribe(
           result => {
             this.toastr.success(`Delete the airport ${code} successfully!`, 'Inform');
-            location.assign('/airports');
+            this.airPorts = this.airPorts?.filter(ap => ap.code !== code);
           },
           error => {
             this.toastr.error(`Can not delete the airport ${code}`, 'Error');

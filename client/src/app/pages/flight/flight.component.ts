@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Flight, Flights } from 'src/app/models/flight';
 import { FlightService } from 'src/app/services/flight.service';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { CustomDialogComponent } from 'src/app/shared/custom-dialog/custom-dialog.component';
 
 @Component({
@@ -74,6 +75,7 @@ export class FlightComponent implements OnInit {
         this.flightSvc.addFlight(data).subscribe(
           data => {
             this.flights?.push(data);
+            this.toastr.success('Flight is added successful!', 'Inform');
           },
           error => {
             console.log('error', error);
@@ -127,7 +129,10 @@ export class FlightComponent implements OnInit {
         }, {});
         this.flightSvc.updateFlight(data).subscribe(
           data => {
-            this.flights?.push(data);
+            let idx = this.flights?.findIndex(fl => fl.flightNo === flightNo);
+            if(idx)
+              this.flights?.splice(idx, 1, data);
+            this.toastr.success('Flight is updated successful!', 'Inform');
           },
           error => {
             console.log('error', error);
@@ -137,5 +142,30 @@ export class FlightComponent implements OnInit {
       }
     });
   }
-  deleteFlight(flightNo: string): void {}
+  deleteFlight(flightNo: string): void {
+    let confirm = this.dialog.open(
+      ConfirmDialogComponent,
+      {
+        data: {
+          title: 'Delete Flight',
+          message: `Are you sure you want to delete flight ${flightNo}?`,
+          noTitle: 'Cancel',
+          yesTitle: 'Delete'
+        }
+      }
+    );
+    confirm.afterClosed().subscribe(result => {
+      if(result) {
+        this.flightSvc.deleteFlight(flightNo).subscribe(
+          result => {
+            this.toastr.success(`Delete the flight ${flightNo} successfully!`, 'Inform');
+            this.flights = this.flights?.filter(fl => fl.flightNo !== flightNo);
+          },
+          error => {
+            this.toastr.error(`Can not delete the flight ${flightNo}`, 'Error');
+          }
+        )
+      }
+    });
+  }
 }
