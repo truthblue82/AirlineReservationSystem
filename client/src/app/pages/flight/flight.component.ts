@@ -63,15 +63,14 @@ export class FlightComponent implements OnInit {
     );
     customDialog.afterClosed().subscribe(result => {
       if(result.length) {
-        console.log('result', result);
         const data = result.reduce((prev: any, cur:any) => {
-          if(prev.lable === "seatCapacity")
+          if(cur.label === "seatCapacity") {
             prev[cur.label] = parseInt(cur.input);
+          }
           else
             prev[cur.label] = cur.input;
           return prev;
         }, {});
-        console.log('data', data);
         this.flightSvc.addFlight(data).subscribe(
           data => {
             this.flights?.push(data);
