@@ -85,14 +85,15 @@ export class AirportComponent implements OnInit{
       CustomDialogComponent,
       {
         data: {
-          title: "Add Airport",
+          title: "Edit Airport",
           subTitle: "Please input airport information",
           cancelBtn: "Cancel",
           okBtn: "Submit",
           objData: [{
             label: 'code',
             input: airport?.code,
-            required: true
+            required: true,
+            disabled: true
           }, {
             label: 'name',
             input: airport?.name,

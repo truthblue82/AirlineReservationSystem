@@ -83,7 +83,59 @@ export class FlightComponent implements OnInit {
       }
     });
   }
-  goToAddFlight():void {
-    this.router.navigate(['/add-flight']);
+  showEditFlight(flightNo: string): void {
+    const flight = this.flights?.filter(fl => fl.flightNo === flightNo)[0];
+
+    let customDialog = this.dialog.open(
+      CustomDialogComponent,
+      {
+        data: {
+          title: "Edit Flight",
+          subTitle: "Please input flight information",
+          cancelBtn: "Cancel",
+          okBtn: "Submit",
+          objData: [{
+            label: 'flightNo',
+            input: flight?.flightNo,
+            required: true,
+            disabled: true
+          }, {
+            label: 'carrierName',
+            input: flight?.carrierName,
+            required: true
+          }, {
+            label: 'flightModel',
+            input: flight?.flightModel,
+            required: true
+          }, {
+            label: 'seatCapacity',
+            input: flight?.seatCapacity,
+            required: true
+          }]
+        }
+      }
+    );
+    customDialog.afterClosed().subscribe(result => {
+      if(result.length) {
+        const data = result.reduce((prev: any, cur:any) => {
+          if(cur.label === "seatCapacity") {
+            prev[cur.label] = parseInt(cur.input);
+          }
+          else
+            prev[cur.label] = cur.input;
+          return prev;
+        }, {});
+        this.flightSvc.updateFlight(data).subscribe(
+          data => {
+            this.flights?.push(data);
+          },
+          error => {
+            console.log('error', error);
+            this.toastr.error('Can not add flight!', 'error');
+          }
+        )
+      }
+    });
   }
+  deleteFlight(flightNo: string): void {}
 }

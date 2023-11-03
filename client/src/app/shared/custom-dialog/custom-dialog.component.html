@@ -8,7 +8,7 @@
     <div *ngFor="let data of objData">
       <mat-form-field>
         <mat-label>{{data.label}}</mat-label>
-        <input matInput [(ngModel)]="data.input" required={{data.required}}/>
+        <input matInput [(ngModel)]="data.input" required={{data.required}} disabled="{{data.disabled ?? false}}"/>
       </mat-form-field>
     </div>
   </div>

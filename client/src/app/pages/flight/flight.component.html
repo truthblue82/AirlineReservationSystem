@@ -31,13 +31,13 @@
           <td>{{fl.seatCapacity}}</td>
            <td>
             <div class="mini-button">
-              <button mat-mini-fab color="primary">
+              <button mat-mini-fab color="primary" (click)="showEditFlight(fl.flightNo);">
                 <mat-icon>edit</mat-icon>
               </button>
             </div>
 
             <div class="mini-button">
-              <button mat-mini-fab color="warn" >
+              <button mat-mini-fab color="warn" (click)="deleteFlight(fl.flightNo);" >
                 <mat-icon>delete</mat-icon>
               </button>
             </div>
